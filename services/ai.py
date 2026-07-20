@@ -44,7 +44,8 @@ def check_region(countryname, capital, region):
 
 def write_step_plot(player, population):
     request = ("{"
-               f'"countryname":"{player["full_countryname"]}",'
+               f'"countryname":"{player["countryname"]}",'
+               f'"ful_countryname":"{player["full_countryname"]}",'
                f'"capital":"{player["capital"]}",'
                f'"date":{player["date"]},'
                f'"money":{player["money"]},'

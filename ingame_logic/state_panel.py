@@ -1,38 +1,35 @@
-import services.ai as ai
 from bot import db, bot
+import services.ai as ai
+from telebot.types import InlineKeyboardMarkup
+from telebot.types import InlineKeyboardButton
+from constants import NUMBER_TO_MONTH
 
-number_to_month = {
-    1:"Январь",
-    2:"Февраль",
-    3:"Март",
-    4:"Апрель",
-    5:"Май",
-    6:"Июнь",
-    7:"Июль",
-    8:"Август",
-    9:"Сентябрь",
-    10:"Октябрь",
-    11:"Ноябрь",
-    12:"Декабрь"
-}
+PANELS_KB =InlineKeyboardMarkup()
+PANELS_KB.add(InlineKeyboardButton("Экономика", callback_data="economy:base:open"), InlineKeyboardButton("Армия", callback_data="army:base:open"), InlineKeyboardButton("Дипломатия", callback_data="diplomacy:base:open"), InlineKeyboardButton("Завершить ход", callback_data="end_move"))
 
-def open_state_panel(chat_id, user, message_id = None):
+def open_state_panel(chat_id, user, message = None):
     player = db.players.find_one({"tg_id":user.id})
 
     total_population = sum(
         city["population"]
         for city in player["cities"]
     )
-    text = (f"{number_to_month[player['date'].month]}, год {player['date'].year} - шаг {player['step']}"
+    if not player.get('ai_plot'):
+        ai_response = ai.write_step_plot(player, total_population)
+        ai_plot = ai_response['response']
+        db.players.update_one({"tg_id":user.id},
+                              {"$set":{"ai_plot":ai_plot}})
+    else: ai_plot = player["ai_plot"]
+    text = (f"{NUMBER_TO_MONTH[player['date'].month]}, год {player['date'].year} - шаг {player['step']}"
             "\n\n"
             f"{player['full_countryname']}\n"
             f"Столица: {player['capital']}"
             "\n\n"
-            f"{ai.write_step_plot(player, total_population)['response']}"
+            f"{ai_plot}"
             "\n\n"
             f"Стабильность: {player['stability']*100:.2f}%\n"
             f"Милитаризация: {player['militarization']*100:.2f}%\n"
             f"Общее население: {total_population}\n"
             f"Политическая власть: {player['polit_power']}\n"
             f"Очки инициативы: {player['initiative_point']:.2f}")
-    bot.send_message(chat_id,text) if not message_id else bot.edit_message_text(text, chat_id = chat_id, message_id = message_id, reply_markup = None)
+    bot.send_message(chat_id,text, reply_markup=PANELS_KB) if not message else bot.edit_message_text(text, chat_id = chat_id, message_id = message.message_id, reply_markup = PANELS_KB)

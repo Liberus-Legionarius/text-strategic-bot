@@ -8,7 +8,7 @@ def init_state(user):
     capital = {
         "name":player["capital"],
         "population":rnd.randint(1000, 10000),
-        "satisfaction":rnd.triangular(0.5,1,0.65),
+        "buildings":[],
         "is_capital":True
     }
     db.players.update_one({
@@ -17,7 +17,10 @@ def init_state(user):
             "polit_power":rnd.randint(50,200),
             "stability":rnd.triangular(0.5,0.75, 0.65),
             "militarization":rnd.triangular(-0.15,0.50,0.10),
-            "money":rnd.randint(-15,100),
+            "money":rnd.uniform(-15,100),
+            "taxes": 0.15,
+            "loans":0.0,
+            "interest": 0.04,
             "initiative_point":rnd.uniform(5,10),
             "cities":[capital],
             "date":datetime(3057, rnd.randint(1,12), 1),

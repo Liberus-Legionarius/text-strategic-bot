@@ -5,6 +5,7 @@ from bot import bot, db
 import services.ai as ai
 from ingame_logic.state_initialization import init_state
 from  ingame_logic.state_panel import open_state_panel
+from ingame_logic.economy_panel import open_loan_panel
 
 PATTERN_UPPERCASE = r"^([А-ЯЁ][а-яё]+(?:[\s|-][А-ЯЁ][а-яё]+)*)"
 
@@ -67,6 +68,22 @@ def texting(message):
             db.players.update_one({"tg_id": message.from_user.id},
                                   {"$set":{"bot_state":"IN_GAME", "region":message.text}})
             bot.send_message(message.chat.id, "Ну всё, инициализация завершена.", reply_markup=start_kb)
+    # Взятие займа.
+    elif state == "TAKE_LOAN":
+        if float(message.text) >= 0:
+            db.players.update_one({"tg_id": message.from_user.id},
+                                  {"$inc":{"loans":float(message.text), "money":float(message.text)},
+                                   "$set":{"bot_state":"IN_GAME"}})
+            open_loan_panel(message.from_user, message.chat.id, user["last_message"])
+        bot.delete_message(message.chat.id, message.message_id)
+    # Выплата займа.
+    elif state == "REPAY_LOAN":
+        if float(message.text) >= 0:
+            db.players.update_one({"tg_id": message.from_user.id},
+                                  {"$inc":{"loans":-float(message.text), "money":-float(message.text)},
+                                  "$set":{"bot_state":"IN_GAME"}})
+            open_loan_panel(message.from_user, message.chat.id, user["last_message"])
+        bot.delete_message(message.chat.id, message.message_id)
 
 
 def check_format(pattern, str, id):
@@ -93,7 +110,7 @@ def name_handler(ai_check, id, placeholder):
         bot.send_message(id, f"Я затрудняюсь определить ошибку, которую вы допустили... Пожалуйста, придумайте другое {placeholder}.\n{ai_check.get('refusal_code')}")
         return False
 
-@bot.callback_query_handler(func=lambda call: not (call.data.startswith("start:") or call.data.startswith("ingame:")))
+@bot.callback_query_handler(func=lambda call: not (call.data.startswith("start:") or call.data.startswith("ingame:") or call.data.endswith("open")))
 def callback_init(call):
     user = db.players.find_one({"tg_id": call.from_user.id})
     # Когда игрок выбирает идеологию.
@@ -132,4 +149,4 @@ def callback_init(call):
 def callback_ingame(call):
     if call.data.startswith("ingame:start"):
         init_state(call.from_user)
-        open_state_panel(call.message.chat.id, call.from_user, call.message.message_id)
+        open_state_panel(call.message.chat.id, call.from_user, call.message)
