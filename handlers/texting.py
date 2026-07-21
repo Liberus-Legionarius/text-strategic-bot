@@ -10,7 +10,7 @@ from ingame_logic.economy_panel import open_loan_panel
 PATTERN_UPPERCASE = r"^([А-ЯЁ][а-яё]+(?:[\s|-][А-ЯЁ][а-яё]+)*)"
 
 start_kb = InlineKeyboardMarkup()
-start_kb.add(InlineKeyboardButton("Да начнётся игра!", callback_data="ingame:start"))
+start_kb.add(InlineKeyboardButton("Да начнётся игра!", callback_data="start:enter"))
 
 @bot.message_handler(func = lambda msg: True)
 def texting(message):
@@ -23,7 +23,7 @@ def texting(message):
             db.players.update_one({"tg_id": message.from_user.id},
                             {"$set": {"bot_state": "INIT_IDEOLOGY", "countryname": message.text}})
             government_type_options = InlineKeyboardMarkup()
-            government_type_options.add(InlineKeyboardButton("Республика", callback_data = "Республика"), InlineKeyboardButton("Монархия", callback_data = "Монархия"))
+            government_type_options.add(InlineKeyboardButton("Республика", callback_data = "start:ideology:Республика"), InlineKeyboardButton("Монархия", callback_data = "start:ideology:Монархия"))
             bot.send_message(message.chat.id, "Раз уж с названием определились, перейдём к форме государственного управления."
                                               "\nВыберите один из предложенных ниже вариантов:", reply_markup = government_type_options)
     # Выбор формы государства (запрет писать, если объективно).
@@ -47,8 +47,8 @@ def texting(message):
                                   {"$set": {"bot_state":"INIT_REGION", "capital": message.text}})
             if ai_check.get("region_name"):
                 yes_no_kb = InlineKeyboardMarkup()
-                yes_no_kb.add(InlineKeyboardButton("Да", callback_data=ai_check["region_name"]),
-                              InlineKeyboardButton("Нет", callback_data='no'))
+                yes_no_kb.add(InlineKeyboardButton("Да", callback_data="start:region" + ai_check["region_name"]),
+                              InlineKeyboardButton("Нет", callback_data='start:region:no'))
                 bot.send_message(message.chat.id, "Хм... Мы посмотрели на ваш выбор..."
                                                   f"Скажите, вы хотите выбрать регион {ai_check.get('region_name')}?", reply_markup = yes_no_kb)
             else:
@@ -84,6 +84,9 @@ def texting(message):
                                   "$set":{"bot_state":"IN_GAME"}})
             open_loan_panel(message.from_user, message.chat.id, user["last_message"])
         bot.delete_message(message.chat.id, message.message_id)
+    # Запрет отправки лишних сообщений в ходе игры.
+    elif state == "IN_GAME":
+        bot.delete_message(message.chat.id, message.message_id)
 
 
 def check_format(pattern, str, id):
@@ -110,27 +113,31 @@ def name_handler(ai_check, id, placeholder):
         bot.send_message(id, f"Я затрудняюсь определить ошибку, которую вы допустили... Пожалуйста, придумайте другое {placeholder}.\n{ai_check.get('refusal_code')}")
         return False
 
-@bot.callback_query_handler(func=lambda call: not (call.data.startswith("start:") or call.data.startswith("ingame:") or call.data.endswith("open")))
+@bot.callback_query_handler(func=lambda call: call.data.startswith("start:"))
 def callback_init(call):
+    bot.answer_callback_query(call.id)
     user = db.players.find_one({"tg_id": call.from_user.id})
+    phase = call.data.split(":")[1]
     # Когда игрок выбирает идеологию.
-    if user.get("bot_state") == "INIT_IDEOLOGY":
-        db.players.update_one({"tg_id":call.from_user.id}, {"$set":{"bot_state":"INIT_FULLNAME", "ideology":call.data}})
+    if phase == "ideology":
+        ideology = call.data.split(":")[2]
+        db.players.update_one({"tg_id":call.from_user.id}, {"$set":{"bot_state":"INIT_FULLNAME", "ideology":ideology}})
         bot.send_message(call.message.chat.id, "Раз уж с гос. режимом определились, давайте придумаем вашей стране полное название."
                                                "Чувствуйте себя свободно, только не пишите, например, '*** Империя', если у вас гос. режим Республика.")
         bot.edit_message_text(
-            f"Выбрана идеология: {call.data}.",
+            f"Выбрана идеология: {ideology}.",
             chat_id=call.message.chat.id,
             message_id=call.message.message_id,
             reply_markup=None
         )
     # Когда подтверждается регион.
-    elif user.get("bot_state") == "INIT_REGION":
-        if not call.data == "no":
-            db.players.update_one({"tg_id":call.from_user.id}, {"$set":{"bot_state":"IN_GAME", "region": call.data}})
+    elif phase == "region":
+        region = call.data.split(":")[2]
+        if not region == "no":
+            db.players.update_one({"tg_id":call.from_user.id}, {"$set":{"bot_state":"IN_GAME", "region": region}})
             bot.send_message(call.message.chat.id, "На этом этап инициализации закончен.", reply_markup=start_kb)
             bot.edit_message_text(
-                f"Вы подтвердили регион: {call.data}.",
+                f"Вы подтвердили регион: {region}.",
                 chat_id=call.message.chat.id,
                 message_id=call.message.message_id,
                 reply_markup=None
@@ -144,9 +151,6 @@ def callback_init(call):
                 message_id=call.message.message_id,
                 reply_markup=None
             )
-
-@bot.callback_query_handler(func= lambda call: call.data.startswith("ingame:"))
-def callback_ingame(call):
-    if call.data.startswith("ingame:start"):
+    elif call.data.startswith("start:enter"):
         init_state(call.from_user)
-        open_state_panel(call.message.chat.id, call.from_user, call.message)
+        open_state_panel(call.message.chat.id, call.from_user, call.message.message_id)
