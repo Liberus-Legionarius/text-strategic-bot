@@ -26,8 +26,8 @@ def open_army_panel(user, chat_id, message_id):
             f"Расходы на содержание армии: {get_army_spending(player)} монет в ход"
             "\n\n"
             f"Общее население: {get_total_population(player)}\n"
-            f"Мобилизационный резерв: {get_manpower(player)}\n"
-            f"Служба для женщин: {'разрешена' if player['women_at_war'] else 'запрещена'}"
+            f"Мобилизационный резерв: {int(get_manpower(player))}\n"
+            f"Служба для женщин: {get_women_at_war(player)}"
             )
     bot.edit_message_text(
             text,
@@ -42,11 +42,11 @@ def open_mobilization_panel(user, chat_id, message_id):
         text = (f"{get_date_move(player)}"
                 "\n\n"
                 f"Общее население страны: {get_total_population(player)}\n"
-                f"Мобилизационный резерв: {get_manpower(player)}"
+                f"Мобилизационный резерв: {int(get_manpower(player))}"
                 "\n\n"
                 "Наши законы в отношении призыва:\n"
                 f"\t\t- Процент военнообязанных: {get_manpower_percent(player):.2f}%\n"
-                f"\t\t- Статус женской службы: {'разрешена' if player['women_at_war'] else 'запрещена'}")
+                f"\t\t- Статус женской службы: {get_women_at_war(player)}")
 
         mobilization_kb = InlineKeyboardMarkup()
         for law_id, law in MOBILIZATION_LAWS.items():

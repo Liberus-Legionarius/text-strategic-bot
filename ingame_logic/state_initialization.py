@@ -28,7 +28,7 @@ def init_state(user):
             "stability":rnd.triangular(0.5,0.75, 0.65),
             "militarization":rnd.triangular(-0.15,0.50,0.10),
             "armies":[army],
-            "mobilization_laws": MOBILIZATION_LAWS[list(MOBILIZATION_LAWS.keys())[0]],
+            "mobilization_laws": list(MOBILIZATION_LAWS.keys())[0],
             "money":rnd.uniform(-15,100),
             "taxes": 0.15,
             "loans":0.0,

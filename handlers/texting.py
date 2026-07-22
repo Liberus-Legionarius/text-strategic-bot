@@ -47,7 +47,7 @@ def texting(message):
                                   {"$set": {"bot_state":"INIT_REGION", "capital": message.text}})
             if ai_check.get("region_name"):
                 yes_no_kb = InlineKeyboardMarkup()
-                yes_no_kb.add(InlineKeyboardButton("Да", callback_data="start:region" + ai_check["region_name"]),
+                yes_no_kb.add(InlineKeyboardButton("Да", callback_data="start:region:" + ai_check["region_name"]),
                               InlineKeyboardButton("Нет", callback_data='start:region:no'))
                 bot.send_message(message.chat.id, "Хм... Мы посмотрели на ваш выбор..."
                                                   f"Скажите, вы хотите выбрать регион {ai_check.get('region_name')}?", reply_markup = yes_no_kb)
@@ -115,6 +115,7 @@ def name_handler(ai_check, id, placeholder):
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("start"))
 def callback_init(call):
+    print(call.data)
     bot.answer_callback_query(call.id)
     user = db.players.find_one({"tg_id": call.from_user.id})
     phase = call.data.split(":")[1]
