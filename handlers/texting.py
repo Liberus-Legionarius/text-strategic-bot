@@ -113,7 +113,7 @@ def name_handler(ai_check, id, placeholder):
         bot.send_message(id, f"Я затрудняюсь определить ошибку, которую вы допустили... Пожалуйста, придумайте другое {placeholder}.\n{ai_check.get('refusal_code')}")
         return False
 
-@bot.callback_query_handler(func=lambda call: call.data.startswith("start:"))
+@bot.callback_query_handler(func=lambda call: call.data.startswith("start"))
 def callback_init(call):
     bot.answer_callback_query(call.id)
     user = db.players.find_one({"tg_id": call.from_user.id})

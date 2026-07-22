@@ -1,12 +1,11 @@
 from bot import db
 from constants import BUILDINGS
 
-
 def get_total_population(player):
     return sum(
         city["population"]
         for city in player["cities"]
-    )
+    ) + len(player["armies"]) * 1000
 
 def get_avg_population(player):
     return get_total_population(player)/len(player["cities"])

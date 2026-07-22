@@ -2,7 +2,8 @@ from bot import db, bot
 from constants import BASE_INCOME, get_player, get_date_move
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
-from services.economy_math import get_tax_income, get_buildings_income, get_prod_units, get_loan_spending, get_pops_invest_spending
+from services.economy_math import get_tax_income, get_buildings_income, get_prod_units, get_loan_spending, \
+    get_pops_invest_spending, get_army_spending
 
 ECOMOMY_KB = InlineKeyboardMarkup()
 ECOMOMY_KB.add(InlineKeyboardButton("Доходы", callback_data = "economy:income:open"), InlineKeyboardButton("Расходы", callback_data = "economy:spending:open"),
@@ -19,7 +20,7 @@ def open_economy_panel(user, chat_id, message_id):
     player = get_player(user)
     prod_units = get_prod_units(player)
     income = BASE_INCOME + get_tax_income(player) + get_buildings_income(player)
-    spending = get_loan_spending(player) + get_pops_invest_spending(player)
+    spending = get_loan_spending(player) + get_pops_invest_spending(player) + get_army_spending(player)
 
     text = (f"{get_date_move(player)}"
             "\n\n"

@@ -6,7 +6,7 @@ from ingame_logic.state_panel import open_state_panel
 
 start_text = "Приветствую тебя, {}, в текстовой стратегии \"Новый Рассвет\"!\n\nЧтобы мы могли начать, тебе нужно придумать название страны.\nНазвание должно начинаться с большой буквы, а если в названии несколько слов, то каждое слово тоже начинается с большой буквы."
 yes_no_kb = InlineKeyboardMarkup()
-yes_no_kb.add(InlineKeyboardButton("Да", callback_data ="start:yes"), InlineKeyboardButton("Нет", callback_data ='start:no'))
+yes_no_kb.add(InlineKeyboardButton("Да", callback_data ="newstart:yes"), InlineKeyboardButton("Нет", callback_data ='newstart:no'))
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -24,9 +24,9 @@ def new_start(chat_id, user):
                         else db.players.insert_one(
                         {"tg_id": user.id, "bot_state": "INIT_COUNTRYNAME"})
 
-@bot.callback_query_handler(func = lambda call: call.data.startswith("start:"))
+@bot.callback_query_handler(func = lambda call: call.data.startswith("newstart"))
 def callback(call):
-    if call.data == "start:yes":
+    if call.data == "newstart:yes":
         if not db.players.find_one({"tg_id":call.from_user.id}).get("money"):
             init_state(call.from_user)
         open_state_panel(call.message.chat.id, call.from_user)

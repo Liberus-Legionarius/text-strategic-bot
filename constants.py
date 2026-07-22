@@ -20,6 +20,8 @@ NUMBER_TO_MONTH = {
 BASE_INCOME = 2.5
 
 BUILDINGS = dict()
+ARMY_TYPES = dict()
+MOBILIZATION_LAWS = dict()
 
 def get_player(user):
     return db.players.find_one({"tg_id": user.id})
@@ -32,6 +34,20 @@ def set_buildings():
     BUILDINGS.update({
         str(b["_id"]): b
         for b in db.buildings.find()
+    })
+
+def set_army_types():
+    global ARMY_TYPES
+    ARMY_TYPES.update({
+        army["_id"]: army
+        for army in db.army_types.find()
+    })
+
+def set_mobilization():
+    global MOBILIZATION_LAWS
+    MOBILIZATION_LAWS.update({
+        law["_id"]: law
+        for law in db.mobilization_laws.find()
     })
 
 def get_buildings_info():
