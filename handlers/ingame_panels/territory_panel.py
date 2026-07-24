@@ -1,7 +1,7 @@
-from bot import db, bot
-from constants import get_player, get_date_move, get_buildings_info, get_build_kb
-from services.territory_math import *
-from services.economy_math import get_pops_invest_spending
+from services.bot import db, bot
+from services.constants import get_player, get_date_move, get_buildings_info, get_build_kb
+from services.math.territory_math import *
+from services.math.economy_math import get_pops_invest_spending
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 

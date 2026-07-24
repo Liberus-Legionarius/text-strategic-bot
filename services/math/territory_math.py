@@ -1,5 +1,4 @@
-from bot import db
-from constants import BUILDINGS
+from services.constants import BUILDINGS
 
 def get_total_population(player):
     return sum(

@@ -1,8 +1,8 @@
-from bot import bot
-from constants import get_player, get_date_move, MOBILIZATION_LAWS
-from services.army_math import *
-from services.economy_math import get_prod_units_consumption, get_prod_units, get_army_spending
-from  services.territory_math import get_total_population
+from services.bot import bot
+from services.constants import get_player, get_date_move
+from services.math.army_math import *
+from services.math.economy_math import get_prod_units_consumption, get_prod_units, get_army_spending
+from services.math.territory_math import get_total_population
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 

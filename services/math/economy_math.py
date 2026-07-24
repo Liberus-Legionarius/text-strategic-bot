@@ -1,6 +1,5 @@
-from bot import db
-from services.territory_math import get_total_population
-from constants import BUILDINGS, ARMY_TYPES
+from services.math.territory_math import get_total_population
+from services.constants import BUILDINGS, ARMY_TYPES
 
 def get_tax_income(player):
     return sum(

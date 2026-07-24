@@ -1,5 +1,5 @@
-from constants import ARMY_TYPES, MOBILIZATION_LAWS
-from services.territory_math import get_total_population
+from services.constants import ARMY_TYPES, MOBILIZATION_LAWS
+from services.math.territory_math import get_total_population
 
 def get_army_power(player):
     return sum(

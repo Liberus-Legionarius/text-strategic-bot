@@ -1,9 +1,8 @@
-import services.ai
-from bot import db
+from services.bot import db
 import random as rnd
 from datetime import datetime
 from bson import ObjectId
-from constants import MOBILIZATION_LAWS
+from services.constants import MOBILIZATION_LAWS
 
 def init_state(user):
     player = db.players.find_one({"tg_id":user.id})

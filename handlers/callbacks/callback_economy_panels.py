@@ -1,5 +1,5 @@
-from bot import bot, db
-import  ingame_logic.economy_panel as economy
+from services.bot import bot, db
+import handlers.ingame_panels.economy_panel as economy
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("economy"))
 def callback_economy(call):

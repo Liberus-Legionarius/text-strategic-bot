@@ -1,8 +1,8 @@
-from bot import db, bot
-from constants import BASE_INCOME, get_player, get_date_move
+from services.bot import bot
+from services.constants import BASE_INCOME, get_player, get_date_move
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
-from services.economy_math import get_tax_income, get_buildings_income, get_prod_units, get_loan_spending, \
+from services.math.economy_math import get_tax_income, get_buildings_income, get_prod_units, get_loan_spending, \
     get_pops_invest_spending, get_army_spending
 
 ECOMOMY_KB = InlineKeyboardMarkup()
