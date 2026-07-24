@@ -10,13 +10,12 @@ def callback_army(call):
     if panel == "base":
         open_army_panel(call.from_user, call.message.chat.id, call.message.message_id)
     elif panel == "mobilization":
-        law = ObjectId(call.data.split(":")[2])
-        player = get_player(call.from_user)
-        if law in MOBILIZATION_LAWS.keys() and not law == player["mobilization_laws"]:
-            db.players.update_one({"tg_id":call.from_user.id},
-                                  {"$set":{"mobilization_laws":law}})
-            open_mobilization_panel(call.from_user, call.message.chat.id, call.message.message_id)
-        elif call.data.split(":")[2] == "open":
-            open_mobilization_panel(call.from_user, call.message.chat.id, call.message.message_id)
+        if not call.data.split(":")[2] == "open":
+            law = ObjectId(call.data.split(":")[2])
+            player = get_player(call.from_user)
+            if law in MOBILIZATION_LAWS.keys() and not law == player["mobilization_laws"]:
+                db.players.update_one({"tg_id":call.from_user.id},
+                                      {"$set":{"mobilization_laws":law}})
+        open_mobilization_panel(call.from_user, call.message.chat.id, call.message.message_id)
     elif panel == "armies":
         pass

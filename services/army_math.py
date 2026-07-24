@@ -19,3 +19,6 @@ def get_manpower_percent(player):
 def get_women_at_war(player):
     f = MOBILIZATION_LAWS[player["mobilization_laws"]]["women_at_war"]
     return 'разрешена' if f else 'запрещена'
+
+def get_mob_law_title(player):
+    return MOBILIZATION_LAWS[player["mobilization_laws"]]["title"]
