@@ -10,14 +10,17 @@ ai = genai.Client(api_key=GEMINI_APIKEY)
 
 NARRATOR_PROMPT = Path("prompts/narrator.txt").read_text(encoding = "utf-8")
 NAME_CHECKER_PROMPT = Path("prompts/name_checker.txt").read_text(encoding="utf-8")
+IDEOLOGY_CHECKER_PROMPT = Path("prompts/ideology_checker.txt").read_text(encoding="utf-8")
 FULLNAME_CHECKER_PROMPT = Path("prompts/fullname_checker.txt").read_text(encoding="utf-8")
 CAPITAL_CHECKER_PROMPT = Path("prompts/capital_checker.txt").read_text(encoding="utf-8")
-REGION_CHECKER_PROMPT = Path("prompts/region_checker.txt").read_text(encoding="utf-8")
 
 JSON_PATTERN = r"\{.*\}"
 
 def check_countryname(name):
     return ask_ai(name, NAME_CHECKER_PROMPT)
+
+def check_ideology(ideology):
+    return ask_ai(ideology, IDEOLOGY_CHECKER_PROMPT)
 
 def check_fullname(fullname, countryname, ideology):
     request = ("{"
@@ -33,14 +36,6 @@ def check_capital(name, countryname):
                f'"capitalname":{name}'
                "}")
     return ask_ai(request, CAPITAL_CHECKER_PROMPT)
-
-def check_region(countryname, capital, region):
-    request = ("{"
-               f'"countryname":"{countryname}",'
-               f'"capital":"{capital}",'
-               f'"region": "{region}"'
-               '}')
-    return ask_ai(request, REGION_CHECKER_PROMPT)
 
 def write_step_plot(player, population):
     request = ("{"
