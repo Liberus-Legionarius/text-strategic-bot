@@ -13,6 +13,8 @@ NAME_CHECKER_PROMPT = Path("prompts/name_checker.txt").read_text(encoding="utf-8
 IDEOLOGY_CHECKER_PROMPT = Path("prompts/ideology_checker.txt").read_text(encoding="utf-8")
 FULLNAME_CHECKER_PROMPT = Path("prompts/fullname_checker.txt").read_text(encoding="utf-8")
 CAPITAL_CHECKER_PROMPT = Path("prompts/capital_checker.txt").read_text(encoding="utf-8")
+INITIALIZATION_PROMPT = Path("prompts/initialization.txt").read_text(encoding="utf-8")
+DETAILS_PROMPT = Path("prompts/details.txt").read_text(encoding="utf-8")
 
 JSON_PATTERN = r"\{.*\}"
 
@@ -36,6 +38,25 @@ def check_capital(name, countryname):
                f'"capitalname":{name}'
                "}")
     return ask_ai(request, CAPITAL_CHECKER_PROMPT)
+
+def write_country_lore(player):
+    request = ("{"
+               f'"full_countryname":{player["full_countryname"]},'
+               f'"countryname":{player["countryname"]},'
+               f'"capital":{player["capital"]},'
+               f'"ideology":{player["ideology"]}'
+               "}")
+    return ask_ai(request, INITIALIZATION_PROMPT)
+
+def define_details(details, player):
+    request = ("{"
+               f'"full_countryname":{player["full_countryname"]},'
+               f'"countryname":{player["countryname"]},'
+               f'"capital":{player["capital"]},'
+               f'"ideology":{player["ideology"]},'
+               f'"user_input":{details}'
+               "}")
+    return ask_ai(request, DETAILS_PROMPT)
 
 def write_step_plot(player, population):
     request = ("{"

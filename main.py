@@ -4,6 +4,7 @@ import handlers.initialization.countryname_init
 import handlers.initialization.capital_init
 import handlers.initialization.ideology_init
 import handlers.initialization.full_countryname_init
+import handlers.initialization.details_init
 import handlers.callbacks.callback_state_panels
 import handlers.callbacks.callback_economy_panels
 import handlers.callbacks.callback_territory_panels

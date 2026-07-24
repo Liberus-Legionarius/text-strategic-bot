@@ -1,12 +1,7 @@
-from services.bot import bot
+from services.bot import bot, db
 import re
-from telebot.types import InlineKeyboardMarkup
-from telebot.types import InlineKeyboardButton
 
 PATTERN_UPPERCASE = r"^([А-ЯЁ][а-яё]+(?:[\s|-][А-ЯЁ][а-яё]+)*)"
-
-start_kb = InlineKeyboardMarkup()
-start_kb.add(InlineKeyboardButton("Да начнётся игра!", callback_data="init:enter"))
 
 def check_format(pattern, str, id):
     if re.match(pattern, str):
@@ -31,3 +26,13 @@ def name_handler(ai_check, id, placeholder):
     else:
         bot.send_message(id, f"Я затрудняюсь определить ошибку, которую вы допустили... Пожалуйста, придумайте другое {placeholder}.\n{ai_check.get('refusal_code')}")
         return False
+
+def set_details(tg_id, ideology, goals, territorial_ambitions):
+    db.players.update_one({"tg_id": tg_id}, {
+        "$set": {
+            "ideology_desc": ideology,
+            "goals": goals,
+            "territorial_ambitions": territorial_ambitions,
+            "bos_state": "IN_GAME"
+        }
+    })
