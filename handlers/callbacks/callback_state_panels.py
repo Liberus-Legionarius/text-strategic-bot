@@ -1,5 +1,5 @@
-from bot import bot, db
-from ingame_logic.state_panel import open_state_panel
+from services.bot import bot
+from handlers.ingame_panels.state_panel import open_state_panel
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("state"))
 def callback_state(call):

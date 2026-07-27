@@ -1,11 +1,19 @@
-from bot import bot
-import handlers.start
-import handlers.texting
-import services.callbacks.callback_state_panels
-import services.callbacks.callback_economy_panels
-import services.callbacks.callback_territory_panels
-import services.callbacks.callback_army_panels
-from constants import set_buildings, set_army_types, set_mobilization
+from services.bot import bot
+import handlers.initialization.start
+import handlers.initialization.countryname_init
+import handlers.initialization.capital_init
+import handlers.initialization.ideology_init
+import handlers.initialization.full_countryname_init
+import handlers.initialization.details_init
+import handlers.callbacks.callback_state_panels
+import handlers.callbacks.callback_economy_panels
+import handlers.callbacks.callback_territory_panels
+import handlers.callbacks.callback_army_panels
+import handlers.callbacks.callback_start
+import handlers.callbacks.callback_initialization
+import handlers.ingame_texting.loans
+import handlers.ingame_texting.default_texting
+from services.constants import set_buildings, set_army_types, set_mobilization
 
 set_buildings()
 set_army_types()

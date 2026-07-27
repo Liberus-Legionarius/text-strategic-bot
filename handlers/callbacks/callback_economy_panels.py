@@ -1,5 +1,6 @@
-from bot import bot, db
-import  ingame_logic.economy_panel as economy
+from handlers.ingame_panels.economy_panel import open_spending_panel
+from services.bot import bot, db
+import handlers.ingame_panels.economy_panel as economy
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("economy"))
 def callback_economy(call):
@@ -23,7 +24,8 @@ def callback_economy(call):
                                   }})
         economy.open_income_panel(call.from_user, call.message.chat.id, call.message.message_id)
     # Расходы.
-    elif panel == "spending": pass
+    elif panel == "spending":
+        open_spending_panel(call.from_user, call.message.chat.id, call.message.message_id)
     # Займы.
     elif panel == "loan":
         panel = call.data.split(':')[2]

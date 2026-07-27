@@ -1,5 +1,4 @@
-from bot import bot, db
-from ingame_logic.territory_panel import *
+from handlers.ingame_panels.territory_panel import *
 
 @bot.callback_query_handler(func= lambda call: call.data.startswith("territory:"))
 def callback_territory(call):
@@ -64,5 +63,5 @@ def change_pops_invest(user, change):
         "tg_id":user.id
     },
     {"$inc":{
-        "pops_invest":change
+        "population_growth_invest":change
     }})

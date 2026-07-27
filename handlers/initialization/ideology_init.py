@@ -1,0 +1,16 @@
+from services.bot import bot, db
+from services.constants import get_player
+from handlers.initialization.common_init import *
+import services.ai as ai
+
+# Выбор государственной идеологии,.
+@bot.message_handler(func = lambda msg: get_player(msg.from_user).get("bot_state") == "INIT_IDEOLOGY")
+def ideology_init(message):
+    if check_format(PATTERN_UPPERCASE, message.text, message.chat.id):
+        ai_check = ai.check_ideology(message.text)
+        if name_handler(ai_check, message.chat.id, "название идеологии"):
+            db.players.update_one({"tg_id": message.from_user.id},
+                                  {"$set": {"bot_state": "INIT_FULLNAME", "ideology": message.text}})
+            bot.send_message(message.chat.id,
+                             "Раз уж с гос. режимом определились, давайте придумаем вашей стране полное название.\n"
+                             "Чувствуйте себя свободно, только учитывайте, что выбранная идеология будет учитываться при проверке полного названия.")

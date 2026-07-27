@@ -1,4 +1,4 @@
-from bot import db
+from services.bot import db
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 
