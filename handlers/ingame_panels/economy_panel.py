@@ -19,7 +19,7 @@ LOAN_KB.add(InlineKeyboardButton("Взять долг", callback_data="economy:l
 def open_economy_panel(user, chat_id, message_id):
     player = get_player(user)
     prod_units = get_prod_units(player)
-    income = BASE_INCOME + get_tax_income(player) + get_buildings_income(player)
+    income = get_tax_income(player) + get_buildings_income(player)
     spending = get_loan_spending(player) + get_pops_invest_spending(player) + get_army_spending(player)
 
     text = (f"{get_date_move(player)}"
@@ -50,12 +50,11 @@ def open_income_panel(user, chat_id, message_id):
 
     text = (f"{get_date_move(player)}"
             "\n\n"
-            f"Базовый доход: {BASE_INCOME} монет в ход\n"
             f"Налоги: {tax_income:.2f} монет в ход\n"
             f"От зданий: {prod_income:.2f} монет в ход\n"
-            f"Общий доход: {tax_income + prod_income + BASE_INCOME:.2f}"
+            f"Общий доход: {tax_income + prod_income:.2f}"
             f"\n\n"
-            f"Налоговая ставка: {player['taxes']*100:.2f}%")
+            f"Налоговая ставка: {player['tax_rate']*100:.2f}%")
     bot.edit_message_text(
         text,
         chat_id= chat_id,

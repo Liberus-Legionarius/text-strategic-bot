@@ -15,7 +15,7 @@ def open_state_panel(chat_id, user, message_id = None):
 
     total_population = get_total_population(player)
     if not player.get('ai_plot'):
-        ai_response = ai.write_step_plot(player, total_population)
+        ai_response = ai.write_step_plot(player)
         ai_plot = ai_response['response']
         db.players.update_one({"tg_id":user.id},
                               {"$set":{"ai_plot":ai_plot}})

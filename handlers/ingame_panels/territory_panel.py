@@ -45,7 +45,7 @@ def open_pops_panel(user, chat_id, message_id):
             "\n\n"
             f"Общее население: {get_total_population(player)}\n"
             f"Рост населения в следующем ходе: {get_next_step_growth(player):.0f}\n"
-            f"Ежемесячный рост населения: {player['pops_invest']*100:.2f}%"
+            f"Ежемесячный рост населения: {get_percent_pop_growth(player)*100:.2f}%"
             "\n\n"
             f"Расходы на рост населения: {get_pops_invest_spending(player):.2f} монет в ход")
 
@@ -88,7 +88,7 @@ def open_one_city_panel(user, chat_id, message_id, city_id):
     text = (f"{get_date_move(player)}"
             "\n\n"
             f"Население: {city['population']}\n"
-            f"Доход с налогов: {city['population'] * player['taxes']/120:.2f} монет в ход\n"
+            f"Доход с налогов: {get_one_city_tax_income(player, city):.2f} монет в ход\n"
             f"Доход от зданий: {get_prod_city_income(city, player):.2f} монет в ход\n"
             f"Здания: {get_buildings(city)}")
 

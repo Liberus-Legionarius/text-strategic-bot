@@ -63,5 +63,5 @@ def change_pops_invest(user, change):
         "tg_id":user.id
     },
     {"$inc":{
-        "pops_invest":change
+        "population_growth_invest":change
     }})

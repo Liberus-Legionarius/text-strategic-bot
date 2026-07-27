@@ -1,9 +1,9 @@
-from services.math.territory_math import get_total_population
+from services.math.territory_math import get_total_population, get_one_city_tax_income
 from services.constants import BUILDINGS, ARMY_TYPES
 
 def get_tax_income(player):
     return sum(
-        city["population"] * player["tax_rate"] * (1 + player["stability"] - 0.65) / 120
+        get_one_city_tax_income(player, city)
         for city in player["cities"]
     )
 
@@ -23,7 +23,7 @@ def get_prod_units(player):
 
 def get_prod_units_consumption(player):
     return sum(
-        get_one_prod_units_consumption(army["type"])
+        get_one_prod_units_consumption(army["type_id"])
         for army in player["armies"]
     )
 
@@ -32,7 +32,7 @@ def get_one_prod_units_consumption(type_id):
 
 def get_army_spending(player):
     return sum(
-        get_one_army_spending(army["type"])
+        get_one_army_spending(army["type_id"])
         for army in player["armies"]
     )
 

@@ -32,7 +32,8 @@ def set_details(tg_id, ideology, goals, territorial_ambitions):
         "$set": {
             "ideology_desc": ideology,
             "goals": goals,
+            "completed_goals": [],
             "territorial_ambitions": territorial_ambitions,
-            "bos_state": "IN_GAME"
+            "bot_state": "IN_GAME"
         }
     })
