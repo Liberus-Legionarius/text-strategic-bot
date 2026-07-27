@@ -3,7 +3,8 @@ from services.constants import BASE_INCOME, get_player, get_date_move
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 from services.math.economy_math import get_tax_income, get_buildings_income, get_prod_units, get_loan_spending, \
-    get_pops_invest_spending, get_army_spending
+    get_pops_invest_spending, get_army_spending, get_prod_units_consumption
+from services.math.army_math import get_prod_units_debuff
 
 ECOMOMY_KB = InlineKeyboardMarkup()
 ECOMOMY_KB.add(InlineKeyboardButton("Доходы", callback_data = "economy:income:open"), InlineKeyboardButton("Расходы", callback_data = "economy:spending:open"),
@@ -14,11 +15,15 @@ INCOME_KB.add(InlineKeyboardButton("Повысить налоги", callback_dat
 LOAN_KB = InlineKeyboardMarkup()
 LOAN_KB.add(InlineKeyboardButton("Взять долг", callback_data="economy:loan:take:open"), InlineKeyboardButton("Вернуть долг", callback_data="economy:loan:repay:open"),
             InlineKeyboardButton("Вернуться", callback_data="economy:base:open"))
+SPENDING_KB = InlineKeyboardMarkup()
+SPENDING_KB.add(InlineKeyboardButton("Вернуться", callback_data = "economy:base:open"))
+
 
 # Базовая панель экономики.
 def open_economy_panel(user, chat_id, message_id):
     player = get_player(user)
     prod_units = get_prod_units(player)
+    prod_units_cons = get_prod_units_consumption(player)
     income = get_tax_income(player) + get_buildings_income(player)
     spending = get_loan_spending(player) + get_pops_invest_spending(player) + get_army_spending(player)
 
@@ -31,9 +36,9 @@ def open_economy_panel(user, chat_id, message_id):
             f"Баланс: {income - spending:.2f} монет в ход"
             "\n\n"
             f"Единиц производства: {prod_units} шт.\n"
-            f"Потребление армией ед. производства: 0 шт.\n"
-            f"Баланс производства: {prod_units} шт.\n"
-            f"Штраф/Бонус к армии: ?")
+            f"Потребление армией ед. производства: {prod_units_cons} шт.\n"
+            f"Баланс производства: {prod_units - prod_units_cons} шт.\n"
+            f"Штраф/Бонус к армии: {get_prod_units_debuff(player) * 100:.2f}%")
 
     bot.edit_message_text(
         text,
@@ -63,8 +68,21 @@ def open_income_panel(user, chat_id, message_id):
     )
 
 # Панель подробных расходов.
-def open_spending_panel(user, message):
-    pass
+def open_spending_panel(user, chat_id, message_id):
+    player = get_player(user)
+    text = (f"{get_date_move(player)}"
+            "\n\n"
+            f"Расходы на армию: {get_army_spending(player):.2f}\n"
+            f"Вложения в рост населения: {get_pops_invest_spending(player):.2f}\n"
+            f"Выплата процентов по займам: {get_loan_spending(player):.2f}"
+            "\n\n"
+            f"Общие расходы: {get_army_spending(player) + get_pops_invest_spending(player) + get_loan_spending(player):.2f}")
+    bot.edit_message_text(
+        text,
+        chat_id=chat_id,
+        message_id=message_id,
+        reply_markup=SPENDING_KB
+    )
 
 # Панель займов.
 def open_loan_panel(user, chat_id, message_id):

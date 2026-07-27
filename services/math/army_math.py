@@ -1,5 +1,6 @@
 from services.constants import ARMY_TYPES, MOBILIZATION_LAWS
 from services.math.territory_math import get_total_population
+from services.math.economy_math import get_prod_units_consumption, get_prod_units
 
 def get_army_power(player):
     return sum(
@@ -30,3 +31,10 @@ def get_army_counteracts(army):
     a_type = get_army_type(army)
     result = ", ".join([ARMY_TYPES[army_id]["title"] for army_id in a_type["counteracts"]])
     return result if result else "Никому."
+
+def get_prod_units_debuff(player):
+    balance = get_prod_units(player) - get_prod_units_consumption(player)
+    if balance >= 0:
+        return 0
+    else:
+        return balance/get_prod_units_consumption(player)
