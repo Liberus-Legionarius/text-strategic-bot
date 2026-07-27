@@ -1,5 +1,5 @@
 from services.bot import bot, db
-from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel
+from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel, open_armies_panel, open_one_army_panel
 from services.constants import MOBILIZATION_LAWS, get_player
 from bson import ObjectId
 
@@ -20,4 +20,8 @@ def callback_army(call):
         else:
             open_mobilization_panel(call.from_user, call.message.chat.id, call.message.message_id)
     elif panel == "armies":
-        pass
+        panel = call.data.split(":")[2]
+        if panel == "open":
+            open_armies_panel(call.from_user, call.message.chat.id, call.message.message_id)
+        else:
+            open_one_army_panel(call.from_user, call.message.chat.id, call.message.message_id, panel)

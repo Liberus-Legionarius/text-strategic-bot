@@ -19,3 +19,14 @@ def get_manpower_percent(player):
 def get_women_at_war(player):
     f = MOBILIZATION_LAWS[player["mobilization_law"]]["women_at_war"]
     return 'разрешена' if f else 'запрещена'
+
+def get_army_type(army):
+    return ARMY_TYPES[army["type_id"]]
+
+def get_is_armour(army):
+    return "Да" if get_army_type(army)["is_armour"] else "Нет"
+
+def get_army_counteracts(army):
+    a_type = get_army_type(army)
+    result = ", ".join([ARMY_TYPES[army_id]["title"] for army_id in a_type["counteracts"]])
+    return result if result else "Никому."
