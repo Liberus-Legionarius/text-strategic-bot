@@ -23,16 +23,19 @@ def init_state(user):
     db.players.update_one({
         "tg_id":user.id},{
         "$set":{
-            "polit_power":rnd.randint(50,200),
+            "polit_power_gain_flat":rnd.randint(50,200),
+            "polit_power_gain_modifier": 0.0,
             "stability":rnd.triangular(0.5,0.75, 0.65),
             "militarization":rnd.triangular(-0.15,0.50,0.10),
             "armies":[army],
             "mobilization_laws": list(MOBILIZATION_LAWS.keys())[0],
             "money":rnd.uniform(-15,100),
-            "taxes": 0.15,
+            "tax_rate": 0.15,
+            "buildings_income_efficiency": 1.0,
             "loans":0.0,
             "interest": 0.04,
-            "pops_invest": 0.0,
+            "population_growth_invest": 0.0,
+            "population_growth": 0.01,
             "cities":[capital],
             "date":datetime(3057, rnd.randint(1,12), 1),
             "step":1,

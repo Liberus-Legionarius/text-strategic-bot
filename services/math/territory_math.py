@@ -19,11 +19,11 @@ def get_largest_city(player):
     return name
 
 def get_next_step_growth(player):
-    return get_total_population(player) * player["pops_invest"]
+    return get_total_population(player) * ((player["population_growth"] + player["population_growth_invest"]) * (1 + player["stability"] - 0.65))
 
-def get_prod_city_income(city):
+def get_prod_city_income(city, player):
     return sum(
-        BUILDINGS[building["id"]]["income_per_pop"] * city["population"]
+        BUILDINGS[building["id"]]["income_per_pop"] * city["population"] * player["buildings_income_efficiency"]
         for building in city["buildings"]
     )
 

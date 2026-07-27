@@ -3,7 +3,7 @@ from services.constants import BUILDINGS, ARMY_TYPES
 
 def get_tax_income(player):
     return sum(
-        city["population"] * player["taxes"] / 120
+        city["population"] * player["tax_rate"] * (1 + player["stability"] - 0.65) / 120
         for city in player["cities"]
     )
 
@@ -11,7 +11,7 @@ def get_buildings_income(player):
     sum = 0
     for city in player["cities"]:
         for building in city["buildings"]:
-            sum += BUILDINGS[building["id"]]["income_per_pop"] * city["population"]
+            sum += BUILDINGS[building["id"]]["income_per_pop"] * city["population"] * player["buildings_income_efficiency"]
     return sum
 
 def get_prod_units(player):
@@ -43,4 +43,4 @@ def get_loan_spending(player):
     return player['loans']*player['interest']/12
 
 def get_pops_invest_spending(player):
-    return get_total_population(player) * player["pops_invest"] /12
+    return get_total_population(player) * player["population_growth_invest"] /12

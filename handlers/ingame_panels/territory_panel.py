@@ -89,7 +89,7 @@ def open_one_city_panel(user, chat_id, message_id, city_id):
             "\n\n"
             f"Население: {city['population']}\n"
             f"Доход с налогов: {city['population'] * player['taxes']/120:.2f} монет в ход\n"
-            f"Доход от зданий: {get_prod_city_income(city):.2f} монет в ход\n"
+            f"Доход от зданий: {get_prod_city_income(city, player):.2f} монет в ход\n"
             f"Здания: {get_buildings(city)}")
 
     db.players.update_one({"tg_id":user.id},
