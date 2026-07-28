@@ -1,5 +1,6 @@
 from services.math.territory_math import get_total_population, get_one_city_tax_income
-from services.constants import BUILDINGS, ARMY_TYPES
+from services.constants import BUILDINGS, ARMY_TYPES, get_modifier
+
 
 def get_tax_income(player):
     return sum(
@@ -43,4 +44,4 @@ def get_loan_spending(player):
     return player['loans']*player['interest']/12
 
 def get_pops_invest_spending(player):
-    return get_total_population(player) * player["population_growth_invest"] /12
+    return get_total_population(player) * player["national_spirits"][3]["population_growth_invest"] /12

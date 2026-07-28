@@ -60,8 +60,9 @@ def callback_territory(call):
 
 def change_pops_invest(user, change):
     db.players.update_one({
-        "tg_id":user.id
+        "tg_id":user.id, "national_spirits.id":3
     },
     {"$inc":{
-        "population_growth_invest":change
+        "national_spirits.$.population_growth_invest":change,
+        "national_spirits.$.stability":change/2
     }})

@@ -63,3 +63,10 @@ def get_build_kb(city_id):
                                               callback_data=f"territory:build:{building['_id']}"))
     buildings_kb.add(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_id}"))
     return  buildings_kb
+
+def get_modifier(player, modifier):
+    result = sum(
+        spirit[modifier]
+        for spirit in player["national_spirits"] if spirit.get(modifier)
+    )
+    return result

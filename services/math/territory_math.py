@@ -1,4 +1,4 @@
-from services.constants import BUILDINGS
+from services.constants import BUILDINGS, get_modifier
 
 def get_total_population(player):
     return sum(
@@ -19,15 +19,15 @@ def get_largest_city(player):
     return name
 
 def get_next_step_growth(player):
-    return get_total_population(player) * ((player["population_growth"] + player["population_growth_invest"]) * (1 + player["stability"] - 0.65))
+    return get_total_population(player) * ((get_modifier(player, "population_growth") + get_modifier(player, "population_growth_invest")) * (1 + get_modifier(player, "stability") - 0.65))
 
 def get_prod_city_income(city, player):
     return sum(
-        BUILDINGS[building["id"]]["income_per_pop"] * city["population"] * player["buildings_income_efficiency"]
+        BUILDINGS[building["id"]]["income_per_pop"] * city["population"] * get_modifier(player, "buildings_income_efficiency")
         for building in city["buildings"]
     )
 def get_one_city_tax_income(player, city):
-    return city["population"] * player["tax_rate"] * (1 + player["stability"] - 0.65) / 120
+    return city["population"] * get_modifier(player, "tax_rate") * (1 + get_modifier(player, "stability") - 0.65) / 120
 
 def get_buildings(city):
     if len(city["buildings"]) < 1:
@@ -42,4 +42,4 @@ def get_buildings(city):
         return text
 
 def get_percent_pop_growth(player):
-    return (player["population_growth"] + player["population_growth_invest"]) * (1 + player["stability"] - 0.65)
+    return get_modifier(player, "population_growth") + get_modifier(player, "population_growth_invest") * (1 + get_modifier(player, "stability") - 0.65)

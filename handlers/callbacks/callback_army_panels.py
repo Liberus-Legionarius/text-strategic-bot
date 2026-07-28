@@ -14,9 +14,9 @@ def callback_army(call):
         if not call.data.split(":")[2] == "open":
             law = ObjectId(call.data.split(":")[2])
             player = get_player(call.from_user)
-            if law in MOBILIZATION_LAWS.keys() and not law == player["mobilization_laws"]:
+            if law in MOBILIZATION_LAWS.keys() and not law == player["national_spirits"][2]["_id"]:
                 db.players.update_one({"tg_id":call.from_user.id},
-                                      {"$set":{"mobilization_laws":law}})
+                                      {"$set":{"national_spirits.2":MOBILIZATION_LAWS[law]}})
                 open_mobilization_panel(call.from_user, call.message.chat.id, call.message.message_id)
         else:
             open_mobilization_panel(call.from_user, call.message.chat.id, call.message.message_id)

@@ -1,5 +1,5 @@
 from services.bot import bot
-from services.constants import BASE_INCOME, get_player, get_date_move
+from services.constants import BASE_INCOME, get_player, get_date_move, get_modifier
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 from services.math.economy_math import get_tax_income, get_buildings_income, get_prod_units, get_loan_spending, \
@@ -59,7 +59,7 @@ def open_income_panel(user, chat_id, message_id):
             f"От зданий: {prod_income:.2f} монет в ход\n"
             f"Общий доход: {tax_income + prod_income:.2f}"
             f"\n\n"
-            f"Налоговая ставка: {player['tax_rate']*100:.2f}%")
+            f"Налоговая ставка: {get_modifier(player, 'tax_rate')*100:.2f}%")
     bot.edit_message_text(
         text,
         chat_id= chat_id,

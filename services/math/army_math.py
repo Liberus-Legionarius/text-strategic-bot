@@ -1,4 +1,4 @@
-from services.constants import ARMY_TYPES, MOBILIZATION_LAWS
+from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier
 from services.math.territory_math import get_total_population
 from services.math.economy_math import get_prod_units_consumption, get_prod_units
 
@@ -12,13 +12,13 @@ def get_total_army(player):
     return len(player["armies"])
 
 def get_manpower(player):
-    return get_total_population(player) / (1 if MOBILIZATION_LAWS[player["mobilization_law"]]['women_at_war'] else 2) * MOBILIZATION_LAWS[player["mobilization_law"]]['percent']
+    return get_total_population(player) / (1 if player["national_spirits"][2]['women_at_war'] else 2) * get_modifier(player, "percent")
 
 def get_manpower_percent(player):
-    return  MOBILIZATION_LAWS[player["mobilization_law"]]["percent"] * 100
+    return  get_modifier(player, "percent") * 100
 
 def get_women_at_war(player):
-    f = MOBILIZATION_LAWS[player["mobilization_law"]]["women_at_war"]
+    f = player["national_spirits"][2]["women_at_war"]
     return 'разрешена' if f else 'запрещена'
 
 def get_army_type(army):

@@ -3,7 +3,7 @@ import services.ai as ai
 from services.math.territory_math import get_total_population
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
-from services.constants import get_date_move, get_player
+from services.constants import get_date_move, get_player, get_modifier
 
 PANELS_KB =InlineKeyboardMarkup()
 PANELS_KB.add(InlineKeyboardButton("Экономика", callback_data="economy:base:open"), InlineKeyboardButton("Армия", callback_data="army:base:open"),
@@ -27,8 +27,8 @@ def open_state_panel(chat_id, user, message_id = None):
             "\n\n"
             f"{ai_plot}"
             "\n\n"
-            f"Стабильность: {player['stability']*100:.2f}%\n"
-            f"Милитаризация: {player['militarization']*100:.2f}%\n"
+            f"Стабильность: {get_modifier(player, 'stability')*100:.2f}%\n"
+            f"Милитаризация: {get_modifier(player, 'militarization')*100:.2f}%\n"
             f"Общее население: {total_population}\n"
             f"Политическая власть: {player['polit_power']}")
     bot.send_message(chat_id,text, reply_markup=PANELS_KB) if not message_id else bot.edit_message_text(text, chat_id = chat_id, message_id = message_id, reply_markup = PANELS_KB)

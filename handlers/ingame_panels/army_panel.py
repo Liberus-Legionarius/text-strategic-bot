@@ -48,13 +48,13 @@ def open_mobilization_panel(user, chat_id, message_id):
                 f"Мобилизационный резерв: {int(get_manpower(player))}"
                 "\n\n"
                 "Наши законы в отношении призыва:\n"
-                f"\t- Закон о призыве: {MOBILIZATION_LAWS[player['mobilization_law']]['title']}\n"
+                f"\t- Закон о призыве: {player['national_spirits'][2]['title']}\n"
                 f"\t\t- Процент военнообязанных: {get_manpower_percent(player):.2f}%\n"
                 f"\t\t- Статус женской службы: {get_women_at_war(player)}")
 
         mobilization_kb = InlineKeyboardMarkup()
         for law_id, law in MOBILIZATION_LAWS.items():
-                if not player["mobilization_law"] == law_id:
+                if not player["national_spirits"][2]["_id"] == str(law_id):
                         mobilization_kb.add(InlineKeyboardButton(law["title"], callback_data = f"army:mobilization:{str(law_id)}"))
         mobilization_kb.add(InlineKeyboardButton("Вернуться", callback_data = "army:base:open"))
         bot.edit_message_text(
