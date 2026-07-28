@@ -29,8 +29,9 @@ def get_is_armour(army):
 
 def get_army_counteracts(army):
     a_type = get_army_type(army)
-    result = ", ".join([ARMY_TYPES[army_id]["title"] for army_id in a_type["counteracts"]])
-    return result if result else "Никому."
+    if len(a_type["counteracts"]) > 0:
+        return ", ".join([ARMY_TYPES[army_id]["title"] for army_id in a_type["counteracts"]])
+    return "Никому."
 
 def get_prod_units_debuff(player):
     balance = get_prod_units(player) - get_prod_units_consumption(player)

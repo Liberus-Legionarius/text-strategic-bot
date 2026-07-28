@@ -11,9 +11,8 @@ ARMY_KB = InlineKeyboardMarkup()
 ARMY_KB.add(InlineKeyboardButton("Политика призыва", callback_data = "army:mobilization:open"),
             InlineKeyboardButton("Армии", callback_data = "army:armies:open"),
             InlineKeyboardButton("Назад", callback_data = "state:base:open"))
-
-ONE_ARMY_KB = InlineKeyboardMarkup()
-ONE_ARMY_KB.add(InlineKeyboardButton("WIP", callback_data = "army:armies:open"), InlineKeyboardButton("Назад", callback_data = "army:armies:open"))
+BACK_TO_ARMIES_KB = InlineKeyboardMarkup()
+BACK_TO_ARMIES_KB.add(InlineKeyboardButton("Вернуться к армиям", callback_data = "army:armies:open"))
 
 def open_army_panel(user, chat_id, message_id):
     player = get_player(user)
@@ -114,12 +113,56 @@ def open_one_army_panel(user, chat_id, message_id, army_id):
                 f"Расходы производства: {get_army_type(army)['prod_units_consumption']}\n"
                 f"Ежемесячные расходы: {get_army_type(army)['per_unit_spending']}")
 
+        one_army_kb = InlineKeyboardMarkup()
+        one_army_kb.add(InlineKeyboardButton("Провести вылазку", callback_data = f"army:campaign:{army_id}"),
+                        InlineKeyboardButton("WIP", callback_data="army:armies:open"),
+                        InlineKeyboardButton("Назад", callback_data="army:armies:open"))
+
         bot.edit_message_text(
                 text,
                 chat_id=chat_id,
                 message_id=message_id,
-                reply_markup=ONE_ARMY_KB
+                reply_markup=one_army_kb
         )
 
+def open_campaign_panel(user, chat_id, message_id, army_id):
+        player = get_player(user)
 
+        army = next((a for a in player["armies"] if str(a["army_id"]) == army_id), None)
+        city = next((c for c in player["cities"] if c["city_id"] == army["city_id"]), None)
 
+        text = (f"{get_date_move(player)}"
+                "\n\n"
+                f"Наше подразделение {army['name']}, расположенное в городе {city['name']} совершит исследовательскую вылазку.\n"
+                "В результате мы сможем обнаружить что-то из этого списка:\n"
+                "\t\t\t- Руины. Никем не занятые территории разрушенного много веков назад города, в котором можно будет найти бункер с выжившими, пустой бункер с полезными нам припасами или ничего. В любом случае руины можно будет заселить.\n"
+                "\t\t\t- Неизвестное государство. То есть такие же выжившие, как и мы, которые уже основали собственное государство. Если нам повезёт, местное население будет мирным и согласится на сотрудничество (в лучшем случае, если их положение тяжёлое, они принесут нам присягу), в противном случае мы найдём себе нового врага, возможно, даже будем вынуждены подчиниться более могущественной державе.\n"
+                "\t\t\t- Ничего. Просто выжженные пустоши... Совсем ничего."
+                "\n\n"
+                f"Нужно лишь определить субсидирование вылазки...\n"
+                f"На данный момент у нас в казне {player['money']:.2f} монет")
+
+        campaign_kb = InlineKeyboardMarkup()
+        campaign_kb.add(InlineKeyboardButton("250 монет (шанс успеха 15%)", callback_data=f"army:campaign:{army_id}:250"),
+                             InlineKeyboardButton("500 монет (шанс успеха 25%)", callback_data=f"army:campaign:{army_id}:500"),
+                             InlineKeyboardButton("1000 монет (шанс успеха 55%)", callback_data=f"army:campaign:{army_id}:1000"),
+                             InlineKeyboardButton("2500 монет (шанс успеха 75%)", callback_data=f"army:campaign:{army_id}:2500"),
+                             InlineKeyboardButton("Вернуться", callback_data=f"army:armies:{army_id}"))
+
+        bot.edit_message_text(
+                text,
+                chat_id=chat_id,
+                message_id=message_id,
+                reply_markup=campaign_kb
+        )
+
+def open_campaign_started_panel(user, chat_id, message_id, city_name, army_name):
+        text = (f'Мы отправили армию "{army_name}" из города {city_name} в исследовательскую вылазку. Надеемся, они вернутся с хорошими новостями... \n'
+                'Если вообще вернутся.')
+
+        bot.edit_message_text(
+                text,
+                chat_id=chat_id,
+                message_id=message_id,
+                reply_markup=BACK_TO_ARMIES_KB
+        )

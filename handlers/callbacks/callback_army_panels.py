@@ -1,5 +1,6 @@
 from services.bot import bot, db
-from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel, open_armies_panel, open_one_army_panel
+from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel, open_armies_panel, \
+    open_one_army_panel, open_campaign_panel
 from services.constants import MOBILIZATION_LAWS, get_player
 from bson import ObjectId
 
@@ -25,3 +26,27 @@ def callback_army(call):
             open_armies_panel(call.from_user, call.message.chat.id, call.message.message_id)
         else:
             open_one_army_panel(call.from_user, call.message.chat.id, call.message.message_id, panel)
+    elif panel == "campaign":
+        datas = call.data.split(":")
+        if len(datas) < 4:
+            open_campaign_panel(call.from_user, call.message.chat.id, call.message.message_id, datas[2])
+        else:
+            if get_player(call.from_user)["money"] >= int(datas[3]):
+                start_campaign(call.from_user, datas[2], int(datas[3]))
+                open_armies_panel(call.from_user, call.message.chat.id, call.message.message_id)
+
+def start_campaign(user, army_id, cost):
+    player = get_player(user)
+    army = next((army for army in player["armies"] if str(army["army_id"]) == army_id), None)
+    db.players.update_one({"tg_id":user.id},
+                          {"$push":{
+                                "campaigns":{
+                                    "started": player["step"],
+                                    "cost": cost,
+                                    "army":army
+                                }
+                          },
+                          "$pull":{
+                                "armies":army
+                          },
+                          "$inc":{"money":-cost}})

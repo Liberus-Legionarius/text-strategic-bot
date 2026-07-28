@@ -50,6 +50,7 @@ def init_state(user):
             "cities":[capital],
             "date":datetime(3057, data["month"], 1),
             "step":1,
-            "ai_plot":data["response"]
+            "ai_plot":data["response"],
+            "campaigns":[]
         }
     })
