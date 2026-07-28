@@ -8,7 +8,7 @@ from telebot.types import InlineKeyboardButton
 TERRITORY_KB = InlineKeyboardMarkup(row_width=2)
 TERRITORY_KB.add(InlineKeyboardButton("Население", callback_data="territory:pops:open"),
                  InlineKeyboardButton("Выбрать город", callback_data = "territory:cities:open"),
-                 InlineKeyboardButton("Назад", callback_data = "state:base:open"))
+                 InlineKeyboardButton("Назад", callback_data = "state:open"))
 POPS_KB = InlineKeyboardMarkup(row_width=3)
 POPS_KB.add(InlineKeyboardButton("-5%", callback_data = "territory:pops:down5"), InlineKeyboardButton("-2%", callback_data = "territory:pops:down2"),
             InlineKeyboardButton("-1%", callback_data = "territory:pops:down1"),InlineKeyboardButton("1%", callback_data = "territory:pops:rise1"),

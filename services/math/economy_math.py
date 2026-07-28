@@ -45,3 +45,9 @@ def get_loan_spending(player):
 
 def get_pops_invest_spending(player):
     return get_total_population(player) * player["national_spirits"][3]["population_growth_invest"] /12
+
+def get_total_income(player):
+    return get_buildings_income(player) + get_tax_income(player)
+
+def get_total_spending(player):
+    return get_army_spending(player) + get_loan_spending(player) + get_pops_invest_spending(player)

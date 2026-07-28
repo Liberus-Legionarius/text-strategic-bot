@@ -15,7 +15,7 @@ def get_manpower(player):
     return get_total_population(player) / (1 if player["national_spirits"][2]['women_at_war'] else 2) * get_modifier(player, "percent")
 
 def get_manpower_percent(player):
-    return  get_modifier(player, "percent") * 100
+    return  get_modifier(player, "mobilization_percent") * 100
 
 def get_women_at_war(player):
     f = player["national_spirits"][2]["women_at_war"]

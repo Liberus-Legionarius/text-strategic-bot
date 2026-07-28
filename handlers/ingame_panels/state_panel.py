@@ -19,12 +19,24 @@ def open_state_panel(user, chat_id, message_id = None):
     player = get_player(user)
 
     total_population = get_total_population(player)
-    if not player.get('ai_plot'):
+    if player["step"] == 1 and not player["ai_plot"]:
+        ai_response = ai.write_step_first(player)
+        ai_plot = ai_response['response']
+        db.players.update_one({"tg_id": user.id},
+                              {"$set": {"ai_plot": ai_plot}})
+    elif not player["ai_plot"]:
         ai_response = ai.write_step_plot(player)
         ai_plot = ai_response['response']
-        db.players.update_one({"tg_id":user.id},
-                              {"$set":{"ai_plot":ai_plot}})
-    else: ai_plot = player["ai_plot"]
+        if ai_response.get("short_report"):
+            db.players.update_one({"tg_id": user.id},
+                                  {"$set": {"ai_plot": ai_plot, "actions":[]},
+                                   "$push": {"history":ai_response['short_report']}})
+        else:
+            db.players.update_one({"tg_id": user.id},
+                                  {"$set": {"ai_plot": ai_plot}})
+    else:
+        ai_plot = player["ai_plot"]
+
     text = (f"{get_date_move(player)}"
             "\n\n"
             f"{player['full_countryname']}\n"
@@ -34,6 +46,6 @@ def open_state_panel(user, chat_id, message_id = None):
             "\n\n"
             f"Стабильность: {get_modifier(player, 'stability')*100:.2f}%\n"
             f"Милитаризация: {get_modifier(player, 'militarization')*100:.2f}%\n"
-            f"Общее население: {total_population}\n"
-            f"Политическая власть: {player['polit_power']}")
+            f"Общее население: {total_population:.0f}\n"
+            f"Политическая власть: {player['polit_power']:.0f}")
     bot.send_message(chat_id,text, reply_markup=PANELS_KB) if not message_id else bot.edit_message_text(text, chat_id = chat_id, message_id = message_id, reply_markup = PANELS_KB)

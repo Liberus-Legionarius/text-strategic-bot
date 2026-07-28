@@ -10,7 +10,7 @@ from telebot.types import InlineKeyboardButton
 ARMY_KB = InlineKeyboardMarkup(row_width=2)
 ARMY_KB.add(InlineKeyboardButton("Политика призыва", callback_data = "army:mobilization:open"),
             InlineKeyboardButton("Армии", callback_data = "army:armies:open"),
-            InlineKeyboardButton("Назад", callback_data = "state:base:open"))
+            InlineKeyboardButton("Назад", callback_data = "state:open"))
 BACK_TO_ARMIES_KB = InlineKeyboardMarkup()
 BACK_TO_ARMIES_KB.add(InlineKeyboardButton("Вернуться к армиям", callback_data = "army:armies:open"))
 
@@ -28,7 +28,7 @@ def open_army_panel(user, chat_id, message_id):
             "\n\n"
             f"Расходы на содержание армии: {get_army_spending(player)} монет в ход"
             "\n\n"
-            f"Общее население: {get_total_population(player)}\n"
+            f"Общее население: {get_total_population(player):.0f}\n"
             f"Мобилизационный резерв: {int(get_manpower(player))}\n"
             f"Служба для женщин: {get_women_at_war(player)}"
             )

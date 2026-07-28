@@ -4,7 +4,7 @@ from config import GEMINI_APIKEY
 import re
 import json
 from services.modifiers import modifiers
-from services.constants import ARMY_TYPES, MOBILIZATION_LAWS
+from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier
 
 ai = genai.Client(api_key=GEMINI_APIKEY)
 
@@ -83,23 +83,26 @@ def write_step_first(player):
     return ask_ai(request, INITIALIZATION_PROMPT)
 
 def write_step_plot(player):
-    request = ("{"
-               f'"countryname":"{player["countryname"]}",'
-               f'"ful_countryname":"{player["full_countryname"]}",'
-               f'"capital":"{player["capital"]}",'
-               f'"ideology":"{player["ideology"]}",'
-               f'"ideology_desc":{player["ideology_desc"]},'
-               f'"country_characteristics":"{player["country_characteristics"]}",'
-               f'"goals":{json.dumps(player["goals"])},'
-               f'"completed_goals":{json.dumps(player["completed_goals"])},'
-               f'"territorial_ambitions":{json.dumps(player["territorial_ambitions"])},'
-               f'"date":{player["date"]},'
-               f'"step":{player["step"]},'
-               f'"money":{player["money"]},'
-               f'"stability":{player["stability"] * 100},'
-               f'"militarization":{player["militarization"]*100},'
-               f'"modifiers_information":{json.dumps(modifiers)}')
-    return ask_ai(request, NARRATOR_PROMPT)
+    if len(player["actions"]) > 0:
+        request = ("{"
+                   f'"countryname":"{player["countryname"]}",'
+                   f'"full_countryname":"{player["full_countryname"]}",'
+                   f'"capital":"{player["capital"]}",'
+                   f'"ideology":"{player["ideology"]}",'
+                   f'"ideology_desc":{player["ideology_desc"]},'
+                   f'"country_characteristics":"{player["country_characteristics"]}",'
+                   f'"goals":{json.dumps(player["goals"])},'
+                   f'"completed_goals":{json.dumps(player["completed_goals"])},'
+                   f'"territorial_ambitions":{json.dumps(player["territorial_ambitions"])},'
+                   f'"date":{player["date"]},'
+                   f'"money":{player["money"]},'
+                   f'"stability":{get_modifier(player, "stability") * 100},'
+                   f'"militarization":{get_modifier(player, "militarization")*100},'
+                   f'"move":{player["step"]},'
+                   f'"modifiers_information":{json.dumps(modifiers)},'
+                   f'actions":{player["actions"]}')
+        return ask_ai(request, NARRATOR_PROMPT)
+    return json.loads('{"response":"С момента прошлого хода ничего не произошло..."}')
 
 def ask_ai(request, base_prompt):
     prompt = f"""{base_prompt}

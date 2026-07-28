@@ -59,12 +59,13 @@ def init_state(user):
             "money": data["money"],
             "loans":0.0,
             "interest": 0.04,
-            "population_growth_invest": 0.0,
             "cities":[capital],
             "date":datetime(3057, data["month"], 1),
             "step":1,
             "ai_plot":data["response"],
             "campaigns":[],
-            "national_spirits":[data["national_spirit"], taxes_politic, mobilization_law, invest_in_pop_growth]
+            "national_spirits":[data["national_spirit"], taxes_politic, mobilization_law, invest_in_pop_growth],
+            "actions":[],
+            "history":[]
         }
     })

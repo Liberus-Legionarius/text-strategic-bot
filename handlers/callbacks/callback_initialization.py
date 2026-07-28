@@ -8,7 +8,7 @@ def callback_init(call):
     # Начало игры.
     if call.data.startswith("init:enter"):
         init_state(call.from_user)
-        open_state_panel(call.message.chat.id, call.from_user, call.message.message_id)
+        open_state_panel(call.from_user, call.message.chat.id, call.message.message_id)
     # Инициализация деталей.
     elif call.data == "init:country:no":
         db.players.update_one({"tg_id":call.from_user.id},
