@@ -27,7 +27,9 @@ def capital_init(message):
             for n, t in enumerate(response["territorial_ambitions"]):
                 territory += f"{n+1}. {t}\n"
 
-            set_details(message.from_user.id, response["ideology"], response["goals"], response["territorial_ambitions"])
+            ultimate_goal = f"Наша конечная цель:\n{response['ultimate_goal']}"
+
+            set_details(message.from_user.id, response["ideology"], response["goals"], response["ultimate_goal"], response["territorial_ambitions"], response["country_characteristics"])
 
             details_kb = InlineKeyboardMarkup()
             details_kb.add(InlineKeyboardButton("Да, мне это подходит", callback_data = f"init:enter"),
@@ -42,6 +44,7 @@ def capital_init(message):
                 f"{ideology}\n"
                 f"{goals}\n"
                 f"{territory}\n"
+                f"{ultimate_goal}\n"
                 "\n"
                 "Что скажете о таком описании?",
                 chat_id = message.chat.id,

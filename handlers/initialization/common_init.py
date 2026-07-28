@@ -27,13 +27,15 @@ def name_handler(ai_check, id, placeholder):
         bot.send_message(id, f"Я затрудняюсь определить ошибку, которую вы допустили... Пожалуйста, придумайте другое {placeholder}.\n{ai_check.get('refusal_code')}")
         return False
 
-def set_details(tg_id, ideology, goals, territorial_ambitions):
+def set_details(tg_id, ideology, goals, ultimate_goal, territorial_ambitions, characteristics):
     db.players.update_one({"tg_id": tg_id}, {
         "$set": {
             "ideology_desc": ideology,
             "goals": goals,
+            "ultimate_gooal": ultimate_goal,
             "completed_goals": [],
             "territorial_ambitions": territorial_ambitions,
+            "country_characteristics": characteristics,
             "bot_state": "IN_GAME"
         }
     })
