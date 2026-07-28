@@ -15,3 +15,41 @@ modifiers = {
     "army_maintenance": "Модификатор, который влияет на стоимость содержания армии. По умолчанию 0.0, отрицательные значения дают скидку на содержание армии, а положительные повышают стоимость содержания армии, скидку не делай меньше -0.25, а вот повышение стоимости может быть вплоть до 2.0, то есть 200-процентное содержание армии.",
     "mobilization_percent": "Модификатор, который влияет на процент населения, которое входит в число рекрутов, из которых можно создавать армию. По умолчанию 0.00 (так как базовый процент идёт от политики призыва), может быть положительным и отрицательным, но не делай за один раз этот модификатор со значением по модулю больше 0.05."
 }
+
+modifiers_russified = {
+    "tax_rate": "Налоговая ставка",
+    "population_growth": "Рост населения",
+    "population_growth_invest": "Платный прирост населения",
+    "stability": "Стабильность",
+    "militarization": "Милитаризация общества",
+    "polit_power_gain_flat": "Прирост полит. власти",
+    "polit_power_gain_modifier": "Модификатор роста полит. власти",
+    "buildings_income_efficiency":"Эффективность зданий",
+    "attack_modifier":"Атака",
+    "defense_modifier":"Защита",
+    "diplomatic_reputation":"Дипломатическая репутация",
+    "relations_improving_modifier":"Улучшение отношений",
+    "building_cost_modifier": "Стоимость строительства",
+    "army_maintenance": "Содержание армии",
+    "mobilization_percent": "Процент военнообязанных",
+    "women_at_war": "Женская служба"
+}
+
+modifiers_units ={
+    "tax_rate": "%",
+    "population_growth": "%",
+    "population_growth_invest": "%",
+    "stability": "%",
+    "militarization": "%",
+    "polit_power_gain_flat": "1",
+    "polit_power_gain_modifier": "%",
+    "buildings_income_efficiency":"%",
+    "attack_modifier":"%",
+    "defense_modifier":"%",
+    "diplomatic_reputation":"1",
+    "relations_improving_modifier":"%",
+    "building_cost_modifier": "%",
+    "army_maintenance": "%",
+    "mobilization_percent": "%",
+    "women_at_war": "yesno"
+}
