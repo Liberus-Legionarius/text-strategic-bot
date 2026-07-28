@@ -32,7 +32,7 @@ def set_details(tg_id, ideology, goals, ultimate_goal, territorial_ambitions, ch
         "$set": {
             "ideology_desc": ideology,
             "goals": goals,
-            "ultimate_gooal": ultimate_goal,
+            "ultimate_goal": ultimate_goal,
             "completed_goals": [],
             "territorial_ambitions": territorial_ambitions,
             "country_characteristics": characteristics,
