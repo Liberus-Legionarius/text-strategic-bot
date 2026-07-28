@@ -6,13 +6,13 @@ from services.math.economy_math import get_tax_income, get_buildings_income, get
     get_pops_invest_spending, get_army_spending, get_prod_units_consumption
 from services.math.army_math import get_prod_units_debuff
 
-ECOMOMY_KB = InlineKeyboardMarkup()
+ECOMOMY_KB = InlineKeyboardMarkup(row_width=3)
 ECOMOMY_KB.add(InlineKeyboardButton("Доходы", callback_data = "economy:income:open"), InlineKeyboardButton("Расходы", callback_data = "economy:spending:open"),
                InlineKeyboardButton("Долги", callback_data = "economy:loan:open"), InlineKeyboardButton("Назад", callback_data = "state:open"))
-INCOME_KB = InlineKeyboardMarkup()
+INCOME_KB = InlineKeyboardMarkup(row_width=2)
 INCOME_KB.add(InlineKeyboardButton("Повысить налоги", callback_data= "economy:income:rise:open"), InlineKeyboardButton("Снизить налоги", callback_data= "economy:income:down:open"),
               InlineKeyboardButton("Вернуться", callback_data="economy:base:open"))
-LOAN_KB = InlineKeyboardMarkup()
+LOAN_KB = InlineKeyboardMarkup(row_width=2)
 LOAN_KB.add(InlineKeyboardButton("Взять долг", callback_data="economy:loan:take:open"), InlineKeyboardButton("Вернуть долг", callback_data="economy:loan:repay:open"),
             InlineKeyboardButton("Вернуться", callback_data="economy:base:open"))
 SPENDING_KB = InlineKeyboardMarkup()

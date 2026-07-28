@@ -5,16 +5,16 @@ from services.math.economy_math import get_pops_invest_spending
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 
-TERRITORY_KB = InlineKeyboardMarkup()
+TERRITORY_KB = InlineKeyboardMarkup(row_width=2)
 TERRITORY_KB.add(InlineKeyboardButton("Население", callback_data="territory:pops:open"),
                  InlineKeyboardButton("Выбрать город", callback_data = "territory:cities:open"),
                  InlineKeyboardButton("Назад", callback_data = "state:base:open"))
-POPS_KB = InlineKeyboardMarkup()
+POPS_KB = InlineKeyboardMarkup(row_width=3)
 POPS_KB.add(InlineKeyboardButton("-5%", callback_data = "territory:pops:down5"), InlineKeyboardButton("-2%", callback_data = "territory:pops:down2"),
             InlineKeyboardButton("-1%", callback_data = "territory:pops:down1"),InlineKeyboardButton("1%", callback_data = "territory:pops:rise1"),
             InlineKeyboardButton("2%", callback_data = "territory:pops:rise2"),InlineKeyboardButton("5%", callback_data = "territory:pops:rise5"),
             InlineKeyboardButton("Вернуться", callback_data="territory:base:open"))
-CITY_KB = InlineKeyboardMarkup()
+CITY_KB = InlineKeyboardMarkup(row_width=2)
 CITY_KB.add(InlineKeyboardButton("Построить здание", callback_data = "territory:cities:city:build"),
               InlineKeyboardButton("Разграбить", callback_data = "territory:cities:city:raze"),
               InlineKeyboardButton("Вернуться", callback_data = "territory:cities:open"))
@@ -61,10 +61,10 @@ def open_cities_panel(user, chat_id, message_id):
     db.players.update_one({"tg_id": user.id},{
         "$set":{"selected_city":None}
     })
-    cities_kb = InlineKeyboardMarkup()
+    cities_kb = InlineKeyboardMarkup(row_width=3)
     for city in player["cities"]:
         cities_kb.add(InlineKeyboardButton(city["name"], callback_data = f"territory:cities:{city['city_id']}"))
-    cities_kb.add(InlineKeyboardButton("Вернуться", callback_data = "territory:base:open"))
+    cities_kb.row(InlineKeyboardButton("Вернуться", callback_data = "territory:base:open"))
     text = (f"{get_date_move(player)}"
             "\n\n"
             f"Столица: {player['capital']}"

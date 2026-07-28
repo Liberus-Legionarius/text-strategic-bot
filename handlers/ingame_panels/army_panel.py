@@ -7,7 +7,7 @@ from services.math.territory_math import get_total_population
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 
-ARMY_KB = InlineKeyboardMarkup()
+ARMY_KB = InlineKeyboardMarkup(row_width=2)
 ARMY_KB.add(InlineKeyboardButton("Политика призыва", callback_data = "army:mobilization:open"),
             InlineKeyboardButton("Армии", callback_data = "army:armies:open"),
             InlineKeyboardButton("Назад", callback_data = "state:base:open"))
@@ -52,7 +52,7 @@ def open_mobilization_panel(user, chat_id, message_id):
                 f"\t\t- Процент военнообязанных: {get_manpower_percent(player):.2f}%\n"
                 f"\t\t- Статус женской службы: {get_women_at_war(player)}")
 
-        mobilization_kb = InlineKeyboardMarkup()
+        mobilization_kb = InlineKeyboardMarkup(row_width=1)
         for law_id, law in MOBILIZATION_LAWS.items():
                 if not player["national_spirits"][2]["_id"] == str(law_id):
                         mobilization_kb.add(InlineKeyboardButton(law["title"], callback_data = f"army:mobilization:{str(law_id)}"))
@@ -77,13 +77,13 @@ def open_armies_panel(user, chat_id, message_id):
         for a_type in ARMY_TYPES.values():
                 text += f'{str(a_type["title"])} - {len(list(filter(lambda unit: unit["type_id"] == a_type["_id"], player["armies"])))}\n'
 
-        armies_kb = InlineKeyboardMarkup()
+        armies_kb = InlineKeyboardMarkup(row_width=2)
 
         for army in player["armies"]:
                 armies_kb.add(InlineKeyboardButton(f"{army['name']} ({next((city for city in player['cities'] if city['city_id'] == army['city_id']), None)['name']})",
                                                    callback_data = f"army:armies:{army['army_id']}"))
 
-        armies_kb.add(InlineKeyboardButton("Назад", callback_data = "army:base:open"))
+        armies_kb.row(InlineKeyboardButton("Назад", callback_data = "army:base:open"))
 
         bot.edit_message_text(
                 text,
@@ -115,8 +115,8 @@ def open_one_army_panel(user, chat_id, message_id, army_id):
 
         one_army_kb = InlineKeyboardMarkup()
         one_army_kb.add(InlineKeyboardButton("Провести вылазку", callback_data = f"army:campaign:{army_id}"),
-                        InlineKeyboardButton("WIP", callback_data="army:armies:open"),
-                        InlineKeyboardButton("Назад", callback_data="army:armies:open"))
+                        InlineKeyboardButton("WIP", callback_data="army:armies:open"))
+        one_army_kb.row(InlineKeyboardButton("Назад", callback_data="army:armies:open"))
 
         bot.edit_message_text(
                 text,

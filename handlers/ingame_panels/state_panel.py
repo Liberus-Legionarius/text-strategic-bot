@@ -6,9 +6,14 @@ from telebot.types import InlineKeyboardButton
 from services.constants import get_date_move, get_player, get_modifier
 
 PANELS_KB =InlineKeyboardMarkup()
-PANELS_KB.add(InlineKeyboardButton("Экономика", callback_data="economy:base:open"), InlineKeyboardButton("Армия", callback_data="army:base:open"),
-              InlineKeyboardButton("Дипломатия", callback_data="diplomacy:base:open"), InlineKeyboardButton("Территории", callback_data = "territory:base:open"),
-              InlineKeyboardButton("Завершить ход", callback_data="end_move"))
+PANELS_KB.row(InlineKeyboardButton("Экономика", callback_data="economy:base:open"),
+              InlineKeyboardButton("Территории", callback_data = "territory:base:open"))
+PANELS_KB.row(InlineKeyboardButton("Армия", callback_data="army:base:open"),
+              InlineKeyboardButton("Дипломатия", callback_data="diplomacy:base:open"))
+PANELS_KB.row(InlineKeyboardButton("Дневник", callback_data="diary:base:open"))
+PANELS_KB.row(InlineKeyboardButton("Дополнительно...", callback_data="state:extra:open"),
+              InlineKeyboardButton("Настройки", callback_data="settings:open"))
+PANELS_KB.row(InlineKeyboardButton("Завершить ход", callback_data="end_move"))
 
 def open_state_panel(chat_id, user, message_id = None):
     player = get_player(user)

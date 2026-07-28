@@ -57,11 +57,11 @@ def get_buildings_info():
     return text
 
 def get_build_kb(city_id):
-    buildings_kb = InlineKeyboardMarkup()
+    buildings_kb = InlineKeyboardMarkup(row_width=2)
     for building in BUILDINGS.values():
         buildings_kb.add(InlineKeyboardButton(f"{building['title']} ({building['cost']} монет)",
                                               callback_data=f"territory:build:{building['_id']}"))
-    buildings_kb.add(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_id}"))
+    buildings_kb.row(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_id}"))
     return  buildings_kb
 
 def get_modifier(player, modifier):
