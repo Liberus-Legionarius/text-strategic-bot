@@ -15,7 +15,7 @@ PANELS_KB.row(InlineKeyboardButton("Дополнительно...", callback_dat
               InlineKeyboardButton("Настройки", callback_data="settings:open"))
 PANELS_KB.row(InlineKeyboardButton("Завершить ход", callback_data="end_move"))
 
-def open_state_panel(chat_id, user, message_id = None):
+def open_state_panel(user, chat_id, message_id = None):
     player = get_player(user)
 
     total_population = get_total_population(player)
