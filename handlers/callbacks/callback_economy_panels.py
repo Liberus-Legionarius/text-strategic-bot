@@ -13,15 +13,17 @@ def callback_economy(call):
     elif panel == "income":
         panel = call.data.split(':')[2]
         if panel == "rise":
-            db.players.update_one({"tg_id":call.from_user.id, "national_spirits.id": 1},
+            db.players.update_one({"tg_id":call.from_user.id, "countries.id": 0},
                                   {"$inc":{
-                                        "national_spirits.$.stability":-0.05, "national_spirits.$.tax_rate": 0.05
-                                  }})
+                                        "countries.$.national_spirits.1.stability":-0.05,
+                                        "countries.$.national_spirits.1.tax_rate": 0.05}
+                                  })
         elif panel == "down":
-            db.players.update_one({"tg_id": call.from_user.id, "national_spirits.id": 1},
+            db.players.update_one({"tg_id": call.from_user.id, "countries.id": 0},
                                   {"$inc": {
-                                        "national_spirits.$.stability": 0.05, "national_spirits.$.tax_rate": -0.05
-                                  }})
+                                      "countries.$.national_spirits.1.stability": 0.05,
+                                      "countries.$.national_spirits.1.tax_rate": -0.05}
+                                  })
         economy.open_income_panel(call.from_user, call.message.chat.id, call.message.message_id)
     # Расходы.
     elif panel == "spending":
@@ -42,7 +44,7 @@ def callback_economy(call):
                 reply_markup = None
             )
         elif panel == "repay":
-            if db.players.find_one({"tg_id": call.from_user.id})["loans"] > 0:
+            if db.players.find_one({"tg_id": call.from_user.id})["countries"][0]["loans"] > 0:
                 db.players.update_one({"tg_id": call.from_user.id},
                                       {"$set": {
                                             "bot_state": "REPAY_LOAN",

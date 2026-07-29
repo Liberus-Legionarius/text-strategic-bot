@@ -12,8 +12,8 @@ def capital_init(message):
         player = get_player(message.from_user)
         ai_check = ai.check_capital(message.text, player.get("countryname"))
         if name_handler(ai_check, message.chat.id, "название столицы"):
-            db.players.update_one({"tg_id": message.from_user.id},
-                                  {"$set": {"capital": message.text}})
+            db.players.update_one({"tg_id": message.from_user.id, "countries.id":0},
+                                  {"$set": {"countries.$.capital": message.text}})
             this_message = bot.send_message(message.chat.id, "Инициализация практически завершена.\n"
                                               "Но перед тем, как мы начнём, я постараюсь определить, как вы представляете свою страну, какие у вашей страны цели.\n"
                                               "В дальнейшем это позволит мне генерировать максимально подходящие события, аккуратно ведя вас к триумфу выбранной нации.\n"

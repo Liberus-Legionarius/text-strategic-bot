@@ -1,5 +1,5 @@
 from services.bot import bot
-from services.constants import get_player, get_date_move
+from services.constants import get_player, get_date_move, get_country
 from services.modifiers import modifiers_russified, modifiers_units
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
@@ -12,19 +12,19 @@ SPIRITS_KB.add(InlineKeyboardButton("Вернуться", callback_data = "diary
 
 def open_diary_panel(user, chat_id, message_id):
     player = get_player(user)
-
+    player_country = get_country(player, 0)
     goals = "Цели:\n"
-    for goal in player["goals"]:
+    for goal in player_country["goals"]:
         goals += f"\t\t\t- {goal}\n"
 
     ambitions = "Территориальные амбиции:\n"
-    for ambition in player["territorial_ambitions"]:
+    for ambition in player_country["territorial_ambitions"]:
         ambitions += f"\t\t\t- {ambition}\n"
     if ambitions == "Территориальные амбиции:\n":
         ambitions += "\t\t\t- Отсутствуют.\n"
 
     ultimate_goal = ("Абсолютная цель:\n"
-                     f"\t\t\t- {player['ultimate_goal']}")
+                     f"\t\t\t- {player_country['ultimate_goal']}")
 
     text = (f"{get_date_move(player)}"
             "\n\n"
@@ -44,9 +44,9 @@ def open_diary_panel(user, chat_id, message_id):
 
 def open_national_spirits_panel(user, chat_id, message_id):
     player = get_player(user)
-
+    player_country = get_country(player, 0)
     national_spirits = "Наши национальные духи:\n"
-    for spirit in player["national_spirits"]:
+    for spirit in player_country["national_spirits"]:
         national_spirits += f'\n\t\t- {spirit["name"]}\n'
         for key, value in spirit.items():
             if key in modifiers_russified:

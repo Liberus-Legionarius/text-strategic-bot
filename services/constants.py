@@ -26,6 +26,9 @@ MOBILIZATION_LAWS = dict()
 def get_player(user):
     return db.players.find_one({"tg_id": user.id})
 
+def get_country(player, country_id):
+    return player["countries"][country_id]
+
 def get_date_move(player):
     return f"{NUMBER_TO_MONTH[player['date'].month]}, год {player['date'].year}, шаг {player['step']}"
 
@@ -64,9 +67,12 @@ def get_build_kb(city_id):
     buildings_kb.row(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_id}"))
     return  buildings_kb
 
-def get_modifier(player, modifier):
+def get_modifier(country, modifier):
     result = sum(
         spirit[modifier]
-        for spirit in player["national_spirits"] if spirit.get(modifier)
+        for spirit in country["national_spirits"] if spirit.get(modifier)
     )
     return result
+
+def get_city_name(city_id):
+    return db.cities.find_one({"_id":city_id})["name"]

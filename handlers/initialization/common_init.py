@@ -28,14 +28,14 @@ def name_handler(ai_check, id, placeholder):
         return False
 
 def set_details(tg_id, ideology, goals, ultimate_goal, territorial_ambitions, characteristics):
-    db.players.update_one({"tg_id": tg_id}, {
+    db.players.update_one({"tg_id": tg_id, "countries.id":0}, {
         "$set": {
-            "ideology_desc": ideology,
-            "goals": goals,
-            "ultimate_goal": ultimate_goal,
-            "completed_goals": [],
-            "territorial_ambitions": territorial_ambitions,
-            "country_characteristics": characteristics,
+            "countries.$.ideology_desc": ideology,
+            "countries.$.goals": goals,
+            "countries.$.ultimate_goal": ultimate_goal,
+            "countries.$.completed_goals": [],
+            "countries.$.territorial_ambitions": territorial_ambitions,
+            "countries.$.country_characteristics": characteristics,
             "bot_state": "IN_GAME"
         }
     })

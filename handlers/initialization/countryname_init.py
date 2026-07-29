@@ -12,6 +12,6 @@ def texting(message):
         ai_check = ai.check_countryname(message.text)
         if name_handler(ai_check, message.chat.id, "название страны"):
             db.players.update_one({"tg_id": message.from_user.id},
-                            {"$set": {"bot_state": "INIT_IDEOLOGY", "countryname": message.text}})
+                            {"$set": {"bot_state": "INIT_IDEOLOGY", "countries":[{"id":0, "countryname": message.text}]}})
             bot.send_message(message.chat.id, "Раз уж с названием определились, перейдём к идеологии.\n"
                                               "Можете написать любую идеологию, без ограничений.")

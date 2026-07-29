@@ -3,7 +3,7 @@ import services.ai as ai
 from services.math.territory_math import get_total_population
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
-from services.constants import get_date_move, get_player, get_modifier
+from services.constants import get_date_move, get_player, get_modifier, get_city_name
 
 PANELS_KB =InlineKeyboardMarkup()
 PANELS_KB.row(InlineKeyboardButton("Экономика", callback_data="economy:base:open"),
@@ -18,7 +18,7 @@ PANELS_KB.row(InlineKeyboardButton("Завершить ход", callback_data="e
 def open_state_panel(user, chat_id, message_id = None):
     player = get_player(user)
 
-    total_population = get_total_population(player)
+    total_population = get_total_population(player, 0)
     if player["step"] == 1 and not player["ai_plot"]:
         ai_response = ai.write_step_first(player)
         ai_plot = ai_response['response']
@@ -37,15 +37,16 @@ def open_state_panel(user, chat_id, message_id = None):
     else:
         ai_plot = player["ai_plot"]
 
+    player_country = player["countries"][0]
     text = (f"{get_date_move(player)}"
             "\n\n"
-            f"{player['full_countryname']}\n"
-            f"Столица: {player['capital']}"
+            f"{player_country['full_countryname']}\n"
+            f"Столица: {get_city_name(player_country['capital'])}"
             "\n\n"
             f"{ai_plot}"
             "\n\n"
-            f"Стабильность: {get_modifier(player, 'stability')*100:.2f}%\n"
-            f"Милитаризация: {get_modifier(player, 'militarization')*100:.2f}%\n"
+            f"Стабильность: {get_modifier(player_country, 'stability')*100:.2f}%\n"
+            f"Милитаризация: {get_modifier(player_country, 'militarization')*100:.2f}%\n"
             f"Общее население: {total_population:.0f}\n"
-            f"Политическая власть: {player['polit_power']:.0f}")
+            f"Политическая власть: {player_country['polit_power']:.0f}")
     bot.send_message(chat_id,text, reply_markup=PANELS_KB) if not message_id else bot.edit_message_text(text, chat_id = chat_id, message_id = message_id, reply_markup = PANELS_KB)

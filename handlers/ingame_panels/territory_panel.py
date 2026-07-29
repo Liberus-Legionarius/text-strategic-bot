@@ -1,9 +1,10 @@
 from services.bot import db, bot
-from services.constants import get_player, get_date_move, get_buildings_info, get_build_kb
+from services.constants import get_player, get_date_move, get_buildings_info, get_build_kb, get_country, get_city_name
 from services.math.territory_math import *
 from services.math.economy_math import get_pops_invest_spending
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
+from bson import ObjectId
 
 TERRITORY_KB = InlineKeyboardMarkup(row_width=2)
 TERRITORY_KB.add(InlineKeyboardButton("Население", callback_data="territory:pops:open"),
@@ -21,15 +22,15 @@ CITY_KB.add(InlineKeyboardButton("Построить здание", callback_dat
 
 def open_territory_panel(user, chat_id, message_id):
     player = get_player(user)
-
+    player_country = get_country(player, 0)
     text = (f"{get_date_move(player)}"
             "\n\n"
-            f"Столица: {player['capital']}"
+            f"Столица: {get_city_name(player_country['capital'])}"
             "\n\n"
-            f"Количество городов: {len(player['cities'])}\n"
-            f"Общее население: {get_total_population(player)}\n"
-            f"Среднее население: {get_avg_population(player):.0f}\n"
-            f"Крупнейший город: {get_largest_city(player)}")
+            f"Количество городов: {len(get_cities(player, 0))}\n"
+            f"Общее население: {get_total_population(player, 0)}\n"
+            f"Среднее население: {get_avg_population(player, 0):.0f}\n"
+            f"Крупнейший город: {get_largest_city(player, 0)}")
 
     bot.edit_message_text(
         text,
@@ -40,14 +41,14 @@ def open_territory_panel(user, chat_id, message_id):
 
 def open_pops_panel(user, chat_id, message_id):
     player = get_player(user)
-
+    player_country = get_country(player, 0)
     text = (f"{get_date_move(player)}"
             "\n\n"
-            f"Общее население: {get_total_population(player)}\n"
-            f"Рост населения в следующем ходе: {get_next_step_growth(player):.0f}\n"
-            f"Ежемесячный рост населения: {get_percent_pop_growth(player)*100:.2f}%"
+            f"Общее население: {get_total_population(player, 0)}\n"
+            f"Рост населения в следующем ходе: {get_next_step_growth(player, player_country):.0f}\n"
+            f"Ежемесячный рост населения: {get_percent_pop_growth(player_country)*100:.2f}%"
             "\n\n"
-            f"Расходы на рост населения: {get_pops_invest_spending(player):.2f} монет в ход")
+            f"Расходы на рост населения: {get_pops_invest_spending(player, player_country):.2f} монет в ход")
 
     bot.edit_message_text(
         text,
@@ -58,21 +59,23 @@ def open_pops_panel(user, chat_id, message_id):
 
 def open_cities_panel(user, chat_id, message_id):
     player = get_player(user)
+    country_player = get_country(player, 0)
     db.players.update_one({"tg_id": user.id},{
         "$set":{"selected_city":None}
     })
     cities_kb = InlineKeyboardMarkup(row_width=3)
-    for city in player["cities"]:
-        cities_kb.add(InlineKeyboardButton(city["name"], callback_data = f"territory:cities:{city['city_id']}"))
+    cities = get_cities(player, 0)
+    for city in cities:
+        cities_kb.add(InlineKeyboardButton(city["name"], callback_data = f"territory:cities:{str(city['_id'])}"))
     cities_kb.row(InlineKeyboardButton("Вернуться", callback_data = "territory:base:open"))
     text = (f"{get_date_move(player)}"
             "\n\n"
-            f"Столица: {player['capital']}"
+            f"Столица: {get_city_name(country_player['capital'])}"
             "\n\n"
-            f"Количество городов: {len(player['cities'])}\n"
-            f"Общее население: {get_total_population(player)}\n"
-            f"Среднее население: {get_avg_population(player):.0f}\n"
-            f"Крупнейший город: {get_largest_city(player)}")
+            f"Количество городов: {len(get_cities(player, 0))}\n"
+            f"Общее население: {get_total_population(player, 0)}\n"
+            f"Среднее население: {get_avg_population(player, 0):.0f}\n"
+            f"Крупнейший город: {get_largest_city(player, 0)}")
 
     bot.edit_message_text(
         text,
@@ -83,13 +86,14 @@ def open_cities_panel(user, chat_id, message_id):
 
 def open_one_city_panel(user, chat_id, message_id, city_id):
     player = get_player(user)
-    city_id = int(city_id)
-    city = next((city for city in player["cities"] if city["city_id"] == city_id), None)
+    player_country = get_country(player, 0)
+    city_id = ObjectId(city_id)
+    city = next((city for city in get_cities(player, 0) if city["_id"] == city_id), None)
     text = (f"{get_date_move(player)}"
             "\n\n"
             f"Население: {city['population']}\n"
-            f"Доход с налогов: {get_one_city_tax_income(player, city):.2f} монет в ход\n"
-            f"Доход от зданий: {get_prod_city_income(city, player):.2f} монет в ход\n"
+            f"Доход с налогов: {get_one_city_tax_income(player_country, city):.2f} монет в ход\n"
+            f"Доход от зданий: {get_prod_city_income(player_country, city):.2f} монет в ход\n"
             f"Здания: {get_buildings(city)}")
 
     db.players.update_one({"tg_id":user.id},
@@ -106,10 +110,10 @@ def open_one_city_panel(user, chat_id, message_id, city_id):
 
 def open_buildings_panel(user, chat_id, message_id, city_id):
     player = get_player(user)
-
+    country_player = get_country(player, 0)
     text = (f"{get_date_move(player)}"
             "\n\n"
-            f"Казна: {player['money']:.2f}"
+            f"Казна: {country_player['money']:.2f}"
             "\n"
             f"{get_buildings_info()}"
             "\n\n"

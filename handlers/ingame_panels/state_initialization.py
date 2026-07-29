@@ -7,16 +7,16 @@ from services.constants import MOBILIZATION_LAWS
 def init_state(user):
     player = db.players.find_one({"tg_id":user.id})
     data = ai.write_step_first(player)
-    print(data["response"])
-    print(data)
     capital = {
-        "city_id":0,
-        "name":player["capital"],
+        "player_id":player["tg_id"],
+        "name":player["countries"][0]["capital"],
+        "owner":0,
+        "controller":0,
         "population":data["capital_population"],
         "buildings":[],
-        "contacted_with":[],
-        "is_capital":True
+        "contacted_with":[]
     }
+    city = db.cities.insert_one(capital)
 
     armies = []
 
@@ -25,7 +25,7 @@ def init_state(user):
             {
                 "army_id":i,
                 "name":army["name"],
-                "city_id": 0,
+                "city_id": city.inserted_id,
                 "type_id": ObjectId(army["type_id"])
             }
         )
@@ -52,20 +52,22 @@ def init_state(user):
     }
 
     db.players.update_one({
-        "tg_id":user.id},{
+        "tg_id":user.id, "countries.id":0},{
         "$set":{
-            "polit_power": data["polit_power"],
-            "armies":armies,
-            "money": data["money"],
-            "loans":0.0,
-            "interest": 0.04,
-            "cities":[capital],
+            "countries.$.capital": city.inserted_id,
+            "countries.$.armies": armies,
+            "countries.$.polit_power": data["polit_power"],
+            "countries.$.money": data["money"],
+            "countries.$.loans": 0.0,
+            "countries.$.interest": 0.04,
+            "countries.$.campaigns": [],
+            "countries.$.national_spirits": [data["national_spirit"], taxes_politic, mobilization_law, invest_in_pop_growth],
+            "countries.$.is_player": True,
             "date":datetime(3057, data["month"], 1),
             "step":1,
             "ai_plot":data["response"],
-            "campaigns":[],
-            "national_spirits":[data["national_spirit"], taxes_politic, mobilization_law, invest_in_pop_growth],
             "actions":[],
             "history":[]
         }
     })
+

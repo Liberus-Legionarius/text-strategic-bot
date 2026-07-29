@@ -12,5 +12,5 @@ def ideology_init(message):
         if name_handler(ai_check, message.chat.id, "полное название страны"):
             bot.send_message(message.chat.id, "Отлично, теперь остаётся только выбрать столицу вашей страны.\n"
                                               "К слову, ваша столица в начале будет единственным городом, которым вы владеете.")
-            db.players.update_one({"tg_id": message.from_user.id},
-                                  {"$set": {"bot_state": "INIT_CAPITAL", "full_countryname": message.text}})
+            db.players.update_one({"tg_id": message.from_user.id, "countries.id":0},
+                                  {"$set": {"bot_state": "INIT_CAPITAL", "countries.$.full_countryname": message.text}})
