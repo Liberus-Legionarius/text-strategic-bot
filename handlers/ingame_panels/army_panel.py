@@ -6,6 +6,7 @@ from services.math.economy_math import get_prod_units_consumption, get_prod_unit
 from services.math.territory_math import get_total_population, get_cities
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
+from bson import ObjectId
 
 ARMY_KB = InlineKeyboardMarkup(row_width=2)
 ARMY_KB.add(InlineKeyboardButton("Политика призыва", callback_data = "army:mobilization:open"),
@@ -94,27 +95,13 @@ def open_armies_panel(user, chat_id, message_id):
 def open_one_army_panel(user, chat_id, message_id, army_id):
         player = get_player(user)
         player_country = get_country(player, 0)
-        army = next((a for a in player_country["armies"] if str(a["army_id"]) == army_id), None)
+        army = get_army(player_country, army_id)
 
         text = (f"{get_date_move(player)}"
                 "\n\n"
                 f"Название подразделения: {army['name']}"
                 "\n\n"
-                f"Тип: {get_army_type(army)['title']}\n"
-                f"Боевая мощь: {get_army_type(army)['power']}"
-                "\n\n"
-                f"Очки здоровья: {army['hp']}/{get_army_type(army)['hp']}\n"
-                f"Боевой дух: {army['morale']}/{get_army_type(army)['morale']}"
-                "\n\n"
-                f"Атака: {get_army_type(army)['attack']}\n"
-                f"Бронебойность: {get_army_type(army)['armour_piercing']}\n"
-                f"Защита: {get_army_type(army)['defense']}\n"
-                f"Является бронированным: {get_is_armour(army)}"
-                "\n\n"
-                f"Противодействует: {get_army_counteracts(army)}"
-                "\n\n"
-                f"Расходы производства: {get_army_type(army)['prod_units_consumption']}\n"
-                f"Ежемесячные расходы: {get_army_type(army)['per_unit_spending']}")
+                f"{get_unit_types_info(get_army_type(army), army)}")
 
         one_army_kb = InlineKeyboardMarkup(row_width = 2)
         one_army_kb.add(InlineKeyboardButton("Реорганизовать", callback_data = f"army:armies:{army_id}:reorganize"),
@@ -133,7 +120,7 @@ def open_one_army_panel(user, chat_id, message_id, army_id):
 def open_campaign_panel(user, chat_id, message_id, army_id):
         player = get_player(user)
         player_country = get_country(player, 0)
-        army = next((a for a in player_country["armies"] if str(a["army_id"]) == army_id), None)
+        army = get_army(player_country, army_id)
         city = next((c for c in get_cities(player, player_country['id']) if c["_id"] == army["city_id"]), None)
 
         text = (f"{get_date_move(player)}"
@@ -188,3 +175,64 @@ def open_delete_confirmation(user, chat_id, message_id, army_id):
                 reply_markup=deletion_kb
         )
 
+def open_army_reorganize(user, chat_id, message_id, army_id):
+        player = get_player(user)
+        player_country = get_country(player, 0)
+
+        text = (f"{get_date_move(player)}"
+                "\n\n"
+                f"Ваша казна составляет {player_country['money']}\n"
+                "Выберите один из предложенных типов армейских подразделений.\n")
+        army = get_army(player_country, army_id)
+        types_kb = InlineKeyboardMarkup(row_width = 3)
+        for army_type in ARMY_TYPES.values():
+                if not army_type["_id"] == army["type_id"]:
+                        types_kb.add(InlineKeyboardButton(f'{army_type["title"]} ({get_reorganization_cost(army, army_type):.2f})', callback_data = f"army:armies:{army_id}:reorganize:{army_type['_id']}"))
+        types_kb.row(InlineKeyboardButton("Вернуться", callback_data = f"army:armies:{army_id}"))
+
+        bot.edit_message_text(
+                text,
+                chat_id=chat_id,
+                message_id=message_id,
+                reply_markup=types_kb
+        )
+
+def open_army_reorganize_unit_info(user, chat_id, message_id, army_id, type_id):
+        player = get_player(user)
+        player_country = get_country(player, 0)
+        army = get_army(player_country, army_id)
+        army_type = ARMY_TYPES[ObjectId(type_id)]
+        text = (f"{get_date_move(player)}"
+                "\n\n"
+                f"{get_unit_types_info(army_type, army, True)}"
+                "\n\n"
+                f'Стоимость реорганизации: {get_reorganization_cost(army, army_type):.2f}'
+                "\n\n"
+                "Вы согласны на реорганизацию данного подразделения?")
+
+        reorganize_kb = InlineKeyboardMarkup()
+        reorganize_kb.row(InlineKeyboardButton("Да", callback_data = f"army:armies:{army_id}:reorganize:{type_id}:yes"),
+                          InlineKeyboardButton("Нет", callback_data = f"army:armies:{army_id}"))
+
+        bot.edit_message_text(
+                text,
+                chat_id=chat_id,
+                message_id=message_id,
+                reply_markup=reorganize_kb
+        )
+
+def get_unit_types_info(type, army, is_upgrade = False):
+        was_type = get_army_type(army)
+        return (f"Тип: {type['title']}\n"
+                f"Боевая мощь: {str(was_type['power']) + ' --> ' + str(type['power']) if is_upgrade else type['power']}"
+                "\n\n"
+                f"Очки здоровья: {str(was_type['hp']) + ' --> ' + str(type['hp']) if is_upgrade else str(army['hp']) + '/' + str(type['hp'])}\n"
+                f"Боевой дух: {str(was_type['morale']) + ' --> ' + str(type['morale']) if is_upgrade else str(army['morale']) + '/' + str(type['morale'])}"
+                "\n\n"
+                f"Атака: {str(was_type['attack']) + ' --> ' + str(type['attack']) if is_upgrade else type['attack']}\n"
+                f"Бронебойность: {str(was_type['armour_piercing']) + ' --> ' + str(type['armour_piercing']) if is_upgrade else type['armour_piercing']}\n"
+                f"Защита: {str(was_type['defense']) + ' --> ' + str(type['defense']) if is_upgrade else type['defense']}\n"
+                f"Является бронированным: {get_is_armour(was_type) + ' --> ' + get_is_armour(type) if is_upgrade else get_is_armour(type)}"
+                "\n\n") + (f"Противодействовал: {get_army_counteracts(was_type)}\nБудет противодействовать: {get_army_counteracts(type)}" if is_upgrade else f"Противодействует: {get_army_counteracts(type)}") + ("\n\n"
+                f"Расходы производства: {str(was_type['prod_units_consumption']) + ' --> ' + str(type['prod_units_consumption']) if is_upgrade else type['prod_units_consumption']}\n"
+                f"Ежемесячные расходы: {str(was_type['per_unit_spending']) + ' --> ' + str(type['per_unit_spending']) if is_upgrade else type['per_unit_spending']}")

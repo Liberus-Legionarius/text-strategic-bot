@@ -1,7 +1,9 @@
 from services.bot import bot, db
 from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel, open_armies_panel, \
-    open_one_army_panel, open_campaign_panel, open_delete_confirmation, open_army_reorganize, open_army_move_selection
-from services.constants import MOBILIZATION_LAWS, get_player, get_country
+    open_one_army_panel, open_campaign_panel, open_delete_confirmation, open_army_reorganize, open_army_move_selection, \
+    open_army_reorganize_unit_info, open_army_unit_formation
+from services.math.army_math import get_army, get_reorganization_cost
+from services.constants import MOBILIZATION_LAWS, get_player, get_country, ARMY_TYPES
 from bson import ObjectId
 
 from services.math.army_math import get_army_type
@@ -39,7 +41,7 @@ def callback_army(call):
                 if len(datas) > 4:
                     if datas[4] == "yes":
                         player = get_player(call.from_user)
-                        army = next((army for army in get_country(player, 0)["armies"] if str(army["army_id"]) == panel), None)
+                        army = get_army(get_country(player, 0), panel)
                         cost = get_army_type(army)["cost"]*army["size"]/2
                         db.players.update_one({"tg_id": call.from_user.id, "countries.id":0},
                                               {
@@ -62,6 +64,29 @@ def callback_army(call):
                         open_one_army_panel(call.from_user, call.message.chat.id, call.message.message_id, panel)
                 else:
                     open_delete_confirmation(call.from_user, call.message.chat.id, call.message.message_id, panel)
+            elif datas[3] == "reorganize":
+                if len(datas) > 4:
+                    army_type = ARMY_TYPES[ObjectId(datas[4])]
+                    army = get_army(get_country(get_player(call.from_user), 0), datas[2])
+                    cost = get_reorganization_cost(army, army_type)
+                    if len(datas) == 5 and get_country(get_player(call.from_user), 0)["money"] >= cost:
+                        open_army_reorganize_unit_info(call.from_user, call.message.chat.id, call.message.message_id, panel, datas[4])
+                    elif len(datas) == 6:
+                        if datas[5] == "yes":
+                            a = db.players.find_one({"tg_id":call.from_user.id, "countries.armies.army_id":int(panel)})
+                            print(next((s for s in a["countries"][0]["armies"] if s["army_id"] == int(panel)), None)["size"])
+                            db.players.update_one({"tg_id":call.from_user.id, "countries.0.armies.army_id":int(panel)},
+                                                  {
+                                                      "$set":{
+                                                          "countries.0.armies.$.type_id": ObjectId(datas[4])
+                                                      },
+                                                      "$inc":{
+                                                          "countries.0.money": -cost
+                                                      }
+                                                  })
+                        open_one_army_panel(call.from_user, call.message.chat.id, call.message.message_id, panel)
+            elif datas[3] == "move":
+                pass
     elif panel == "campaign":
         datas = call.data.split(":")
         if len(datas) < 4:
@@ -74,7 +99,7 @@ def callback_army(call):
 def start_campaign(user, army_id, cost):
     player = get_player(user)
     country = get_country(player, 0)
-    army = next((army for army in country["armies"] if str(army["army_id"]) == army_id), None)
+    army = get_army(country, army_id)
     city = next((city for city in get_cities(player, 0) if city["_id"] == army["city_id"]), None)
     db.players.update_one({"tg_id":user.id, "countries.id":0},
                           {"$push":{
