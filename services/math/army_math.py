@@ -1,6 +1,7 @@
 from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier
 from services.math.territory_math import get_total_population
 from services.math.economy_math import get_prod_units_consumption, get_prod_units
+from bson import ObjectId
 
 def get_army_power(country):
     return sum(
@@ -22,7 +23,8 @@ def get_women_at_war(country):
     return 'разрешена' if f else 'запрещена'
 
 def get_army_type(army):
-    return ARMY_TYPES[army["type_id"]]
+    key = (ObjectId(army["type_id"]) if isinstance(army["type_id"], str) else army["type_id"])
+    return ARMY_TYPES[key]
 
 def get_is_armour(army):
     return "Да" if get_army_type(army)["is_armour"] else "Нет"

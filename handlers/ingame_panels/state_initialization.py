@@ -3,6 +3,8 @@ import services.ai as ai
 from datetime import datetime
 from bson import ObjectId
 from services.constants import MOBILIZATION_LAWS
+from services.math.army_math import get_army_type
+
 
 def init_state(user):
     player = db.players.find_one({"tg_id":user.id})
@@ -26,6 +28,8 @@ def init_state(user):
                 "army_id":i,
                 "name":army["name"],
                 "size":1,
+                "hp":get_army_type(army)["hp"],
+                "morale":get_army_type(army)["morale"],
                 "city_id": city.inserted_id,
                 "type_id": ObjectId(army["type_id"])
             }
