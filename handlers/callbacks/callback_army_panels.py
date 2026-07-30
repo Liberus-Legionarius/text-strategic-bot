@@ -1,8 +1,9 @@
+from handlers.ingame_panels.territory_panel import open_one_city_panel
 from services.bot import bot, db
 from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel, open_armies_panel, \
     open_one_army_panel, open_campaign_panel, open_delete_confirmation, open_army_reorganize, open_army_move_selection, \
-    open_army_reorganize_unit_info, open_army_unit_formation
-from services.math.army_math import get_army, get_reorganization_cost
+    open_army_reorganize_unit_info, open_army_creation_panel
+from services.math.army_math import get_army, get_reorganization_cost, get_manpower
 from services.constants import MOBILIZATION_LAWS, get_player, get_country, ARMY_TYPES
 from bson import ObjectId
 
@@ -85,6 +86,8 @@ def callback_army(call):
                                                       }
                                                   })
                         open_one_army_panel(call.from_user, call.message.chat.id, call.message.message_id, panel)
+                else:
+                    open_army_reorganize(call.from_user, call.message.chat.id, call.message.message_id, panel)
             elif datas[3] == "move":
                 pass
     elif panel == "campaign":
@@ -95,6 +98,34 @@ def callback_army(call):
             if get_country(get_player(call.from_user), 0)["money"] >= int(datas[3]):
                 start_campaign(call.from_user, datas[2], int(datas[3]))
                 open_armies_panel(call.from_user, call.message.chat.id, call.message.message_id)
+    elif panel == "create":
+        datas = call.data.split(":")
+        player = get_player(call.from_user)
+        country = get_country(player, 0)
+        if get_manpower(player, country) >= 100 and db.cities.find_one({"_id":ObjectId(datas[2])})["population"] >= 250:
+            if len(datas) == 4:
+                i = max(country["armies"], key = lambda a: a["army_id"])["army_id"] + 1
+                a_type = ARMY_TYPES[ObjectId(datas[3])]
+                db.players.update_one({"tg_id":player["tg_id"]},
+                                      {
+                                          "$push":{
+                                              "countries.0.armies":{
+                                                  "army_id":i,
+                                                  "name": f"Армия №{i}",
+                                                  "size": 1,
+                                                  "hp": a_type["hp"],
+                                                  "morale": a_type["morale"],
+                                                  "city_id": ObjectId(datas[2]),
+                                                  "type_id": ObjectId(datas[3])
+                                              }
+                                          },
+                                          "$inc":{
+                                              "countries.0.money": -a_type["cost"]
+                                          }
+                                      })
+                open_one_city_panel(call.from_user, call.message.chat.id, call.message.message_id, datas[2])
+            else:
+                open_army_creation_panel(call.from_user, call.message.chat.id, call.message.message_id, datas[2])
 
 def start_campaign(user, army_id, cost):
     player = get_player(user)

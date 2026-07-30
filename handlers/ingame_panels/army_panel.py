@@ -221,6 +221,32 @@ def open_army_reorganize_unit_info(user, chat_id, message_id, army_id, type_id):
                 reply_markup=reorganize_kb
         )
 
+def open_army_move_selection(user, chat_id, message_id, army_id):
+        pass
+
+def open_army_creation_panel(user, chat_id, message_id, city_id):
+        player = get_player(user)
+        player_country = get_country(player, 0)
+
+        text = (f"{get_date_move(player)}"
+                "\n\n"
+                f"Типы армейских юнитов: {get_unit_types_info_foreach()}"
+                f"Ваша казна составляет: {player_country['money']} монет")
+
+        types_kb = InlineKeyboardMarkup(row_width=3)
+        for army_type in ARMY_TYPES.values():
+                types_kb.add(InlineKeyboardButton(
+                        f'{army_type["title"]} ({army_type["cost"]:.2f})',
+                        callback_data=f"army:create:{city_id}:{army_type['_id']}"))
+        types_kb.row(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_id}"))
+
+        bot.edit_message_text(
+                text,
+                chat_id=chat_id,
+                message_id=message_id,
+                reply_markup=types_kb
+        )
+
 def get_unit_types_info(type, army, is_upgrade = False):
         was_type = get_army_type(army)
         return (f"Тип: {type['title']}\n"
@@ -236,3 +262,19 @@ def get_unit_types_info(type, army, is_upgrade = False):
                 "\n\n") + (f"Противодействовал: {get_army_counteracts(was_type)}\nБудет противодействовать: {get_army_counteracts(type)}" if is_upgrade else f"Противодействует: {get_army_counteracts(type)}") + ("\n\n"
                 f"Расходы производства: {str(was_type['prod_units_consumption']) + ' --> ' + str(type['prod_units_consumption']) if is_upgrade else type['prod_units_consumption']}\n"
                 f"Ежемесячные расходы: {str(was_type['per_unit_spending']) + ' --> ' + str(type['per_unit_spending']) if is_upgrade else type['per_unit_spending']}")
+
+def get_unit_types_info_foreach():
+        text = ""
+        for a_type in ARMY_TYPES.values():
+                text += (f"\n{a_type['title']}\n"
+                         f"Боевая мощь: {a_type['power']}\n"
+                         f"Очки здоровья: {a_type['hp']}\n"
+                         f"Боевой дух: {a_type['morale']}]\n"
+                         f"Атака: {a_type['attack']}\n"
+                         f"Бронебойность: {a_type['armour_piercing']}\n"
+                         f"Защита: {a_type['defense']}\n"
+                         f"Является бронированным: {get_is_armour(a_type)}\n"
+                         f"Противодействует: {get_army_counteracts(a_type)}\n"
+                         f"Расходы производства: {a_type['prod_units_consumption']}\n"
+                         f"Ежемесячные расходы: {a_type['per_unit_spending']}\n\n")
+        return text

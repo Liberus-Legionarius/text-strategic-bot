@@ -1,5 +1,5 @@
 from services.bot import db, bot
-from services.constants import get_player, get_date_move, get_buildings_info, get_build_kb, get_country, get_city_name
+from services.constants import get_player, get_date_move, get_buildings_info, get_country, get_city_name
 from services.math.territory_math import *
 from services.math.economy_math import get_pops_invest_spending
 from telebot.types import InlineKeyboardMarkup
@@ -15,10 +15,6 @@ POPS_KB.add(InlineKeyboardButton("-5%", callback_data = "territory:pops:down5"),
             InlineKeyboardButton("-1%", callback_data = "territory:pops:down1"),InlineKeyboardButton("1%", callback_data = "territory:pops:rise1"),
             InlineKeyboardButton("2%", callback_data = "territory:pops:rise2"),InlineKeyboardButton("5%", callback_data = "territory:pops:rise5"),
             InlineKeyboardButton("Вернуться", callback_data="territory:base:open"))
-CITY_KB = InlineKeyboardMarkup(row_width=2)
-CITY_KB.add(InlineKeyboardButton("Построить здание", callback_data = "territory:cities:city:build"),
-              InlineKeyboardButton("Разграбить", callback_data = "territory:cities:city:raze"),
-              InlineKeyboardButton("Вернуться", callback_data = "territory:cities:open"))
 
 def open_territory_panel(user, chat_id, message_id):
     player = get_player(user)
@@ -96,16 +92,17 @@ def open_one_city_panel(user, chat_id, message_id, city_id):
             f"Доход от зданий: {get_prod_city_income(player_country, city):.2f} монет в ход\n"
             f"Здания: {get_buildings(city)}")
 
-    db.players.update_one({"tg_id":user.id},
-                          {
-                              "$set":{"selected_city":f"{city_id}"}
-                          })
+    city_kb = InlineKeyboardMarkup(row_width=3)
+    city_kb.add(InlineKeyboardButton("Построить здание", callback_data=f"territory:cities:{city_id}:build"),
+                InlineKeyboardButton("Разграбить", callback_data=f"territory:cities:{city_id}:raze"),
+                InlineKeyboardButton("Нанять армию", callback_data=f"army:create:{city_id}"),
+                InlineKeyboardButton("Вернуться", callback_data="territory:cities:open"))
 
     bot.edit_message_text(
         text,
         chat_id=chat_id,
         message_id=message_id,
-        reply_markup=CITY_KB
+        reply_markup=city_kb
     )
 
 def open_buildings_panel(user, chat_id, message_id, city_id):
@@ -119,7 +116,11 @@ def open_buildings_panel(user, chat_id, message_id, city_id):
             "\n\n"
             f"Учитывайте, что вы не можете построить ничего, что сделает казну отрицательной.")
 
-    buildings_kb = get_build_kb(city_id)
+    buildings_kb = InlineKeyboardMarkup(row_width=2)
+    for building in BUILDINGS.values():
+        buildings_kb.add(InlineKeyboardButton(f"{building['title']} ({building['cost']} монет)",
+                                              callback_data=f"territory:build:{city_id}:{building['_id']}"))
+    buildings_kb.row(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_id}"))
 
     bot.edit_message_text(
         text,
