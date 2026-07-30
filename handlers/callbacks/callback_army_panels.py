@@ -1,6 +1,6 @@
 from services.bot import bot, db
 from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel, open_armies_panel, \
-    open_one_army_panel, open_campaign_panel
+    open_one_army_panel, open_campaign_panel, open_delete_confirmation, open_army_reorganize, open_army_move_selection
 from services.constants import MOBILIZATION_LAWS, get_player, get_country
 from bson import ObjectId
 
@@ -32,7 +32,36 @@ def callback_army(call):
         if panel == "open":
             open_armies_panel(call.from_user, call.message.chat.id, call.message.message_id)
         else:
-            open_one_army_panel(call.from_user, call.message.chat.id, call.message.message_id, panel)
+            datas = call.data.split(":")
+            if len(datas) < 4:
+                open_one_army_panel(call.from_user, call.message.chat.id, call.message.message_id, panel)
+            elif datas[3] == "delete":
+                if len(datas) > 4:
+                    if datas[4] == "yes":
+                        player = get_player(call.from_user)
+                        army = next((army for army in get_country(player, 0)["armies"] if str(army["army_id"]) == panel), None)
+                        cost = get_army_type(army)["cost"]*army["size"]/2
+                        db.players.update_one({"tg_id": call.from_user.id, "countries.id":0},
+                                              {
+                                                  "$pull":{
+                                                      "countries.$.armies":army
+                                                  },
+                                                  "$inc":{
+                                                      "countries.$.money":cost
+                                                  }
+                                              })
+                        to_inc = army["size"]*100/len(get_cities(player, 0))
+                        db.cities.update_many({"player_id":player["tg_id"], "owner":0},
+                                             {
+                                                 "$inc":{
+                                                     "population":to_inc
+                                                 }
+                                             })
+                        open_armies_panel(call.from_user, call.message.chat.id, call.message.message_id)
+                    elif datas[4] == "no":
+                        open_one_army_panel(call.from_user, call.message.chat.id, call.message.message_id, panel)
+                else:
+                    open_delete_confirmation(call.from_user, call.message.chat.id, call.message.message_id, panel)
     elif panel == "campaign":
         datas = call.data.split(":")
         if len(datas) < 4:
@@ -54,7 +83,7 @@ def start_campaign(user, army_id, cost):
                                     "cost": cost,
                                     "army":army
                                 },
-                                "countries.$.actions":f"Армия '{army['name']}' типа {get_army_type(army)['title']}, размещённая в городе {city['name']}, "
+                                "actions":f"Армия '{army['name']}' типа {get_army_type(army)['title']}, размещённая в городе {city['name']}, "
                                           f"отправилась в исследовательскую экспедицию. Стоимость экспедиции составила {cost} монет."
                           },
                           "$pull":{

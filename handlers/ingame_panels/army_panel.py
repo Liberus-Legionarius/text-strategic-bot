@@ -112,9 +112,11 @@ def open_one_army_panel(user, chat_id, message_id, army_id):
                 f"Расходы производства: {get_army_type(army)['prod_units_consumption']}\n"
                 f"Ежемесячные расходы: {get_army_type(army)['per_unit_spending']}")
 
-        one_army_kb = InlineKeyboardMarkup()
-        one_army_kb.add(InlineKeyboardButton("Провести вылазку", callback_data = f"army:campaign:{army_id}"),
-                        InlineKeyboardButton("WIP", callback_data="army:armies:open"))
+        one_army_kb = InlineKeyboardMarkup(row_width = 2)
+        one_army_kb.add(InlineKeyboardButton("Реорганизовать", callback_data = f"army:armies:{army_id}:reorganize"),
+                        InlineKeyboardButton("Расформировать", callback_data = f"army:armies:{army_id}:delete"),
+                        InlineKeyboardButton("Переместить", callback_data = f"army:armies:{army_id}:move"),
+                        InlineKeyboardButton("Провести вылазку", callback_data = f"army:campaign:{army_id}"))
         one_army_kb.row(InlineKeyboardButton("Назад", callback_data="army:armies:open"))
 
         bot.edit_message_text(
@@ -165,3 +167,20 @@ def open_campaign_started_panel(user, chat_id, message_id, city_name, army_name)
                 message_id=message_id,
                 reply_markup=BACK_TO_ARMIES_KB
         )
+
+def open_delete_confirmation(user, chat_id, message_id, army_id):
+        player = get_player(user)
+        player_country = get_country(player, 0)
+        text = "Вы уверены, что хотите расформировать подразделение?"
+
+        deletion_kb = InlineKeyboardMarkup()
+        deletion_kb.row(InlineKeyboardButton("Да", callback_data= f"army:armies:{army_id}:delete:yes"),
+                        InlineKeyboardButton("Нет", callback_data= f"army:armies:{army_id}:delete:no"))
+
+        bot.edit_message_text(
+                text,
+                chat_id=chat_id,
+                message_id=message_id,
+                reply_markup=deletion_kb
+        )
+

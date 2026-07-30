@@ -25,6 +25,7 @@ def init_state(user):
             {
                 "army_id":i,
                 "name":army["name"],
+                "size":1,
                 "city_id": city.inserted_id,
                 "type_id": ObjectId(army["type_id"])
             }

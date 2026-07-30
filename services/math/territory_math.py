@@ -6,7 +6,7 @@ def get_total_population(player, country_id):
     return sum(
         city["population"]
         for city in cities
-    ) + len(player["countries"][country_id]["armies"]) * 1000
+    )
 
 def get_avg_population(player, country_id):
     return get_total_population(player, country_id)/len(get_cities(player, country_id))
