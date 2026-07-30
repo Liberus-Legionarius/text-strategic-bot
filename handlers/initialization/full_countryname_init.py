@@ -8,7 +8,8 @@ import services.ai as ai
 def ideology_init(message):
     if check_format(PATTERN_UPPERCASE, message.text, message.chat.id):
         player = get_player(message.from_user)
-        ai_check = ai.check_fullname(message.text, player.get("countryname"), player.get("ideology"))
+        ai_check = ai.check_fullname(message.text, player["countries"][0]["countryname"], player.get("ideology"))
+        print(ai_check.get("refusal_description"))
         if name_handler(ai_check, message.chat.id, "полное название страны"):
             bot.send_message(message.chat.id, "Отлично, теперь остаётся только выбрать столицу вашей страны.\n"
                                               "К слову, ваша столица в начале будет единственным городом, которым вы владеете.")

@@ -10,7 +10,7 @@ from telebot.types import InlineKeyboardButton
 def capital_init(message):
     if check_format(PATTERN_UPPERCASE, message.text, message.chat.id):
         player = get_player(message.from_user)
-        ai_check = ai.check_capital(message.text, player.get("countryname"))
+        ai_check = ai.check_capital(message.text, player["countries"][0].get("countryname"))
         if name_handler(ai_check, message.chat.id, "название столицы"):
             db.players.update_one({"tg_id": message.from_user.id, "countries.id":0},
                                   {"$set": {"countries.$.capital": message.text}})
