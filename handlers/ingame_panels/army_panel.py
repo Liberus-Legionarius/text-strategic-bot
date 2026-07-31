@@ -54,9 +54,14 @@ def open_mobilization_panel(user, chat_id, message_id):
                 f"\t\t- Статус женской службы: {get_women_at_war(player_country)}")
 
         mobilization_kb = InlineKeyboardMarkup(row_width=1)
-        for law_id, law in MOBILIZATION_LAWS.items():
-                if not player_country["national_spirits"][2]["_id"] == str(law_id):
-                        mobilization_kb.add(InlineKeyboardButton(law["title"], callback_data = f"army:mobilization:{str(law_id)}"))
+        if get_is_pacifism(player_country):
+                text += ("\n\n"
+                         "К сожалению, вы пацифист, а это означает, что вам запрещено менять законы о призыве и как-либо расширять свою армию.\n"
+                         "Впрочем, если у вас уже есть армия, никто не запрещает её реорганизовать в более профессиональные подразделения.")
+        else:
+                for law_id, law in MOBILIZATION_LAWS.items():
+                        if not player_country["national_spirits"][2]["_id"] == str(law_id) and not law.get("is_pacifism"):
+                                mobilization_kb.add(f'{InlineKeyboardButton(law["title"])} (150 пп)', callback_data = f"army:mobilization:{str(law_id)}")
         mobilization_kb.add(InlineKeyboardButton("Вернуться", callback_data = "army:base:open"))
         bot.edit_message_text(
                 text,

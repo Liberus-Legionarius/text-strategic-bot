@@ -3,7 +3,7 @@ from services.bot import bot, db
 from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel, open_armies_panel, \
     open_one_army_panel, open_campaign_panel, open_delete_confirmation, open_army_reorganize, open_army_move_selection, \
     open_army_reorganize_unit_info, open_army_creation_panel
-from services.math.army_math import get_army, get_reorganization_cost, get_manpower
+from services.math.army_math import get_army, get_reorganization_cost, get_manpower, get_is_pacifism
 from services.constants import MOBILIZATION_LAWS, get_player, get_country, ARMY_TYPES
 from bson import ObjectId
 
@@ -24,7 +24,7 @@ def callback_army(call):
             country = get_country(player, 0)
             if law in MOBILIZATION_LAWS.keys() and not law == country["national_spirits"][2]["_id"]:
                 to_add = MOBILIZATION_LAWS[law]
-                to_add.update({"name":"Политика призыва"})
+                to_add.update({"id":2, "name":"Политика призыва", "_id": call.data.split(":")[2]})
                 db.players.update_one({"tg_id":call.from_user.id, "countries.id":0},
                                       {"$set":{"countries.$.national_spirits.2":to_add}})
                 open_mobilization_panel(call.from_user, call.message.chat.id, call.message.message_id)
@@ -102,6 +102,8 @@ def callback_army(call):
         datas = call.data.split(":")
         player = get_player(call.from_user)
         country = get_country(player, 0)
+        if get_is_pacifism(country):
+            return
         if get_manpower(player, country) >= 100 and db.cities.find_one({"_id":ObjectId(datas[2])})["population"] >= 250:
             if len(datas) == 4:
                 i = max(country["armies"], key = lambda a: a["army_id"])["army_id"] + 1
