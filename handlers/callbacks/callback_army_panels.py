@@ -22,11 +22,13 @@ def callback_army(call):
             law = ObjectId(call.data.split(":")[2])
             player = get_player(call.from_user)
             country = get_country(player, 0)
-            if law in MOBILIZATION_LAWS.keys() and not law == country["national_spirits"][2]["_id"]:
+            pp = country["polit_power"]
+            if law in MOBILIZATION_LAWS.keys() and not law == country["national_spirits"][2]["_id"] and pp >= 150:
                 to_add = MOBILIZATION_LAWS[law]
                 to_add.update({"id":2, "name":"Политика призыва", "_id": call.data.split(":")[2]})
                 db.players.update_one({"tg_id":call.from_user.id, "countries.id":0},
-                                      {"$set":{"countries.$.national_spirits.2":to_add}})
+                                      {"$set":{"countries.$.national_spirits.2":to_add},
+                                       "$inc":{"countries.$.polit_power":-150}})
                 open_mobilization_panel(call.from_user, call.message.chat.id, call.message.message_id)
         else:
             open_mobilization_panel(call.from_user, call.message.chat.id, call.message.message_id)
