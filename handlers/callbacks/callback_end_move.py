@@ -21,8 +21,8 @@ def callback_end_move(call):
                               "$inc":{
                                   "countries.0.money":balance,
                                   "countries.0.polit_power":polit_power_gain * polit_power_modifier,
-                                  "countries.0.national_spirits.1.stability": get_stability_growth(player_country),
-                                  "countries.0.national_spirits.1.militarization": get_militarization_growth(player_country),
+                                  "countries.0.national_spirits.0.stability": get_stability_growth(player_country),
+                                  "countries.0.national_spirits.0.militarization": get_militarization_growth(player_country),
                                   "step":1,
 
                               },

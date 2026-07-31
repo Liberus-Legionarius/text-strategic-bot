@@ -1,5 +1,6 @@
 from services.bot import db, bot
 import services.ai as ai
+from services.math.economy_math import get_total_income, get_total_spending
 from services.math.territory_math import get_total_population
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
@@ -48,5 +49,7 @@ def open_state_panel(user, chat_id, message_id = None):
             f"Стабильность: {get_modifier(player_country, 'stability')*100:.2f}%\n"
             f"Милитаризация: {get_modifier(player_country, 'militarization')*100:.2f}%\n"
             f"Общее население: {total_population:.0f}\n"
-            f"Политическая власть: {player_country['polit_power']:.0f}")
+            f"Политическая власть: {player_country['polit_power']:.0f}\n"
+            f"Казна: {player_country['money']:.2f} монет\n"
+            f"Баланс в следующем ходу: {get_total_income(player, player_country) - get_total_spending(player, player_country):.2f}")
     bot.send_message(chat_id,text, reply_markup=PANELS_KB) if not message_id else bot.edit_message_text(text, chat_id = chat_id, message_id = message_id, reply_markup = PANELS_KB)

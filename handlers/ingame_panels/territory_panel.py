@@ -68,7 +68,7 @@ def open_one_city_panel(user, chat_id, message_id, city_id):
             f"Здания: {get_buildings(city)}")
 
     city_kb = InlineKeyboardMarkup(row_width=3)
-    city_kb.add(InlineKeyboardButton("Построить здание", callback_data=f"territory:cities:{city_id}:build"),
+    city_kb.add(InlineKeyboardButton("Построить здание", callback_data=f"territory:cities:{city_id}:b"),
                 InlineKeyboardButton("Разграбить", callback_data=f"territory:cities:{city_id}:raze"),
                 InlineKeyboardButton("Нанять армию", callback_data=f"army:create:{city_id}"),
                 InlineKeyboardButton("Вернуться", callback_data="territory:cities:open"))
@@ -94,7 +94,7 @@ def open_buildings_panel(user, chat_id, message_id, city_id):
     buildings_kb = InlineKeyboardMarkup(row_width=2)
     for building in BUILDINGS.values():
         buildings_kb.add(InlineKeyboardButton(f"{building['title']} ({building['cost']} монет)",
-                                              callback_data=f"territory:build:{city_id}:{building['_id']}"))
+                                              callback_data=f"territory:b:{city_id}:{building['_id']}"))
     buildings_kb.row(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_id}"))
 
     bot.edit_message_text(

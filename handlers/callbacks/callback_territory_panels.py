@@ -9,14 +9,14 @@ def callback_territory(call):
         open_territory_panel(call.from_user, call.message.chat.id, call.message.message_id)
     elif panel == "cities":
         city = call.data.split(":")[2]
-        if not (city == "open" or city == "city"):
+        if not city == "open" and len(call.data.split(":")) == 3:
             open_one_city_panel(call.from_user, call.message.chat.id, call.message.message_id, city)
         elif city == "open":
             open_cities_panel(call.from_user, call.message.chat.id, call.message.message_id)
         else:
             option = call.data.split(":")[3]
             city_id = ObjectId(city)
-            if option == "build":
+            if option == "b":
                 open_buildings_panel(call.from_user, call.message.chat.id, call.message.message_id, city_id)
             elif option == "raze":
                 population = db.cities.find_one({"_id":ObjectId(city_id)})["population"]
@@ -35,7 +35,7 @@ def callback_territory(call):
                     }
                 )
                 open_one_city_panel(call.from_user, call.message.chat.id, call.message.message_id, city_id)
-    elif panel == "build":
+    elif panel == "b":
         b_id = call.data.split(":")[3]
         city_id = call.data.split(":")[2]
         player = get_player(call.from_user)
