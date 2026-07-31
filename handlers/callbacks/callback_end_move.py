@@ -12,7 +12,9 @@ def callback_end_move(call):
     balance = get_total_income(player,player_country) - get_total_spending(player, player_country)
     polit_power_gain = get_modifier(player_country, "polit_power_gain_flat")
     polit_power_modifier = get_modifier(player_country, "polit_power_gain_modifier", 1)
-    pop_growth = get_modifier(player_country, "population_growth",1) + get_modifier(player_country, "population_growth_invest")
+    pop_growth = (get_modifier(player_country, "population_growth") + get_modifier(player_country, "population_growth_invest")) * get_modifier(player_country, "stability", 0.35) + 1
+    print(pop_growth)
+
     date = player["date"] + relativedelta(months = 1)
     db.players.update_one({"tg_id":call.from_user.id},
                           {

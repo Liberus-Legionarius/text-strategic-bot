@@ -3,13 +3,13 @@ from services.bot import db
 
 def get_total_population(player, country_id):
     cities = db.cities.find({"player_id":player["tg_id"], "owner":country_id})
-    return sum(
+    return int(sum(
         city["population"]
         for city in cities
-    )
+    ))
 
 def get_avg_population(player, country_id):
-    return get_total_population(player, country_id)/len(get_cities(player, country_id))
+    return int(get_total_population(player, country_id)/len(get_cities(player, country_id)))
 
 def get_largest_city(player, country_id):
     city = db.cities.find_one({"player_id":player["tg_id"], "owner":country_id},
@@ -17,7 +17,7 @@ def get_largest_city(player, country_id):
     return city["name"]
 
 def get_next_step_growth(player, country):
-    return get_total_population(player, country["id"]) * ((get_modifier(country, "population_growth", 1) + get_modifier(country, "population_growth_invest")) * get_modifier(country, "stability", 0.35))
+    return int(get_total_population(player, country["id"]) * ((get_modifier(country, "population_growth") + get_modifier(country, "population_growth_invest")) * get_modifier(country, "stability", 0.35)))
 
 def get_prod_city_income(country, city):
     return sum(

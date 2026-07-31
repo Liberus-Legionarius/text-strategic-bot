@@ -87,7 +87,7 @@ def open_one_city_panel(user, chat_id, message_id, city_id):
     city = next((city for city in get_cities(player, 0) if city["_id"] == city_id), None)
     text = (f"{get_date_move(player)}"
             "\n\n"
-            f"Население: {city['population']}\n"
+            f"Население: {int(city['population'])}\n"
             f"Доход с налогов: {get_one_city_tax_income(player_country, city):.2f} монет в ход\n"
             f"Доход от зданий: {get_prod_city_income(player_country, city):.2f} монет в ход\n"
             f"Здания: {get_buildings(city)}")
