@@ -1,5 +1,5 @@
 from services.bot import bot, db
-from services.constants import get_player, get_modifier
+from services.constants import get_player, get_modifier, get_country
 from services.math.economy_math import get_total_spending, get_total_income
 from handlers.ingame_panels.state_panel import open_state_panel
 from dateutil.relativedelta import relativedelta
@@ -8,25 +8,29 @@ from dateutil.relativedelta import relativedelta
 def callback_end_move(call):
     bot.answer_callback_query(call.id)
     player = get_player(call.from_user)
-    balance = get_total_income(player) - get_total_spending(player)
-    polit_power_gain = get_modifier(player, "polit_power_gain_flat")
-    polit_power_modifier = get_modifier(player, "polit_power_gain_modifier")
-    pop_growth = get_modifier(player, "population_growth") + get_modifier(player, "population_growth_invest")
+    player_country = get_country(player, 0)
+    balance = get_total_income(player,player_country) - get_total_spending(player, player_country)
+    polit_power_gain = get_modifier(player_country, "polit_power_gain_flat")
+    polit_power_modifier = get_modifier(player_country, "polit_power_gain_modifier", 1)
+    pop_growth = get_modifier(player_country, "population_growth",1) + get_modifier(player_country, "population_growth_invest")
     date = player["date"] + relativedelta(months = 1)
     db.players.update_one({"tg_id":call.from_user.id},
                           {
                               "$inc":{
-                                  "money":balance,
-                                  "polit_power":polit_power_gain * (1+polit_power_modifier),
+                                  "countries.0.money":balance,
+                                  "countries.0.polit_power":polit_power_gain * polit_power_modifier,
                                   "step":1,
 
-                              },
-                              "$mul":{
-                                  "cities.$[].population":1+pop_growth
                               },
                               "$set":{
                                   "ai_plot":None,
                                   "date":date
                               }
                           })
+    db.cities.update_one({"player_id":call.from_user.id, "owner":0},
+                         {
+                             "$mul":{
+                                 "population":pop_growth
+                             }
+                         })
     open_state_panel(call.from_user, call.message.chat.id, call.message.message_id)

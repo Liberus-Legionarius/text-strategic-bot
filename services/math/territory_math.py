@@ -17,7 +17,7 @@ def get_largest_city(player, country_id):
     return city["name"]
 
 def get_next_step_growth(player, country):
-    return get_total_population(player, country["id"]) * ((get_modifier(country, "population_growth") + get_modifier(country, "population_growth_invest")) * (1 + get_modifier(country, "stability") - 0.65))
+    return get_total_population(player, country["id"]) * ((get_modifier(country, "population_growth", 1) + get_modifier(country, "population_growth_invest")) * get_modifier(country, "stability", 0.35))
 
 def get_prod_city_income(country, city):
     return sum(
@@ -25,7 +25,7 @@ def get_prod_city_income(country, city):
         for building in city["buildings"]
     )
 def get_one_city_tax_income(country, city):
-    return city["population"] * get_modifier(country, "tax_rate") * (1 + get_modifier(country, "stability") - 0.65) / 120
+    return city["population"] * get_modifier(country, "tax_rate") * get_modifier(country, "stability", 0.35) / 120
 
 def get_buildings(city):
     if len(city["buildings"]) < 1:
@@ -40,7 +40,7 @@ def get_buildings(city):
         return text
 
 def get_percent_pop_growth(country):
-    return get_modifier(country, "population_growth") + get_modifier(country, "population_growth_invest") * (1 + get_modifier(country, "stability") - 0.65)
+    return get_modifier(country, "population_growth") + get_modifier(country, "population_growth_invest") * get_modifier(country, "stability", 0.35)
 
 def get_cities(player, country_id):
     return list(db.cities.find({"player_id": player["tg_id"], "owner": country_id}))

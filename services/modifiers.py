@@ -53,3 +53,6 @@ modifiers_units ={
     "mobilization_percent": "%",
     "women_at_war": "yesno"
 }
+
+modifiers_from_zero_to_one = ["tax_rate", "mobilization_percent"]
+modifiers_from_one_to_one = ["stability", "militarization"]
