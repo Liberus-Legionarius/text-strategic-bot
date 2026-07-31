@@ -17,5 +17,7 @@ def start(message):
 
 def new_start(chat_id, user):
     bot.send_message(chat_id, start_text.format(user.first_name))
-    if db.players.find_one({"tg_id":user.id}): db.players.delete_one({"tg_id":user.id})
+    if db.players.find_one({"tg_id":user.id}):
+        db.players.delete_one({"tg_id":user.id})
+        db.cities.delete_many({"player_id":user.id})
     db.players.insert_one({"tg_id": user.id, "bot_state": "INIT_COUNTRYNAME"})

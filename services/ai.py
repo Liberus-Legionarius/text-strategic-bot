@@ -4,7 +4,7 @@ from config import GEMINI_APIKEY
 import re
 import json
 from services.modifiers import modifiers
-from services.constants import ARMY_TYPES, MOBILIZATION_LAWS
+from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier
 
 ai = genai.Client(api_key=GEMINI_APIKEY)
 
@@ -41,25 +41,28 @@ def check_capital(name, countryname):
     return ask_ai(request, CAPITAL_CHECKER_PROMPT)
 
 def write_country_lore(player):
+    country = player["countries"][0]
     request = ("{"
-               f'"full_countryname":{player["full_countryname"]},'
-               f'"countryname":{player["countryname"]},'
-               f'"capital":{player["capital"]},'
-               f'"ideology":{player["ideology"]}'
+               f'"full_countryname":{country["full_countryname"]},'
+               f'"countryname":{country["countryname"]},'
+               f'"capital":{country["capital"]},'
+               f'"ideology":{country["ideology"]}'
                "}")
     return ask_ai(request, COUNTRY_LORE_PROMPT)
 
 def define_details(details, player):
+    country = player["countries"][0]
     request = ("{"
-               f'"full_countryname":{player["full_countryname"]},'
-               f'"countryname":{player["countryname"]},'
-               f'"capital":{player["capital"]},'
-               f'"ideology":{player["ideology"]},'
+               f'"full_countryname":{country["full_countryname"]},'
+               f'"countryname":{country["countryname"]},'
+               f'"capital":{country["capital"]},'
+               f'"ideology":{country["ideology"]},'
                f'"user_input":{details}'
                "}")
     return ask_ai(request, DETAILS_PROMPT)
 
 def write_step_first(player):
+    country = player["countries"][0]
     army_types = list(ARMY_TYPES.values())
     for a in army_types:
         a.update({"_id":str(a["_id"]), "counteracts":None})
@@ -69,36 +72,41 @@ def write_step_first(player):
         l.update({"_id":str(l["_id"])})
 
     request = ("{"
-               f'"countryname":"{player["countryname"]}",'
-               f'"ful_countryname":"{player["full_countryname"]}",'
-               f'"capital":"{player["capital"]}",'
-               f'"ideology":"{player["ideology"]}",'
-               f'"ideology_desc":{player["ideology_desc"]},'
-               f'"goals":{json.dumps(player["goals"])},'
-               f'"completed_goals":{json.dumps(player["completed_goals"])},'
-               f'"territorial_ambitions":{json.dumps(player["territorial_ambitions"])},'
+               f'"countryname":"{country["countryname"]}",'
+               f'"ful_countryname":"{country["full_countryname"]}",'
+               f'"capital":"{country["capital"]}",'
+               f'"ideology":"{country["ideology"]}",'
+               f'"ideology_desc":"{country["ideology_desc"]}",'
+               f'"country_characteristics":"{country["country_characteristics"]}",'
+               f'"goals":{json.dumps(country["goals"])},'
+               f'"territorial_ambitions":{json.dumps(country["territorial_ambitions"])},'
                f'"modifiers_information":{json.dumps(modifiers)},'
                f'"army_types":{json.dumps(army_types)},'
                f'"mobilization_laws":{json.dumps(mobilization_laws)}')
     return ask_ai(request, INITIALIZATION_PROMPT)
 
 def write_step_plot(player):
-    request = ("{"
-               f'"countryname":"{player["countryname"]}",'
-               f'"ful_countryname":"{player["full_countryname"]}",'
-               f'"capital":"{player["capital"]}",'
-               f'"ideology":"{player["ideology"]}",'
-               f'"ideology_desc":{player["ideology_desc"]},'
-               f'"goals":{json.dumps(player["goals"])},'
-               f'"completed_goals":{json.dumps(player["completed_goals"])},'
-               f'"territorial_ambitions":{json.dumps(player["territorial_ambitions"])},'
-               f'"date":{player["date"]},'
-               f'"step":{player["step"]},'
-               f'"money":{player["money"]},'
-               f'"stability":{player["stability"] * 100},'
-               f'"militarization":{player["militarization"]*100},'
-               f'"modifiers_information":{json.dumps(modifiers)}')
-    return ask_ai(request, NARRATOR_PROMPT)
+    if len(player["actions"]) > 0:
+        country = player["countries"][0]
+        request = ("{"
+                   f'"countryname":"{country["countryname"]}",'
+                   f'"full_countryname":"{country["full_countryname"]}",'
+                   f'"capital":"{country["capital"]}",'
+                   f'"ideology":"{country["ideology"]}",'
+                   f'"ideology_desc":{country["ideology_desc"]},'
+                   f'"country_characteristics":"{country["country_characteristics"]}",'
+                   f'"goals":{json.dumps(country["goals"])},'
+                   f'"completed_goals":{json.dumps(country["completed_goals"])},'
+                   f'"territorial_ambitions":{json.dumps(country["territorial_ambitions"])},'
+                   f'"date":{player["date"]},'
+                   f'"money":{country["money"]},'
+                   f'"stability":{get_modifier(country, "stability") * 100},'
+                   f'"militarization":{get_modifier(country, "militarization")*100},'
+                   f'"move":{player["step"]},'
+                   f'"modifiers_information":{json.dumps(modifiers)},'
+                   f'actions":{player["actions"]}')
+        return ask_ai(request, NARRATOR_PROMPT)
+    return json.loads('{"response":"С момента прошлого хода ничего не произошло..."}')
 
 def ask_ai(request, base_prompt):
     prompt = f"""{base_prompt}

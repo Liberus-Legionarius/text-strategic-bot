@@ -3,20 +3,22 @@ import services.ai as ai
 from datetime import datetime
 from bson import ObjectId
 from services.constants import MOBILIZATION_LAWS
+from services.math.army_math import get_army_type
+
 
 def init_state(user):
     player = db.players.find_one({"tg_id":user.id})
     data = ai.write_step_first(player)
-    print(data["response"])
-    print(data)
     capital = {
-        "city_id":0,
-        "name":player["capital"],
+        "player_id":player["tg_id"],
+        "name":player["countries"][0]["capital"],
+        "owner":0,
+        "controller":0,
         "population":data["capital_population"],
         "buildings":[],
-        "contacted_with":[],
-        "is_capital":True
+        "contacted_with":[]
     }
+    city = db.cities.insert_one(capital)
 
     armies = []
 
@@ -25,31 +27,74 @@ def init_state(user):
             {
                 "army_id":i,
                 "name":army["name"],
-                "city_id": 0,
+                "size":1,
+                "hp":get_army_type(army)["hp"],
+                "morale":get_army_type(army)["morale"],
+                "city_id": city.inserted_id,
                 "type_id": ObjectId(army["type_id"])
             }
         )
+    taxes_politic = {
+        "id":1,
+        "name": "Налоговая ставка",
+        "tax_rate":0.0,
+        "stability":0.0
+    }
+
+    mobilization_law = {
+        "id":2,
+        "name": "Политика призыва"
+    }
+
+    for key, value in MOBILIZATION_LAWS[ObjectId(data["mobilization_law"])].items():
+        mobilization_law.update({key:value})
+
+    invest_in_pop_growth = {
+        "id": 3,
+        "name": "Дополнительные вложения в рост населения",
+        "population_growth_invest": 0.0,
+        "polit_power_gain_modifier": 0.0
+    }
+
+    invest_in_army = {
+        "id": 4,
+        "name": "Обеспечение армии",
+        "army_maintenance": 1.0,
+        "attack_modifier": 0.0,
+        "defense_modifier": 0.0,
+        "hp_modifier": 0.0,
+        "morale_modifier": 0.0
+    }
+
+    invest_in_stability = {
+        "id": 5,
+        "name": "Дополнительные вложения в рост стабильности",
+        "stability_invest": 0.0
+    }
+
+    invest_in_militarization = {
+        "id": 6,
+        "name": "Дополнительные вложения в рост милитаризации общества",
+        "militarization_invest": 0.0
+    }
 
     db.players.update_one({
-        "tg_id":user.id},{
+        "tg_id":user.id, "countries.id":0},{
         "$set":{
-            "polit_power_gain_flat":data["polit_power_gain_flat"],
-            "polit_power_gain_modifier": data["polit_power_gain_modifier"],
-            "polit_power": data["polit_power"],
-            "stability":data["stability"],
-            "militarization": data["militarization"],
-            "armies":armies,
-            "mobilization_law": ObjectId(data["mobilization_law"]),
-            "money": data["money"],
-            "tax_rate": data["tax_rate"],
-            "buildings_income_efficiency": data["buildings_income_efficiency"],
-            "loans":0.0,
-            "interest": 0.04,
-            "population_growth_invest": 0.0,
-            "population_growth": data["population_growth"],
-            "cities":[capital],
+            "countries.$.capital": city.inserted_id,
+            "countries.$.armies": armies,
+            "countries.$.polit_power": data["polit_power"],
+            "countries.$.money": data["money"],
+            "countries.$.loans": 0.0,
+            "countries.$.interest": 0.04,
+            "countries.$.campaigns": [],
+            "countries.$.national_spirits": [data["national_spirit"], taxes_politic, mobilization_law, invest_in_pop_growth, invest_in_army, invest_in_stability, invest_in_militarization],
+            "countries.$.is_player": True,
             "date":datetime(3057, data["month"], 1),
             "step":1,
-            "ai_plot":data["response"]
+            "ai_plot":data["response"],
+            "actions":[],
+            "history":[]
         }
     })
+

@@ -8,8 +8,8 @@ from handlers.ingame_panels.economy_panel import open_loan_panel
 def take_loan(message):
     player = get_player(message.from_user)
     if float(message.text) >= 0:
-        db.players.update_one({"tg_id": message.from_user.id},
-                              {"$inc": {"loans": float(message.text), "money": float(message.text)},
+        db.players.update_one({"tg_id": message.from_user.id, "countries.id":0},
+                              {"$inc": {"countries.$.loans": float(message.text), "countries.$.money": float(message.text)},
                                "$set": {"bot_state": "IN_GAME"}})
         open_loan_panel(message.from_user, message.chat.id, player["last_message"])
     bot.delete_message(message.chat.id, message.message_id)
@@ -18,8 +18,8 @@ def take_loan(message):
 def repay_loan(message):
     player = get_player(message.from_user)
     if float(message.text) >= 0:
-        db.players.update_one({"tg_id": message.from_user.id},
-                              {"$inc": {"loans": -float(message.text), "money": -float(message.text)},
+        db.players.update_one({"tg_id": message.from_user.id, "countries.id":0},
+                              {"$inc": {"countries.$.loans": -float(message.text), "countries.$.money": -float(message.text)},
                                "$set": {"bot_state": "IN_GAME"}})
         open_loan_panel(message.from_user, message.chat.id, player["last_message"])
     bot.delete_message(message.chat.id, message.message_id)

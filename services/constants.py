@@ -2,6 +2,8 @@ from services.bot import db
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 
+from services.modifiers import modifiers_from_zero_to_one, modifiers_from_one_to_one
+
 NUMBER_TO_MONTH = {
     1:"Январь",
     2:"Февраль",
@@ -25,6 +27,9 @@ MOBILIZATION_LAWS = dict()
 
 def get_player(user):
     return db.players.find_one({"tg_id": user.id})
+
+def get_country(player, country_id):
+    return player["countries"][country_id]
 
 def get_date_move(player):
     return f"{NUMBER_TO_MONTH[player['date'].month]}, год {player['date'].year}, шаг {player['step']}"
@@ -56,10 +61,19 @@ def get_buildings_info():
         text += f"\n{building['title']} - {building['income_per_pop']*1000} монет за 1000 населения в ход"
     return text
 
-def get_build_kb(city_id):
-    buildings_kb = InlineKeyboardMarkup()
-    for building in BUILDINGS.values():
-        buildings_kb.add(InlineKeyboardButton(f"{building['title']} ({building['cost']} монет)",
-                                              callback_data=f"territory:build:{building['_id']}"))
-    buildings_kb.add(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_id}"))
-    return  buildings_kb
+def get_modifier(country, modifier, addition = 0):
+    result = sum(
+        spirit[modifier]
+        for spirit in country["national_spirits"] if spirit.get(modifier)
+    ) + addition
+    if modifier in modifiers_from_zero_to_one:
+        result = min(1 + addition, max(0, result))
+    elif modifier in modifiers_from_one_to_one:
+        result = min(1 + addition, max(-1, result))
+    return result
+
+def get_city_name(city_id):
+    return db.cities.find_one({"_id":city_id})["name"]
+
+def get_is_pacifism(country):
+    return country["national_spirits"][2].get("is_pacifism")

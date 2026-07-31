@@ -9,8 +9,8 @@ def ideology_init(message):
     if check_format(PATTERN_UPPERCASE, message.text, message.chat.id):
         ai_check = ai.check_ideology(message.text)
         if name_handler(ai_check, message.chat.id, "название идеологии"):
-            db.players.update_one({"tg_id": message.from_user.id},
-                                  {"$set": {"bot_state": "INIT_FULLNAME", "ideology": message.text}})
+            db.players.update_one({"tg_id": message.from_user.id, "countries.id":0},
+                                  {"$set": {"bot_state": "INIT_FULLNAME", "countries.$.ideology": message.text}})
             bot.send_message(message.chat.id,
                              "Раз уж с гос. режимом определились, давайте придумаем вашей стране полное название.\n"
                              "Чувствуйте себя свободно, только учитывайте, что выбранная идеология будет учитываться при проверке полного названия.")
