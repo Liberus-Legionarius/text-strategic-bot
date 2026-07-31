@@ -7,6 +7,7 @@ import handlers.initialization.full_countryname_init
 import handlers.initialization.details_init
 import handlers.callbacks.callback_state_panels
 import handlers.callbacks.callback_economy_panels
+import handlers.callbacks.callback_spending_pamels
 import handlers.callbacks.callback_territory_panels
 import handlers.callbacks.callback_army_panels
 import handlers.callbacks.callback_start

@@ -46,6 +46,3 @@ def get_army(country, army_id):
 
 def get_reorganization_cost(army, new_type):
     return (new_type["cost"] - new_type["cost"] * (get_army_type(army)["cost"]/new_type["cost"]/2)) * army["size"]
-
-def get_is_pacifism(country):
-    return country["national_spirits"][2].get("is_pacifism")

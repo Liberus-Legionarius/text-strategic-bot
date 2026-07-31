@@ -1,13 +1,13 @@
 from services.bot import bot
-from services.constants import BASE_INCOME, get_player, get_date_move, get_modifier, get_country
+from services.constants import get_player, get_date_move, get_modifier, get_country
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
-from services.math.economy_math import get_tax_income, get_buildings_income, get_prod_units, get_loan_spending, \
-    get_pops_invest_spending, get_army_spending, get_prod_units_consumption, get_total_spending, get_total_income
+from services.math.economy_math import (get_tax_income, get_buildings_income, get_prod_units,
+                                        get_prod_units_consumption, get_total_spending, get_total_income)
 from services.math.army_math import get_prod_units_debuff
 
 ECOMOMY_KB = InlineKeyboardMarkup(row_width=3)
-ECOMOMY_KB.add(InlineKeyboardButton("Доходы", callback_data = "economy:income:open"), InlineKeyboardButton("Расходы", callback_data = "economy:spending:open"),
+ECOMOMY_KB.add(InlineKeyboardButton("Доходы", callback_data = "economy:income:open"), InlineKeyboardButton("Расходы", callback_data = "spending:base:open"),
                InlineKeyboardButton("Долги", callback_data = "economy:loan:open"), InlineKeyboardButton("Назад", callback_data = "state:open"))
 INCOME_KB = InlineKeyboardMarkup(row_width=2)
 INCOME_KB.add(InlineKeyboardButton("Повысить налоги", callback_data= "economy:income:rise:open"), InlineKeyboardButton("Снизить налоги", callback_data= "economy:income:down:open"),
@@ -15,8 +15,6 @@ INCOME_KB.add(InlineKeyboardButton("Повысить налоги", callback_dat
 LOAN_KB = InlineKeyboardMarkup(row_width=2)
 LOAN_KB.add(InlineKeyboardButton("Взять долг", callback_data="economy:loan:take:open"), InlineKeyboardButton("Вернуть долг", callback_data="economy:loan:repay:open"),
             InlineKeyboardButton("Вернуться", callback_data="economy:base:open"))
-SPENDING_KB = InlineKeyboardMarkup()
-SPENDING_KB.add(InlineKeyboardButton("Вернуться", callback_data = "economy:base:open"))
 
 
 # Базовая панель экономики.
@@ -65,24 +63,6 @@ def open_income_panel(user, chat_id, message_id):
         chat_id= chat_id,
         message_id= message_id,
         reply_markup=INCOME_KB
-    )
-
-# Панель подробных расходов.
-def open_spending_panel(user, chat_id, message_id):
-    player = get_player(user)
-    player_country = get_country(player, 0)
-    text = (f"{get_date_move(player)}"
-            "\n\n"
-            f"Расходы на армию: {get_army_spending(player_country):.2f}\n"
-            f"Вложения в рост населения: {get_pops_invest_spending(player, player_country):.2f}\n"
-            f"Выплата процентов по займам: {get_loan_spending(player_country):.2f}"
-            "\n\n"
-            f"Общие расходы: {get_total_spending(player, player_country):.2f}")
-    bot.edit_message_text(
-        text,
-        chat_id=chat_id,
-        message_id=message_id,
-        reply_markup=SPENDING_KB
     )
 
 # Панель займов.

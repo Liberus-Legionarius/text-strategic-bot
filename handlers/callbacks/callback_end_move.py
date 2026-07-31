@@ -3,6 +3,7 @@ from services.constants import get_player, get_modifier, get_country
 from services.math.economy_math import get_total_spending, get_total_income
 from handlers.ingame_panels.state_panel import open_state_panel
 from dateutil.relativedelta import relativedelta
+from services.math.spending_math import get_stability_growth, get_militarization_growth
 
 @bot.callback_query_handler(func= lambda call: call.data == "end_move")
 def callback_end_move(call):
@@ -13,7 +14,6 @@ def callback_end_move(call):
     polit_power_gain = get_modifier(player_country, "polit_power_gain_flat")
     polit_power_modifier = get_modifier(player_country, "polit_power_gain_modifier", 1)
     pop_growth = (get_modifier(player_country, "population_growth") + get_modifier(player_country, "population_growth_invest")) * get_modifier(player_country, "stability", 0.35) + 1
-    print(pop_growth)
 
     date = player["date"] + relativedelta(months = 1)
     db.players.update_one({"tg_id":call.from_user.id},
@@ -21,6 +21,8 @@ def callback_end_move(call):
                               "$inc":{
                                   "countries.0.money":balance,
                                   "countries.0.polit_power":polit_power_gain * polit_power_modifier,
+                                  "countries.0.national_spirits.1.stability": get_stability_growth(player_country),
+                                  "countries.0.national_spirits.1.militarization": get_militarization_growth(player_country),
                                   "step":1,
 
                               },

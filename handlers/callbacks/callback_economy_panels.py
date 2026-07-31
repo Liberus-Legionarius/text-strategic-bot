@@ -1,6 +1,5 @@
-from handlers.ingame_panels.economy_panel import open_spending_panel
 from services.bot import bot, db
-import handlers.ingame_panels.economy_panel as economy
+from handlers.ingame_panels.economy_panel import open_economy_panel, open_income_panel, open_loan_panel
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("economy"))
 def callback_economy(call):
@@ -8,7 +7,7 @@ def callback_economy(call):
     panel = call.data.split(':')[1]
      # Базовая панель.
     if panel == "base":
-        economy.open_economy_panel(call.from_user, call.message.chat.id, call.message.message_id)
+        open_economy_panel(call.from_user, call.message.chat.id, call.message.message_id)
     # Доходы.
     elif panel == "income":
         panel = call.data.split(':')[2]
@@ -24,10 +23,7 @@ def callback_economy(call):
                                       "countries.$.national_spirits.1.stability": 0.05,
                                       "countries.$.national_spirits.1.tax_rate": -0.05}
                                   })
-        economy.open_income_panel(call.from_user, call.message.chat.id, call.message.message_id)
-    # Расходы.
-    elif panel == "spending":
-        open_spending_panel(call.from_user, call.message.chat.id, call.message.message_id)
+        open_income_panel(call.from_user, call.message.chat.id, call.message.message_id)
     # Займы.
     elif panel == "loan":
         panel = call.data.split(':')[2]
@@ -57,4 +53,4 @@ def callback_economy(call):
                     reply_markup=None
                 )
         else:
-            economy.open_loan_panel(call.from_user, call.message.chat.id, call.message.message_id)
+            open_loan_panel(call.from_user, call.message.chat.id, call.message.message_id)

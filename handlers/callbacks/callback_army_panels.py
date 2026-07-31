@@ -3,10 +3,9 @@ from services.bot import bot, db
 from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel, open_armies_panel, \
     open_one_army_panel, open_campaign_panel, open_delete_confirmation, open_army_reorganize, open_army_move_selection, \
     open_army_reorganize_unit_info, open_army_creation_panel
-from services.math.army_math import get_army, get_reorganization_cost, get_manpower, get_is_pacifism
-from services.constants import MOBILIZATION_LAWS, get_player, get_country, ARMY_TYPES
+from services.math.army_math import get_army, get_reorganization_cost, get_manpower
+from services.constants import MOBILIZATION_LAWS, get_player, get_country, ARMY_TYPES, get_is_pacifism
 from bson import ObjectId
-
 from services.math.army_math import get_army_type
 from services.math.territory_math import get_cities
 

@@ -7,20 +7,6 @@ def callback_territory(call):
     panel = call.data.split(":")[1]
     if panel == "base":
         open_territory_panel(call.from_user, call.message.chat.id, call.message.message_id)
-    elif panel == "pops":
-        if call.data.endswith("down5"):
-            change_pops_invest(call.from_user, -0.05)
-        elif call.data.endswith("down2"):
-            change_pops_invest(call.from_user, -0.02)
-        elif call.data.endswith("down1"):
-            change_pops_invest(call.from_user, -0.01)
-        elif call.data.endswith("rise1"):
-            change_pops_invest(call.from_user, 0.01)
-        elif call.data.endswith("rise2"):
-            change_pops_invest(call.from_user, 0.02)
-        elif call.data.endswith("rise5"):
-            change_pops_invest(call.from_user, 0.05)
-        open_pops_panel(call.from_user, call.message.chat.id, call.message.message_id)
     elif panel == "cities":
         city = call.data.split(":")[2]
         if not (city == "open" or city == "city"):
@@ -73,11 +59,3 @@ def callback_territory(call):
                 open_buildings_panel(call.from_user, call.message.chat.id, call.message.message_id, city_id)
 
 
-def change_pops_invest(user, change):
-    db.players.update_one({
-        "tg_id":user.id, "countries.id":0
-    },
-    {"$inc":{
-        "countries.$.national_spirits.3.population_growth_invest":change,
-        "countries.$.national_spirits.3.stability":change/2
-    }})

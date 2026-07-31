@@ -1,8 +1,9 @@
 from handlers.callbacks.callback_start import callback
 from services.bot import bot
-from services.constants import get_player, get_date_move, get_country
+from services.constants import get_player, get_date_move, get_country, get_is_pacifism
 from services.math.army_math import *
-from services.math.economy_math import get_prod_units_consumption, get_prod_units, get_army_spending
+from services.math.economy_math import get_prod_units_consumption, get_prod_units
+from services.math.spending_math import get_army_spending
 from services.math.territory_math import get_total_population, get_cities
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
@@ -27,7 +28,7 @@ def open_army_panel(user, chat_id, message_id):
             f"Всего единиц производства: {get_prod_units(player, 0)}\n"
             f"Баланс единиц производства: {get_prod_units(player, 0) - get_prod_units_consumption(player_country)}"
             "\n\n"
-            f"Расходы на содержание армии: {get_army_spending(player_country) * get_modifier(player_country, 'army_maintenance', 1):.2f} монет в ход"
+            f"Расходы на содержание армии: {get_army_spending(player_country):.2f} монет в ход"
             "\n\n"
             f"Общее население: {get_total_population(player, player_country['id']):.0f}\n"
             f"Мобилизационный резерв: {int(get_manpower(player, player_country))}\n"
@@ -235,7 +236,7 @@ def open_army_creation_panel(user, chat_id, message_id, city_id):
 
         text = (f"{get_date_move(player)}"
                 "\n\n"
-                f"Типы армейских юнитов: {get_unit_types_info_foreach()}"
+                f"Типы армейских юнитов: {get_unit_types_info_foreach(player_country)}"
                 f"Ваша казна составляет: {player_country['money']} монет")
 
         types_kb = InlineKeyboardMarkup(row_width=3)

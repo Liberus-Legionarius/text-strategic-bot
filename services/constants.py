@@ -74,3 +74,6 @@ def get_modifier(country, modifier, addition = 0):
 
 def get_city_name(city_id):
     return db.cities.find_one({"_id":city_id})["name"]
+
+def get_is_pacifism(country):
+    return country["national_spirits"][2].get("is_pacifism")

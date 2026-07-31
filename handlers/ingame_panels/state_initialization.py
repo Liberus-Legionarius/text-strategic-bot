@@ -56,6 +56,28 @@ def init_state(user):
         "polit_power_gain_modifier": 0.0
     }
 
+    invest_in_army = {
+        "id": 4,
+        "name": "Обеспечение армии",
+        "army_maintenance": 1.0,
+        "attack_modifier": 0.0,
+        "defense_modifier": 0.0,
+        "hp_modifier": 0.0,
+        "morale_modifier": 0.0
+    }
+
+    invest_in_stability = {
+        "id": 5,
+        "name": "Дополнительные вложения в рост стабильности",
+        "stability_invest": 0.0
+    }
+
+    invest_in_militarization = {
+        "id": 6,
+        "name": "Дополнительные вложения в рост милитаризации общества",
+        "militarization_invest": 0.0
+    }
+
     db.players.update_one({
         "tg_id":user.id, "countries.id":0},{
         "$set":{
@@ -66,7 +88,7 @@ def init_state(user):
             "countries.$.loans": 0.0,
             "countries.$.interest": 0.04,
             "countries.$.campaigns": [],
-            "countries.$.national_spirits": [data["national_spirit"], taxes_politic, mobilization_law, invest_in_pop_growth],
+            "countries.$.national_spirits": [data["national_spirit"], taxes_politic, mobilization_law, invest_in_pop_growth, invest_in_army, invest_in_stability, invest_in_militarization],
             "countries.$.is_player": True,
             "date":datetime(3057, data["month"], 1),
             "step":1,

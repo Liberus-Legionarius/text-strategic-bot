@@ -1,20 +1,13 @@
 from services.bot import db, bot
 from services.constants import get_player, get_date_move, get_buildings_info, get_country, get_city_name
 from services.math.territory_math import *
-from services.math.economy_math import get_pops_invest_spending
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 from bson import ObjectId
 
-TERRITORY_KB = InlineKeyboardMarkup(row_width=2)
-TERRITORY_KB.add(InlineKeyboardButton("Население", callback_data="territory:pops:open"),
-                 InlineKeyboardButton("Выбрать город", callback_data = "territory:cities:open"),
+TERRITORY_KB = InlineKeyboardMarkup(row_width=1)
+TERRITORY_KB.add(InlineKeyboardButton("Выбрать город", callback_data = "territory:cities:open"),
                  InlineKeyboardButton("Назад", callback_data = "state:open"))
-POPS_KB = InlineKeyboardMarkup(row_width=3)
-POPS_KB.add(InlineKeyboardButton("-5%", callback_data = "territory:pops:down5"), InlineKeyboardButton("-2%", callback_data = "territory:pops:down2"),
-            InlineKeyboardButton("-1%", callback_data = "territory:pops:down1"),InlineKeyboardButton("1%", callback_data = "territory:pops:rise1"),
-            InlineKeyboardButton("2%", callback_data = "territory:pops:rise2"),InlineKeyboardButton("5%", callback_data = "territory:pops:rise5"),
-            InlineKeyboardButton("Вернуться", callback_data="territory:base:open"))
 
 def open_territory_panel(user, chat_id, message_id):
     player = get_player(user)
@@ -33,24 +26,6 @@ def open_territory_panel(user, chat_id, message_id):
         chat_id=chat_id,
         message_id=message_id,
         reply_markup=TERRITORY_KB
-    )
-
-def open_pops_panel(user, chat_id, message_id):
-    player = get_player(user)
-    player_country = get_country(player, 0)
-    text = (f"{get_date_move(player)}"
-            "\n\n"
-            f"Общее население: {get_total_population(player, 0)}\n"
-            f"Рост населения в следующем ходе: {get_next_step_growth(player, player_country):.0f}\n"
-            f"Ежемесячный рост населения: {get_percent_pop_growth(player_country)*100:.2f}%"
-            "\n\n"
-            f"Расходы на рост населения: {get_pops_invest_spending(player, player_country):.2f} монет в ход")
-
-    bot.edit_message_text(
-        text,
-        chat_id = chat_id,
-        message_id = message_id,
-        reply_markup = POPS_KB
     )
 
 def open_cities_panel(user, chat_id, message_id):
