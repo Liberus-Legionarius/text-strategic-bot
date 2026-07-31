@@ -27,7 +27,7 @@ def open_army_panel(user, chat_id, message_id):
             f"Всего единиц производства: {get_prod_units(player, 0)}\n"
             f"Баланс единиц производства: {get_prod_units(player, 0) - get_prod_units_consumption(player_country)}"
             "\n\n"
-            f"Расходы на содержание армии: {get_army_spending(player_country)} монет в ход"
+            f"Расходы на содержание армии: {get_army_spending(player_country) * get_modifier(player_country, 'army_maintenance', 1):.2f} монет в ход"
             "\n\n"
             f"Общее население: {get_total_population(player, player_country['id']):.0f}\n"
             f"Мобилизационный резерв: {int(get_manpower(player, player_country))}\n"
@@ -101,7 +101,7 @@ def open_one_army_panel(user, chat_id, message_id, army_id):
                 "\n\n"
                 f"Название подразделения: {army['name']}"
                 "\n\n"
-                f"{get_unit_types_info(get_army_type(army), army)}")
+                f"{get_unit_info(player_country, army)}")
 
         one_army_kb = InlineKeyboardMarkup(row_width = 2)
         one_army_kb.add(InlineKeyboardButton("Реорганизовать", callback_data = f"army:armies:{army_id}:reorganize"),
@@ -204,7 +204,7 @@ def open_army_reorganize_unit_info(user, chat_id, message_id, army_id, type_id):
         army_type = ARMY_TYPES[ObjectId(type_id)]
         text = (f"{get_date_move(player)}"
                 "\n\n"
-                f"{get_unit_types_info(army_type, army, True)}"
+                f"{get_unit_reorg_info(player_country, army, army_type)}"
                 "\n\n"
                 f'Стоимость реорганизации: {get_reorganization_cost(army, army_type):.2f}'
                 "\n\n"
@@ -247,34 +247,55 @@ def open_army_creation_panel(user, chat_id, message_id, city_id):
                 reply_markup=types_kb
         )
 
-def get_unit_types_info(type, army, is_upgrade = False):
+def get_unit_reorg_info(country, army, new_type):
         was_type = get_army_type(army)
-        return (f"Тип: {type['title']}\n"
-                f"Боевая мощь: {str(was_type['power']) + ' --> ' + str(type['power']) if is_upgrade else type['power']}"
+        return (f"Тип: {was_type['title']} --> {new_type['title']}\n"
+                f"Боевая мощь: {was_type['power']} --> {new_type['power']:}"
                 "\n\n"
-                f"Очки здоровья: {str(was_type['hp']) + ' --> ' + str(type['hp']) if is_upgrade else str(army['hp']) + '/' + str(type['hp'])}\n"
-                f"Боевой дух: {str(was_type['morale']) + ' --> ' + str(type['morale']) if is_upgrade else str(army['morale']) + '/' + str(type['morale'])}"
+                f"Очки здоровья: {was_type['hp'] * get_modifier(country, 'hp_modifier', 1):.2f} --> {new_type['hp'] * get_modifier(country, 'hp_modifier', 1):.2f}\n"
+                f"Боевой дух: {was_type['morale'] * get_modifier(country, 'morale_modifier', 1):.2f} --> {new_type['morale'] * get_modifier(country, 'morale_modifier', 1):.2f}"
                 "\n\n"
-                f"Атака: {str(was_type['attack']) + ' --> ' + str(type['attack']) if is_upgrade else type['attack']}\n"
-                f"Бронебойность: {str(was_type['armour_piercing']) + ' --> ' + str(type['armour_piercing']) if is_upgrade else type['armour_piercing']}\n"
-                f"Защита: {str(was_type['defense']) + ' --> ' + str(type['defense']) if is_upgrade else type['defense']}\n"
-                f"Является бронированным: {get_is_armour(was_type) + ' --> ' + get_is_armour(type) if is_upgrade else get_is_armour(type)}"
-                "\n\n") + (f"Противодействовал: {get_army_counteracts(was_type)}\nБудет противодействовать: {get_army_counteracts(type)}" if is_upgrade else f"Противодействует: {get_army_counteracts(type)}") + ("\n\n"
-                f"Расходы производства: {str(was_type['prod_units_consumption']) + ' --> ' + str(type['prod_units_consumption']) if is_upgrade else type['prod_units_consumption']}\n"
-                f"Ежемесячные расходы: {str(was_type['per_unit_spending']) + ' --> ' + str(type['per_unit_spending']) if is_upgrade else type['per_unit_spending']}")
+                f"Атака: {was_type['attack'] * get_modifier(country, 'attack_modifier', 1):.2f} --> {new_type['attack'] * get_modifier(country, 'attack_modifier', 1):.2f}\n"
+                f"Бронебойность: {was_type['armour_piercing']} --> {new_type['armour_piercing']}\n"
+                f"Защита: {was_type['defense'] * get_modifier(country, 'defense_modifier', 1):.2f} --> {new_type['defense'] * get_modifier(country, 'defense_modifier', 1):.2f}\n"
+                f"Является бронированным: {get_is_armour(was_type)} --> {get_is_armour(new_type)}"
+                "\n\n"
+                f"Противодействовал: {get_army_counteracts(was_type)}\n"
+                f"Будет противодействовать: {get_army_counteracts(new_type)}"
+                "\n\n"
+                f"Расходы производства: {was_type['prod_units_consumption']} --> {new_type['prod_units_consumption']}\n"
+                f"Ежемесячные расходы: {was_type['per_unit_spending'] * get_modifier(country, 'army_maintenance', 1):.2f} --> {new_type['per_unit_spending'] * get_modifier(country, 'army_maintenance', 1):.2f}")
 
-def get_unit_types_info_foreach():
+def get_unit_info(country, army):
+        a_type = get_army_type(army)
+        return (f"Тип: {a_type['title']}\n"
+                f"Боевая мощь: {a_type['power']}"
+                "\n\n"
+                f"Очки здоровья: {a_type['hp'] * get_modifier(country, 'hp_modifier', 1):.2f}\n"
+                f"Боевой дух: {a_type['morale'] * get_modifier(country, 'morale_modifier', 1):.2f}"
+                "\n\n"
+                f"Атака: {a_type['attack'] * get_modifier(country, 'attack_modifier', 1):.2f}\n"
+                f"Бронебойность: {a_type['armour_piercing']}\n"
+                f"Защита: {a_type['defense'] * get_modifier(country, 'defense_modifier', 1):.2f}\n"
+                f"Является бронированным: {get_is_armour(a_type)}"
+                "\n\n"
+                f"Противодействует: {get_army_counteracts(a_type)}"
+                "\n\n"
+                f"Расходы производства: {a_type['prod_units_consumption']}\n"
+                f"Ежемесячные расходы: {a_type['per_unit_spending'] * get_modifier(country, 'army_maintenance',1):.2f}\n\n")
+
+def get_unit_types_info_foreach(country):
         text = ""
         for a_type in ARMY_TYPES.values():
                 text += (f"\n{a_type['title']}\n"
                          f"Боевая мощь: {a_type['power']}\n"
-                         f"Очки здоровья: {a_type['hp']}\n"
-                         f"Боевой дух: {a_type['morale']}]\n"
-                         f"Атака: {a_type['attack']}\n"
+                         f"Очки здоровья: {a_type['hp'] * get_modifier(country, 'hp_modifier', 1):.2f}\n"
+                         f"Боевой дух: {a_type['morale'] * get_modifier(country, 'morale_modifier', 1):.2f}]\n"
+                         f"Атака: {a_type['attack'] * get_modifier(country, 'attack_modifier', 1):.2f}\n"
                          f"Бронебойность: {a_type['armour_piercing']}\n"
-                         f"Защита: {a_type['defense']}\n"
+                         f"Защита: {a_type['defense'] * get_modifier(country, 'defense_modifier', 1):.2f}\n"
                          f"Является бронированным: {get_is_armour(a_type)}\n"
                          f"Противодействует: {get_army_counteracts(a_type)}\n"
                          f"Расходы производства: {a_type['prod_units_consumption']}\n"
-                         f"Ежемесячные расходы: {a_type['per_unit_spending']}\n\n")
+                         f"Ежемесячные расходы: {a_type['per_unit_spending'] * get_modifier(country, 'army_maintenance',1):.2f}\n\n")
         return text
