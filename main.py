@@ -1,5 +1,7 @@
 from services.bot import bot
 import handlers.initialization.start
+import handlers.initialization.key_api_init
+import handlers.initialization.world_size_init
 import handlers.initialization.countryname_init
 import handlers.initialization.capital_init
 import handlers.initialization.ideology_init

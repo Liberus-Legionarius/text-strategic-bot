@@ -14,7 +14,7 @@ def country_short_renaming(message):
     player_country = get_country(player, 0)
     cities = [city["name"] for city in get_cities(player, 0)]
     capital = get_city_name(player_country["capital"])
-    ai_response = ai.check_country_short_renaming(player_country["countryname"], cities, capital, message.text)
+    ai_response = ai.check_country_short_renaming(player_country["countryname"], cities, capital, message.text, player["api_key"])
     if not ai_response["response"] and player_country["countryname"] == message.text:
         bot.edit_message_text(
             "Введено некорректное название.\n"
@@ -49,7 +49,7 @@ def country_long_renaming(message):
     capital = get_city_name(player_country["capital"])
     ai_response = ai.check_country_long_renaming(player_country["countryname"], player_country["full_countryname"],
                                                  player_country["country_characteristics"], player_country["ideology"],
-                                                 player_country["ideology_desc"], cities, capital, message.text)
+                                                 player_country["ideology_desc"], cities, capital, message.text, player["api_key"])
     if not ai_response["response"]:
         bot.edit_message_text(
             "Введено некорректное название.\n"

@@ -2,7 +2,7 @@ from services.bot import bot, db
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 
-start_text = "Приветствую тебя, {}, в текстовой стратегии \"Новый Рассвет\"!\n\nЧтобы мы могли начать, тебе нужно придумать название страны.\nНазвание должно начинаться с большой буквы, а если в названии несколько слов, то каждое слово тоже начинается с большой буквы."
+start_text = "Приветствую тебя, {}, в текстовой стратегии \"Новый Рассвет\"!\n\nЧтобы мы могли начать, тебе нужно указать свой API-ключ для Gemini.\nЕсли указан неправильный ключ, просто введи команду /start и напиши ещё раз."
 yes_no_kb = InlineKeyboardMarkup()
 yes_no_kb.add(InlineKeyboardButton("Да", callback_data ="start:yes"), InlineKeyboardButton("Нет", callback_data ='start:no'))
 
@@ -20,4 +20,4 @@ def new_start(chat_id, user):
     if db.players.find_one({"tg_id":user.id}):
         db.players.delete_one({"tg_id":user.id})
         db.cities.delete_many({"player_id":user.id})
-    db.players.insert_one({"tg_id": user.id, "bot_state": "INIT_COUNTRYNAME"})
+    db.players.insert_one({"tg_id": user.id, "bot_state": "INIT_KEYAPI"})

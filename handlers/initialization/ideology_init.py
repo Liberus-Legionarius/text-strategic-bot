@@ -7,7 +7,7 @@ import services.ai as ai
 @bot.message_handler(func = lambda msg: get_player(msg.from_user).get("bot_state") == "INIT_IDEOLOGY")
 def ideology_init(message):
     if check_format(PATTERN_UPPERCASE, message.text, message.chat.id):
-        ai_check = ai.check_ideology(message.text)
+        ai_check = ai.check_ideology(message.text, get_player(message.from_user)["api_key"])
         if name_handler(ai_check, message.chat.id, "название идеологии"):
             db.players.update_one({"tg_id": message.from_user.id, "countries.id":0},
                                   {"$set": {"bot_state": "INIT_FULLNAME", "countries.$.ideology": message.text}})

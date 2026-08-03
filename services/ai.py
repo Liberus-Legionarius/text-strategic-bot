@@ -6,8 +6,6 @@ import json
 from services.modifiers import modifiers
 from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier
 
-ai = genai.Client(api_key=GEMINI_APIKEY)
-
 NARRATOR_PROMPT = Path("prompts/narrator.txt").read_text(encoding = "utf-8")
 NAME_CHECKER_PROMPT = Path("prompts/name_checker.txt").read_text(encoding="utf-8")
 IDEOLOGY_CHECKER_PROMPT = Path("prompts/ideology_checker.txt").read_text(encoding="utf-8")
@@ -21,26 +19,26 @@ RENAME_LONG_CHECKER_PROMPT = Path("prompts/rename_long_checker.txt").read_text(e
 
 JSON_PATTERN = r"\{.*\}"
 
-def check_countryname(name):
-    return ask_ai(name, NAME_CHECKER_PROMPT)
+def check_countryname(name, api_key):
+    return ask_ai(name, NAME_CHECKER_PROMPT, api_key)
 
-def check_ideology(ideology):
-    return ask_ai(ideology, IDEOLOGY_CHECKER_PROMPT)
+def check_ideology(ideology, api_key):
+    return ask_ai(ideology, IDEOLOGY_CHECKER_PROMPT, api_key)
 
-def check_fullname(fullname, countryname, ideology):
+def check_fullname(fullname, countryname, ideology, api_key):
     request = ("{"
                f'"base_countryname":"{countryname}",'
                f'"ideology":"{ideology}",'
                f'"full_countryname": "{fullname}"'
                '}')
-    return ask_ai(request, FULLNAME_CHECKER_PROMPT)
+    return ask_ai(request, FULLNAME_CHECKER_PROMPT, api_key)
 
-def check_capital(name, countryname):
+def check_capital(name, countryname, api_key):
     request = ("{"
                f'"countryname":{countryname},'
                f'"capitalname":{name}'
                "}")
-    return ask_ai(request, CAPITAL_CHECKER_PROMPT)
+    return ask_ai(request, CAPITAL_CHECKER_PROMPT, api_key)
 
 def write_country_lore(player):
     country = player["countries"][0]
@@ -50,7 +48,7 @@ def write_country_lore(player):
                f'"capital":{country["capital"]},'
                f'"ideology":{country["ideology"]}'
                "}")
-    return ask_ai(request, COUNTRY_LORE_PROMPT)
+    return ask_ai(request, COUNTRY_LORE_PROMPT, player["api_key"])
 
 def define_details(details, player):
     country = player["countries"][0]
@@ -61,7 +59,7 @@ def define_details(details, player):
                f'"ideology":{country["ideology"]},'
                f'"user_input":{details}'
                "}")
-    return ask_ai(request, DETAILS_PROMPT)
+    return ask_ai(request, DETAILS_PROMPT, player["api_key"])
 
 def write_step_first(player):
     country = player["countries"][0]
@@ -85,7 +83,7 @@ def write_step_first(player):
                f'"modifiers_information":{json.dumps(modifiers)},'
                f'"army_types":{json.dumps(army_types)},'
                f'"mobilization_laws":{json.dumps(mobilization_laws)}')
-    return ask_ai(request, INITIALIZATION_PROMPT)
+    return ask_ai(request, INITIALIZATION_PROMPT, player["api_key"])
 
 def write_step_plot(player):
     if len(player["actions"]) > 0:
@@ -107,18 +105,18 @@ def write_step_plot(player):
                    f'"move":{player["step"]},'
                    f'"modifiers_information":{json.dumps(modifiers)},'
                    f'actions":{player["actions"]}')
-        return ask_ai(request, NARRATOR_PROMPT)
+        return ask_ai(request, NARRATOR_PROMPT, player["api_key"])
     return json.loads('{"response":"С момента прошлого хода ничего не произошло..."}')
 
-def check_country_short_renaming(old_countryname, cities, capital, new_countryname):
+def check_country_short_renaming(old_countryname, cities, capital, new_countryname, api_key):
     request = ("{"
                f'"old_countryname":"{old_countryname}",'
                f'"cities":{cities},'
                f'"capital":"{capital}",'
                f'"new_countryname":"{new_countryname}"')
-    return ask_ai(request, RENAME_SHORT_CHECKER_PROMPT)
+    return ask_ai(request, RENAME_SHORT_CHECKER_PROMPT, api_key)
 
-def check_country_long_renaming(countryname, old_full_countryname, characteristics, ideology, ideology_desc, cities, capital, new_full_countryname):
+def check_country_long_renaming(countryname, old_full_countryname, characteristics, ideology, ideology_desc, cities, capital, new_full_countryname, api_key):
     request = ("{"
                f'"countryname":"{countryname}",'
                f'"old_full_countryname":"{old_full_countryname}",'
@@ -128,9 +126,10 @@ def check_country_long_renaming(countryname, old_full_countryname, characteristi
                f'"cities":{cities},'
                f'"capital":"{capital}",'
                f'"new_full_countryname":"{new_full_countryname}"')
-    return ask_ai(request, RENAME_LONG_CHECKER_PROMPT)
+    return ask_ai(request, RENAME_LONG_CHECKER_PROMPT, api_key)
 
-def ask_ai(request, base_prompt):
+def ask_ai(request, base_prompt, api_key):
+    ai = genai.Client(api_key=api_key)
     prompt = f"""{base_prompt}
     Ввод пользователя: {request}"""
     interaction = ai.interactions.create(
