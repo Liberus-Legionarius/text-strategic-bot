@@ -16,9 +16,11 @@ import handlers.callbacks.callback_start
 import handlers.callbacks.callback_initialization
 import handlers.callbacks.callback_diary_panels
 import handlers.callbacks.callback_end_move
+import handlers.callbacks.callback_settings_panels
 import handlers.ingame_texting.loans
 import handlers.ingame_texting.default_texting
 import handlers.ingame_texting.country_rename
+import handlers.ingame_texting.api_key_change
 from services.constants import set_buildings, set_army_types, set_mobilization
 
 set_buildings()
