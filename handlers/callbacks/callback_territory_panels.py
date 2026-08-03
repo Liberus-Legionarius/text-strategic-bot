@@ -35,6 +35,25 @@ def callback_territory(call):
                     }
                 )
                 open_one_city_panel(call.from_user, call.message.chat.id, call.message.message_id, city_id)
+            elif option == "capital":
+                player = get_player(call.from_user)
+                country = get_country(player, 0)
+                if country["money"] >= 125 and country["polit_power"] >= 50 and not country["capital"] == city_id:
+                    db.players.update_one(
+                        {"tg_id":call.from_user.id, "countries.id":0},
+                        {
+                            "$push":{
+                                "actions":f"Столица перенесена в город {get_city_name(city_id)}."
+                            },
+                            "$inc":{
+                                "countries.$.money":-125,
+                                "countries.$.polit_power":-50
+                            },
+                            "$set":{
+                                "countries.$.capital": city_id
+                            }
+                        }
+                    )
     elif panel == "b":
         b_id = call.data.split(":")[3]
         city_id = call.data.split(":")[2]

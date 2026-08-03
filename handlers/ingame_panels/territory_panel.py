@@ -67,11 +67,12 @@ def open_one_city_panel(user, chat_id, message_id, city_id):
             f"Доход от зданий: {get_prod_city_income(player_country, city):.2f} монет в ход\n"
             f"Здания: {get_buildings(city)}")
 
-    city_kb = InlineKeyboardMarkup(row_width=3)
-    city_kb.add(InlineKeyboardButton("Построить здание", callback_data=f"territory:cities:{city_id}:b"),
-                InlineKeyboardButton("Разграбить", callback_data=f"territory:cities:{city_id}:raze"),
-                InlineKeyboardButton("Нанять армию", callback_data=f"army:create:{city_id}"),
-                InlineKeyboardButton("Вернуться", callback_data="territory:cities:open"))
+    city_kb = InlineKeyboardMarkup()
+    city_kb.row(InlineKeyboardButton("Построить здание", callback_data=f"territory:cities:{city_id}:b"),
+                InlineKeyboardButton("Разграбить", callback_data=f"territory:cities:{city_id}:raze"))
+    city_kb.row(InlineKeyboardButton("Нанять армию", callback_data=f"army:create:{city_id}"))
+    city_kb.row(InlineKeyboardButton("Сменить столицу (125м, 50пп)", callback_data = f"territory:cities:{city_id}:capital"))
+    city_kb.row(InlineKeyboardButton("Вернуться", callback_data="territory:cities:open"))
 
     bot.edit_message_text(
         text,
