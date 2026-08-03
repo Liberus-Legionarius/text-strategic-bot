@@ -12,8 +12,8 @@ PANELS_KB.row(InlineKeyboardButton("Экономика", callback_data="economy:
 PANELS_KB.row(InlineKeyboardButton("Армия", callback_data="army:base:open"),
               InlineKeyboardButton("Дипломатия", callback_data="diplomacy:base:open"))
 PANELS_KB.row(InlineKeyboardButton("Дневник", callback_data="diary:base:open"))
-PANELS_KB.row(InlineKeyboardButton("Дополнительно...", callback_data="state:extra:open"),
-              InlineKeyboardButton("Настройки", callback_data="settings:open"))
+PANELS_KB.row(InlineKeyboardButton("Переименовать страну", callback_data="state:rename"))
+PANELS_KB.row(InlineKeyboardButton("Настройки", callback_data="settings:open"))
 PANELS_KB.row(InlineKeyboardButton("Завершить ход", callback_data="end_move"))
 
 def open_state_panel(user, chat_id, message_id = None):

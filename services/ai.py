@@ -16,6 +16,8 @@ CAPITAL_CHECKER_PROMPT = Path("prompts/capital_checker.txt").read_text(encoding=
 COUNTRY_LORE_PROMPT = Path("prompts/country_lore.txt").read_text(encoding="utf-8")
 DETAILS_PROMPT = Path("prompts/details.txt").read_text(encoding="utf-8")
 INITIALIZATION_PROMPT = Path("prompts/initialization.txt").read_text(encoding="utf-8")
+RENAME_SHORT_CHECKER_PROMPT = Path("prompts/rename_short_checker.txt").read_text(encoding="utf-8")
+RENAME_LONG_CHECKER_PROMPT = Path("prompts/rename_long_checker.txt").read_text(encoding="utf-8")
 
 JSON_PATTERN = r"\{.*\}"
 
@@ -107,6 +109,26 @@ def write_step_plot(player):
                    f'actions":{player["actions"]}')
         return ask_ai(request, NARRATOR_PROMPT)
     return json.loads('{"response":"С момента прошлого хода ничего не произошло..."}')
+
+def check_country_short_renaming(old_countryname, cities, capital, new_countryname):
+    request = ("{"
+               f'"old_countryname":"{old_countryname}",'
+               f'"cities":{cities},'
+               f'"capital":"{capital}",'
+               f'"new_countryname":"{new_countryname}"')
+    return ask_ai(request, RENAME_SHORT_CHECKER_PROMPT)
+
+def check_country_long_renaming(countryname, old_full_countryname, characteristics, ideology, ideology_desc, cities, capital, new_full_countryname):
+    request = ("{"
+               f'"countryname":"{countryname}",'
+               f'"old_full_countryname":"{old_full_countryname}",'
+               f'"country_characteristics":"{characteristics}",'
+               f'"ideology":"{ideology}",'
+               f'"ideology_description":"{ideology_desc}",'
+               f'"cities":{cities},'
+               f'"capital":"{capital}",'
+               f'"new_full_countryname":"{new_full_countryname}"')
+    return ask_ai(request, RENAME_LONG_CHECKER_PROMPT)
 
 def ask_ai(request, base_prompt):
     prompt = f"""{base_prompt}
