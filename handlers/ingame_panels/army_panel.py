@@ -62,7 +62,7 @@ def open_mobilization_panel(user, chat_id, message_id):
         else:
                 for law_id, law in MOBILIZATION_LAWS.items():
                         if not player_country["national_spirits"][2]["_id"] == str(law_id) and not law.get("is_pacifism"):
-                                mobilization_kb.add(f'{InlineKeyboardButton(law["title"])} (150 пп)', callback_data = f"army:mobilization:{str(law_id)}")
+                                mobilization_kb.add(InlineKeyboardButton(f'{law["title"]} (150 пп)', callback_data = f"army:mobilization:{str(law_id)}"))
         mobilization_kb.add(InlineKeyboardButton("Вернуться", callback_data = "army:base:open"))
         bot.edit_message_text(
                 text,
