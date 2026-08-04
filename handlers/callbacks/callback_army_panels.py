@@ -134,16 +134,12 @@ def start_campaign(user, army_id, cost):
     player = get_player(user)
     country = get_country(player, 0)
     army = get_army(country, army_id)
-    city = next((city for city in get_cities(player, 0) if city["_id"] == army["city_id"]), None)
     db.players.update_one({"tg_id":user.id, "countries.id":0},
                           {"$push":{
                                 "countries.$.campaigns":{
-                                    "started": player["step"],
                                     "cost": cost,
                                     "army":army
-                                },
-                                "actions":f"Армия '{army['name']}' типа {get_army_type(army)['title']}, размещённая в городе {city['name']}, "
-                                          f"отправилась в исследовательскую экспедицию. Стоимость экспедиции составила {cost} монет."
+                                }
                           },
                           "$pull":{
                                 "countries.$.armies":army

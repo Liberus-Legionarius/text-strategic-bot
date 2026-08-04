@@ -2,7 +2,7 @@ from google import genai
 from pathlib import Path
 import re
 import json
-
+from services.bot import db
 from services.math.economy_math import get_total_income, get_total_spending
 from services.math.territory_math import get_cities
 from services.modifiers import modifiers
@@ -20,6 +20,7 @@ INITIALIZATION_PROMPT = Path("prompts/initialization.txt").read_text(encoding="u
 RENAME_SHORT_CHECKER_PROMPT = Path("prompts/rename_short_checker.txt").read_text(encoding="utf-8")
 RENAME_LONG_CHECKER_PROMPT = Path("prompts/rename_long_checker.txt").read_text(encoding="utf-8")
 EVENTS_PROMPT = Path("prompts/events.txt").read_text(encoding="utf-8")
+CITY_GEN_PROMPT = Path("prompts/cities_generator.txt").read_text(encoding="utf-8")
 
 JSON_PATTERN = r"\{.*\}"
 
@@ -166,6 +167,25 @@ def create_event(player, country):
                f'"army_types":{json.dumps(army_types, ensure_ascii=False)},'
                f'"history": {json.dumps(player["history"], ensure_ascii=False)}')
     return ask_ai(request, EVENTS_PROMPT, player["api_key"])
+
+def generate_city(player, prev_city, population = None, buildings = None):
+    building_types = list(BUILDINGS.values())
+    for b in building_types:
+        b.update({"_id": str(b["_id"])})
+    cities = db.cities.find()
+    existed_cities = []
+    for city in cities:
+        existed_cities.append(city["name"])
+    request = ("{"
+               f'"prev_city":"{prev_city}"')
+    if population:
+        request += f', "population":{population}'
+        if buildings:
+            request += f', "buildings":{json.dumps(buildings, ensure_ascii=False)}'
+    request += (f', "building_types": {json.dumps(building_types, ensure_ascii=False)},'
+                f'"existed_cities": {json.dumps(existed_cities, ensure_ascii=False)}'
+                "}")
+    return ask_ai(request, CITY_GEN_PROMPT, player["api_key"])
 
 def ask_ai(request, base_prompt, api_key):
     ai = genai.Client(api_key=api_key)

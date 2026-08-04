@@ -1,7 +1,4 @@
 from services.bot import db
-from telebot.types import InlineKeyboardMarkup
-from telebot.types import InlineKeyboardButton
-
 from services.modifiers import modifiers_from_zero_to_one, modifiers_from_one_to_one
 
 NUMBER_TO_MONTH = {

@@ -16,7 +16,7 @@ def init_state(user):
         "controller":0,
         "population":data["capital_population"],
         "buildings":[],
-        "contacted_with":[]
+        "connected_with":[]
     }
     city = db.cities.insert_one(capital)
 

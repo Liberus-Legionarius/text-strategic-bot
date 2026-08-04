@@ -1,7 +1,8 @@
-import random
+import random as rnd
 import services.ai as ai
 from services.bot import bot, db
 from services.constants import get_player, get_modifier, get_country
+from services.campaign_effects import CAMPAIGN_BONUS, CAMPAIGN_RESULT
 from services.math.economy_math import get_total_spending, get_total_income
 from handlers.ingame_panels.state_panel import open_state_panel
 from dateutil.relativedelta import relativedelta
@@ -14,7 +15,7 @@ def callback_end_move(call):
     bot.answer_callback_query(call.id)
     player = get_player(call.from_user)
     player_country = get_country(player, 0)
-    if random.random() <= player["event_chance"]:
+    if rnd.random() <= player["event_chance"] and len(player_country["campaigns"]) < 1:
         event = ai.create_event(player, player_country)
         db.players.update_one({"tg_id": player["tg_id"]},
                               {
@@ -36,7 +37,13 @@ def callback_end_move(call):
             message_id = call.message.message_id,
             reply_markup = event_kb
         )
-
+    elif len(player_country["campaigns"]) > 0:
+        for campaign in player_country["campaigns"]:
+            dice = rnd.randint(0,3) + rnd.randint(0,3) + CAMPAIGN_BONUS[campaign["cost"]]
+            dice = min(dice, 6)
+            print(dice)
+            CAMPAIGN_RESULT[dice](player, campaign["army"], campaign["cost"], campaign)
+        on_move_effects(player, player_country, call.from_user, call.message.chat.id, call.message.message_id)
     else:
         db.players.update_one({"tg_id":player["tg_id"]},
                               {
