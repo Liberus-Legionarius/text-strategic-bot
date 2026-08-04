@@ -1,10 +1,13 @@
 from google import genai
 from pathlib import Path
-from config import GEMINI_APIKEY
 import re
 import json
+
+from services.math.economy_math import get_total_income, get_total_spending
+from services.math.territory_math import get_cities
 from services.modifiers import modifiers
-from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier
+from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier, get_city_name, BUILDINGS
+from services.effects import effects
 
 NARRATOR_PROMPT = Path("prompts/narrator.txt").read_text(encoding = "utf-8")
 NAME_CHECKER_PROMPT = Path("prompts/name_checker.txt").read_text(encoding="utf-8")
@@ -16,6 +19,7 @@ DETAILS_PROMPT = Path("prompts/details.txt").read_text(encoding="utf-8")
 INITIALIZATION_PROMPT = Path("prompts/initialization.txt").read_text(encoding="utf-8")
 RENAME_SHORT_CHECKER_PROMPT = Path("prompts/rename_short_checker.txt").read_text(encoding="utf-8")
 RENAME_LONG_CHECKER_PROMPT = Path("prompts/rename_long_checker.txt").read_text(encoding="utf-8")
+EVENTS_PROMPT = Path("prompts/events.txt").read_text(encoding="utf-8")
 
 JSON_PATTERN = r"\{.*\}"
 
@@ -91,7 +95,7 @@ def write_step_plot(player):
         request = ("{"
                    f'"countryname":"{country["countryname"]}",'
                    f'"full_countryname":"{country["full_countryname"]}",'
-                   f'"capital":"{country["capital"]}",'
+                   f'"capital":"{get_city_name(country["capital"])}",'
                    f'"ideology":"{country["ideology"]}",'
                    f'"ideology_desc":{country["ideology_desc"]},'
                    f'"country_characteristics":"{country["country_characteristics"]}",'
@@ -127,6 +131,41 @@ def check_country_long_renaming(countryname, old_full_countryname, characteristi
                f'"capital":"{capital}",'
                f'"new_full_countryname":"{new_full_countryname}"')
     return ask_ai(request, RENAME_LONG_CHECKER_PROMPT, api_key)
+
+def create_event(player, country):
+    buildings = list(BUILDINGS.values())
+    for b in buildings:
+        b.update({"_id": str(b["_id"])})
+    army_types = list(ARMY_TYPES.values())
+    for a in army_types:
+        a.update({"_id": str(a["_id"]), "counteracts": None})
+    cities = get_cities(player, country["id"])
+    for c in cities:
+        c.update({"_id": str(c["_id"])})
+    request = ("{"
+               f'"countryname":"{country["countryname"]}",'
+               f'"full_countryname":"{country["full_countryname"]}",'
+               f'"capital":"{get_city_name(country["capital"])}",'
+               f'"ideology":"{country["ideology"]}",'
+               f'"ideology_desc":{country["ideology_desc"]},'
+               f'"country_characteristics":"{country["country_characteristics"]}",'
+               f'"goals":{json.dumps(country["goals"], ensure_ascii=False)},'
+               f'"completed_goals":{json.dumps(country["completed_goals"], ensure_ascii=False)},'
+               f'"territorial_ambitions":{json.dumps(country["territorial_ambitions"], ensure_ascii=False)},'
+               f'"date":{player["date"]},'
+               f'"money":{country["money"]},'
+               f'"income":{get_total_income(player, country)},'
+               f'"spending":{get_total_spending(player, country)},'
+               f'"political_power":{country["polit_power"]},'
+               f'"national_spirits":{json.dumps(country["national_spirits"], ensure_ascii=False)},\n'
+               f'"cities": {json.dumps(cities, ensure_ascii=False)},\n'
+               f'"move":{player["step"]},'
+               f'"modifiers_information":{json.dumps(modifiers, ensure_ascii=False)},'
+               f'"effects_information": {json.dumps(effects, ensure_ascii=False)},\n'
+               f'"building_types":{json.dumps(buildings, ensure_ascii=False)},\n'
+               f'"army_types":{json.dumps(army_types, ensure_ascii=False)},'
+               f'"history": {json.dumps(player["history"], ensure_ascii=False)}')
+    return ask_ai(request, EVENTS_PROMPT, player["api_key"])
 
 def ask_ai(request, base_prompt, api_key):
     ai = genai.Client(api_key=api_key)

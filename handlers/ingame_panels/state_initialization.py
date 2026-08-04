@@ -94,7 +94,8 @@ def init_state(user):
             "step":1,
             "ai_plot":data["response"],
             "actions":[],
-            "history":[]
+            "history":[],
+            "event_chance": 0.0
         }
     })
 
