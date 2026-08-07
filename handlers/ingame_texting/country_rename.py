@@ -1,5 +1,5 @@
 from services.bot import bot, db
-from services.constants import get_player, get_country, get_city_name
+from services.constants import get_player, get_country
 import services.ai as ai
 from services.math.territory_math import get_cities
 from telebot.types import InlineKeyboardMarkup
@@ -13,7 +13,7 @@ def country_short_renaming(message):
     player = get_player(message.from_user)
     player_country = get_country(player, 0)
     cities = [city["name"] for city in get_cities(player, 0)]
-    capital = get_city_name(player_country["capital"])
+    capital = player_country["capital"]
     ai_response = ai.check_country_short_renaming(player_country["countryname"], cities, capital, message.text, player["api_key"])
     if not ai_response["response"] and player_country["countryname"] == message.text:
         bot.edit_message_text(
@@ -46,7 +46,7 @@ def country_long_renaming(message):
     player = get_player(message.from_user)
     player_country = get_country(player, 0)
     cities = [city["name"] for city in get_cities(player, 0)]
-    capital = get_city_name(player_country["capital"])
+    capital = player_country["capital"]
     ai_response = ai.check_country_long_renaming(player_country["countryname"], player_country["full_countryname"],
                                                  player_country["country_characteristics"], player_country["ideology"],
                                                  player_country["ideology_desc"], cities, capital, message.text, player["api_key"])

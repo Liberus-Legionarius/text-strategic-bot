@@ -1,13 +1,13 @@
 from handlers.ingame_panels.territory_panel import open_one_city_panel
 from services.bot import bot, db
 from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel, open_armies_panel, \
-    open_one_army_panel, open_campaign_panel, open_delete_confirmation, open_army_reorganize, open_army_move_selection, \
-    open_army_reorganize_unit_info, open_army_creation_panel
+    open_one_army_panel, open_campaign_panel, open_delete_confirmation, open_army_reorganize, \
+    open_army_reorganize_unit_info, open_army_creation_panel, open_province_selection_panel
 from services.math.army_math import get_army, get_reorganization_cost, get_manpower
 from services.constants import MOBILIZATION_LAWS, get_player, get_country, ARMY_TYPES, get_is_pacifism
 from bson import ObjectId
 from services.math.army_math import get_army_type
-from services.math.territory_math import get_cities
+from services.math.territory_math import get_cities, change_population
 
 
 @bot.callback_query_handler(func= lambda call: call.data.startswith("army"))
@@ -44,7 +44,7 @@ def callback_army(call):
                     if datas[4] == "yes":
                         player = get_player(call.from_user)
                         army = get_army(get_country(player, 0), panel)
-                        cost = get_army_type(army)["cost"]*army["size"]/2
+                        cost = get_army_type(army)["cost"]*army["size"]*(army["hp"]/get_army_type(army)["hp"])/2
                         db.players.update_one({"tg_id": call.from_user.id, "countries.id":0},
                                               {
                                                   "$pull":{
@@ -55,12 +55,7 @@ def callback_army(call):
                                                   }
                                               })
                         to_inc = army["size"]*100/len(get_cities(player, 0))
-                        db.cities.update_many({"player_id":player["tg_id"], "owner":0},
-                                             {
-                                                 "$inc":{
-                                                     "population":to_inc
-                                                 }
-                                             })
+                        change_population(player, 0, to_inc)
                         open_armies_panel(call.from_user, call.message.chat.id, call.message.message_id)
                     elif datas[4] == "no":
                         open_one_army_panel(call.from_user, call.message.chat.id, call.message.message_id, panel)
@@ -94,10 +89,12 @@ def callback_army(call):
     elif panel == "campaign":
         datas = call.data.split(":")
         if len(datas) < 4:
-            open_campaign_panel(call.from_user, call.message.chat.id, call.message.message_id, datas[2])
+            open_province_selection_panel(call.from_user, call.message.chat.id, call.message.message_id, datas[2])
+        elif len(datas) < 5:
+            open_campaign_panel(call.from_user, call.message.chat.id, call.message.message_id, datas[2], datas[3])
         else:
-            if get_country(get_player(call.from_user), 0)["money"] >= int(datas[3]):
-                start_campaign(call.from_user, datas[2], int(datas[3]))
+            if get_country(get_player(call.from_user), 0)["money"] >= int(datas[4]):
+                start_campaign(call.from_user, datas[2], datas[3], int(datas[4]))
                 open_armies_panel(call.from_user, call.message.chat.id, call.message.message_id)
     elif panel == "create":
         datas = call.data.split(":")
@@ -105,10 +102,12 @@ def callback_army(call):
         country = get_country(player, 0)
         if get_is_pacifism(country):
             return
-        if get_manpower(player, country) >= 100 and db.cities.find_one({"_id":ObjectId(datas[2])})["population"] >= 250:
+        if get_manpower(player, country) >= 100:
             if len(datas) == 4:
                 i = max(country["armies"], key = lambda a: a["army_id"])["army_id"] + 1
                 a_type = ARMY_TYPES[ObjectId(datas[3])]
+                change_pops = 100/len(get_cities(player, country["id"]))
+                change_population(player, 0, -change_pops)
                 db.players.update_one({"tg_id":player["tg_id"]},
                                       {
                                           "$push":{
@@ -118,7 +117,6 @@ def callback_army(call):
                                                   "size": 1,
                                                   "hp": a_type["hp"],
                                                   "morale": a_type["morale"],
-                                                  "city_id": ObjectId(datas[2]),
                                                   "type_id": ObjectId(datas[3])
                                               }
                                           },
@@ -130,15 +128,17 @@ def callback_army(call):
             else:
                 open_army_creation_panel(call.from_user, call.message.chat.id, call.message.message_id, datas[2])
 
-def start_campaign(user, army_id, cost):
+def start_campaign(user, army_id, province, cost):
     player = get_player(user)
     country = get_country(player, 0)
     army = get_army(country, army_id)
+    prov = next(p for p in player["province_map"] if p["name"] == province)
     db.players.update_one({"tg_id":user.id, "countries.id":0},
                           {"$push":{
                                 "countries.$.campaigns":{
                                     "cost": cost,
-                                    "army":army
+                                    "army":army,
+                                    "province":prov
                                 }
                           },
                           "$pull":{

@@ -4,7 +4,7 @@ from services.math.economy_math import get_total_income, get_total_spending
 from services.math.territory_math import get_total_population
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
-from services.constants import get_date_move, get_player, get_modifier, get_city_name
+from services.constants import get_date_move, get_player, get_modifier
 
 PANELS_KB =InlineKeyboardMarkup()
 PANELS_KB.row(InlineKeyboardButton("Экономика", callback_data="economy:base:open"),
@@ -42,7 +42,7 @@ def open_state_panel(user, chat_id, message_id = None):
     text = (f"{get_date_move(player)}"
             "\n\n"
             f"{player_country['full_countryname']}\n"
-            f"Столица: {get_city_name(player_country['capital'])}"
+            f"Столица: {player_country['capital']}"
             "\n\n"
             f"{ai_plot}"
             "\n\n"

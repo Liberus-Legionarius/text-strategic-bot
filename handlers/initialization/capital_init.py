@@ -4,14 +4,17 @@ from services.constants import get_player
 import services.ai as ai
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
+from services.map.map_management import city_exists_on_map, load_map
 
 # Выбор столицы.
 @bot.message_handler(func = lambda msg: get_player(msg.from_user).get("bot_state") == "INIT_CAPITAL")
 def capital_init(message):
-    if check_format(PATTERN_UPPERCASE, message.text, message.chat.id):
+    if city_exists_on_map(message.text):
+        bot.send_message(message.chat.id, "Город существует на текущей карте игры. Сейчас проверю, имеет ли столица смысл для выбранной страны...")
         player = get_player(message.from_user)
         ai_check = ai.check_capital(message.text, player["countries"][0].get("countryname"), player["api_key"])
         if name_handler(ai_check, message.chat.id, "название столицы"):
+            load_map(message.from_user.id)
             db.players.update_one({"tg_id": message.from_user.id, "countries.id":0},
                                   {"$set": {"countries.$.capital": message.text}})
             this_message = bot.send_message(message.chat.id, "Инициализация практически завершена.\n"

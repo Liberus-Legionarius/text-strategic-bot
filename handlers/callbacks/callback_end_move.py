@@ -42,7 +42,7 @@ def callback_end_move(call):
             dice = rnd.randint(0,3) + rnd.randint(0,3) + CAMPAIGN_BONUS[campaign["cost"]]
             dice = min(dice, 6)
             print(dice)
-            CAMPAIGN_RESULT[dice](player, campaign["army"], campaign["cost"], campaign)
+            CAMPAIGN_RESULT[dice](player, campaign)
         on_move_effects(player, player_country, call.from_user, call.message.chat.id, call.message.message_id)
     else:
         db.players.update_one({"tg_id":player["tg_id"]},
@@ -75,10 +75,33 @@ def on_move_effects(player, country, user, chat_id, message_id):
                                   "date": date
                               }
                           })
-    db.cities.update_one({"player_id": player["tg_id"], "owner": 0},
-                         {
-                             "$mul": {
-                                 "population": pop_growth
-                             }
-                         })
+    db.players.update_one({"tg_id": player["tg_id"]},
+                          [
+                              {
+                                  "$set": {
+                                      "cities": {
+                                          "$map": {
+                                              "input": "$cities",
+                                              "as": "city",
+                                              "in": {
+                                                  "$cond": [
+                                                      {"$eq": ["$$city.owner", 0]},
+                                                      {
+                                                          "$mergeObjects": [
+                                                              "$$city",
+                                                              {
+                                                                  "population": {
+                                                                      "$multiply": ["$$city.population", pop_growth]
+                                                                  }
+                                                              }
+                                                          ]
+                                                      },
+                                                      "$$city"
+                                                  ]
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+                          ])
     open_state_panel(user, chat_id, message_id)

@@ -6,7 +6,7 @@ from services.bot import db
 from services.math.economy_math import get_total_income, get_total_spending
 from services.math.territory_math import get_cities
 from services.modifiers import modifiers
-from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier, get_city_name, BUILDINGS
+from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier, BUILDINGS
 from services.effects import effects
 
 NARRATOR_PROMPT = Path("prompts/narrator.txt").read_text(encoding = "utf-8")
@@ -96,7 +96,7 @@ def write_step_plot(player):
         request = ("{"
                    f'"countryname":"{country["countryname"]}",'
                    f'"full_countryname":"{country["full_countryname"]}",'
-                   f'"capital":"{get_city_name(country["capital"])}",'
+                   f'"capital":"{country["capital"]}",'
                    f'"ideology":"{country["ideology"]}",'
                    f'"ideology_desc":{country["ideology_desc"]},'
                    f'"country_characteristics":"{country["country_characteristics"]}",'
@@ -141,12 +141,10 @@ def create_event(player, country):
     for a in army_types:
         a.update({"_id": str(a["_id"]), "counteracts": None})
     cities = get_cities(player, country["id"])
-    for c in cities:
-        c.update({"_id": str(c["_id"])})
     request = ("{"
                f'"countryname":"{country["countryname"]}",'
                f'"full_countryname":"{country["full_countryname"]}",'
-               f'"capital":"{get_city_name(country["capital"])}",'
+               f'"capital":"{country["capital"]}",'
                f'"ideology":"{country["ideology"]}",'
                f'"ideology_desc":{country["ideology_desc"]},'
                f'"country_characteristics":"{country["country_characteristics"]}",'
@@ -168,22 +166,17 @@ def create_event(player, country):
                f'"history": {json.dumps(player["history"], ensure_ascii=False)}')
     return ask_ai(request, EVENTS_PROMPT, player["api_key"])
 
-def generate_city(player, prev_city, population = None, buildings = None):
+def generate_city(player, city, population = None, buildings = None):
     building_types = list(BUILDINGS.values())
     for b in building_types:
         b.update({"_id": str(b["_id"])})
-    cities = db.cities.find()
-    existed_cities = []
-    for city in cities:
-        existed_cities.append(city["name"])
     request = ("{"
-               f'"prev_city":"{prev_city}"')
+               f'"city":"{city}"')
     if population:
         request += f', "population":{population}'
         if buildings:
             request += f', "buildings":{json.dumps(buildings, ensure_ascii=False)}'
-    request += (f', "building_types": {json.dumps(building_types, ensure_ascii=False)},'
-                f'"existed_cities": {json.dumps(existed_cities, ensure_ascii=False)}'
+    request += (f', "building_types": {json.dumps(building_types, ensure_ascii=False)}'
                 "}")
     return ask_ai(request, CITY_GEN_PROMPT, player["api_key"])
 
@@ -191,6 +184,7 @@ def ask_ai(request, base_prompt, api_key):
     ai = genai.Client(api_key=api_key)
     prompt = f"""{base_prompt}
     Ввод пользователя: {request}"""
+    print(prompt)
     interaction = ai.interactions.create(
         model="gemini-3.1-flash-lite",
         input=prompt

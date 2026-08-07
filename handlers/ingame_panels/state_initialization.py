@@ -9,16 +9,6 @@ from services.math.army_math import get_army_type
 def init_state(user):
     player = db.players.find_one({"tg_id":user.id})
     data = ai.write_step_first(player)
-    capital = {
-        "player_id":player["tg_id"],
-        "name":player["countries"][0]["capital"],
-        "owner":0,
-        "controller":0,
-        "population":data["capital_population"],
-        "buildings":[],
-        "connected_with":[]
-    }
-    city = db.cities.insert_one(capital)
 
     armies = []
 
@@ -30,7 +20,6 @@ def init_state(user):
                 "size":1,
                 "hp":get_army_type(army)["hp"],
                 "morale":get_army_type(army)["morale"],
-                "city_id": city.inserted_id,
                 "type_id": ObjectId(army["type_id"])
             }
         )
@@ -79,23 +68,37 @@ def init_state(user):
     }
 
     db.players.update_one({
-        "tg_id":user.id, "countries.id":0},{
+        "tg_id":user.id},{
         "$set":{
-            "countries.$.capital": city.inserted_id,
+            "date":datetime(3057, data["month"], 1),
+            "step":1,
+            "ai_plot":data["response"],
+            "actions":[],
+            "history":[],
+            "event_chance": 0.0,
+        }
+    })
+    db.players.update_one({
+        "tg_id": user.id, "countries.id": 0}, {
+        "$set": {
             "countries.$.armies": armies,
             "countries.$.polit_power": data["polit_power"],
             "countries.$.money": data["money"],
             "countries.$.loans": 0.0,
             "countries.$.interest": 0.04,
             "countries.$.campaigns": [],
-            "countries.$.national_spirits": [data["national_spirit"], taxes_politic, mobilization_law, invest_in_pop_growth, invest_in_army, invest_in_stability, invest_in_militarization],
+            "countries.$.national_spirits": [data["national_spirit"], taxes_politic, mobilization_law,
+                                             invest_in_pop_growth, invest_in_army, invest_in_stability,
+                                             invest_in_militarization],
             "countries.$.is_player": True,
-            "date":datetime(3057, data["month"], 1),
-            "step":1,
-            "ai_plot":data["response"],
-            "actions":[],
-            "history":[],
-            "event_chance": 0.0
+        }
+    })
+    db.players.update_one({
+        "tg_id": user.id, "cities.name": player["countries"][0]["capital"]}, {
+        "$set": {
+            "cities.$.owner": 0,
+            "cities.$.controller": 0,
+            "cities.$.population": data["capital_population"]
         }
     })
 

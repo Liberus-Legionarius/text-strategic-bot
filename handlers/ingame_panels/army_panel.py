@@ -4,7 +4,7 @@ from services.constants import get_player, get_date_move, get_country, get_is_pa
 from services.math.army_math import *
 from services.math.economy_math import get_prod_units_consumption, get_prod_units
 from services.math.spending_math import get_army_spending
-from services.math.territory_math import get_total_population, get_cities
+from services.math.territory_math import get_total_population, get_cities, get_city_by_name
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 from bson import ObjectId
@@ -86,7 +86,7 @@ def open_armies_panel(user, chat_id, message_id):
 
         armies_kb = InlineKeyboardMarkup(row_width=2)
         for army in player_country["armies"]:
-                armies_kb.add(InlineKeyboardButton(f"{army['name']} ({next((city for city in get_cities(player, player_country['id']) if city['_id'] == army['city_id']), None)['name']})",
+                armies_kb.add(InlineKeyboardButton(f"{army['name']}",
                                                    callback_data = f"army:armies:{army['army_id']}"))
 
         armies_kb.row(InlineKeyboardButton("Назад", callback_data = "army:base:open"))
@@ -123,28 +123,66 @@ def open_one_army_panel(user, chat_id, message_id, army_id):
                 reply_markup=one_army_kb
         )
 
-def open_campaign_panel(user, chat_id, message_id, army_id):
+def open_province_selection_panel(user, chat_id, message_id, army_id):
         player = get_player(user)
-        player_country = get_country(player, 0)
-        army = get_army(player_country, army_id)
-        city = next((c for c in get_cities(player, player_country['id']) if c["_id"] == army["city_id"]), None)
 
         text = (f"{get_date_move(player)}"
                 "\n\n"
-                f"Наше подразделение {army['name']}, расположенное в городе {city['name']} совершит исследовательскую вылазку.\n"
+                "Чтобы провести вылазку, нужно определиться со стартовой провинцией. Город или страна, которую мы откроем, будет находиться или на территории этой провинции, если имеются ещё неизвестные города, или на территории одной из соседних провинций.")
+
+        provinces_kb = InlineKeyboardMarkup(row_width = 2)
+
+        cities = get_cities(player, 0)
+        provinces = set([city["province"] for city in cities])
+        provinces = [next(p for p in player["province_map"] if p["name"] == prov) for prov in provinces]
+        provs = []
+        for prov in provinces:
+                if has_unknown_city(player, prov):
+                        provs.append(prov)
+                        break
+                ps = [p for p in player["province_map"] if p["name"] in prov["connected_with"]]
+                for p in ps:
+                        if has_unknown_city(player, p):
+                                provs.append(prov)
+                                break
+        for prov in provs:
+                provinces_kb.add(InlineKeyboardButton(prov["name"], callback_data=f"army:campaign:{army_id}:{prov['name']}"))
+        provinces_kb.row(InlineKeyboardButton("Вернуться", callback_data=f"army:armies:{army_id}"))
+
+        bot.edit_message_text(
+                text,
+                chat_id=chat_id,
+                message_id=message_id,
+                reply_markup=provinces_kb
+        )
+
+def has_unknown_city(player, province):
+        for city in province["cities"]:
+                if not get_city_by_name(player, city)["owner"]:
+                        return True
+        return  False
+
+def open_campaign_panel(user, chat_id, message_id, army_id, province):
+        player = get_player(user)
+        player_country = get_country(player, 0)
+        army = get_army(player_country, army_id)
+
+        text = (f"{get_date_move(player)}"
+                "\n\n"
+                f"Как мы определились, наше подразделение {army['name']} совершит исследовательскую вылазку из провинции {province}.\n"
                 "В результате мы сможем обнаружить что-то из этого списка:\n"
-                "\t\t\t- Руины. Никем не занятые территории разрушенного много веков назад города, в котором можно будет найти бункер с выжившими, пустой бункер с полезными нам припасами или ничего. В любом случае руины можно будет заселить.\n"
-                "\t\t\t- Неизвестное государство. То есть такие же выжившие, как и мы, которые уже основали собственное государство. Если нам повезёт, местное население будет мирным и согласится на сотрудничество (в лучшем случае, если их положение тяжёлое, они принесут нам присягу), в противном случае мы найдём себе нового врага, возможно, даже будем вынуждены подчиниться более могущественной державе.\n"
-                "\t\t\t- Ничего. Просто выжженные пустоши... Совсем ничего."
+                "\t\t\t- Ничего, просто потратим зря ресурсы и, возможно, людей.\n"
+                "\t\t\t- Бункер на месте одного из городов былой цивилизации. Если повезёт, бункер будет заселён, а местные захотят принять наше правление... или их придётся в этом убедить. В противном случае придётся направить 1000 поселенцев, чтобы отстроить город.\n"
+                "\t\t\t- Новое государство. Мы не можем быть уверены, что окажемся слабее этой новой страны... и что они не захотят просто уничтожить нас."
                 "\n\n"
                 f"Нужно лишь определить субсидирование вылазки...\n"
                 f"На данный момент у нас в казне {player_country['money']:.2f} монет")
 
         campaign_kb = InlineKeyboardMarkup()
-        campaign_kb.add(InlineKeyboardButton("250 монет (шанс успеха 15%)", callback_data=f"army:campaign:{army_id}:250"),
-                             InlineKeyboardButton("500 монет (шанс успеха 25%)", callback_data=f"army:campaign:{army_id}:500"),
-                             InlineKeyboardButton("1000 монет (шанс успеха 55%)", callback_data=f"army:campaign:{army_id}:1000"),
-                             InlineKeyboardButton("2500 монет (шанс успеха 75%)", callback_data=f"army:campaign:{army_id}:2500"),
+        campaign_kb.add(InlineKeyboardButton("250 монет (шанс успеха 15%)", callback_data=f"army:campaign:{army_id}:{province}:250"),
+                             InlineKeyboardButton("500 монет (шанс успеха 25%)", callback_data=f"army:campaign:{army_id}:{province}:500"),
+                             InlineKeyboardButton("1000 монет (шанс успеха 55%)", callback_data=f"army:campaign:{army_id}:{province}:1000"),
+                             InlineKeyboardButton("2500 монет (шанс успеха 75%)", callback_data=f"army:campaign:{army_id}:{province}:2500"),
                              InlineKeyboardButton("Вернуться", callback_data=f"army:armies:{army_id}"))
 
         bot.edit_message_text(
@@ -227,10 +265,7 @@ def open_army_reorganize_unit_info(user, chat_id, message_id, army_id, type_id):
                 reply_markup=reorganize_kb
         )
 
-def open_army_move_selection(user, chat_id, message_id, army_id):
-        pass
-
-def open_army_creation_panel(user, chat_id, message_id, city_id):
+def open_army_creation_panel(user, chat_id, message_id, city):
         player = get_player(user)
         player_country = get_country(player, 0)
 
@@ -243,8 +278,8 @@ def open_army_creation_panel(user, chat_id, message_id, city_id):
         for army_type in ARMY_TYPES.values():
                 types_kb.add(InlineKeyboardButton(
                         f'{army_type["title"]} ({army_type["cost"]:.2f})',
-                        callback_data=f"army:create:{city_id}:{army_type['_id']}"))
-        types_kb.row(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_id}"))
+                        callback_data=f"army:create:{city}:{army_type['_id']}"))
+        types_kb.row(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city}"))
 
         bot.edit_message_text(
                 text,

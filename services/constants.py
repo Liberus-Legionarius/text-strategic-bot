@@ -69,8 +69,5 @@ def get_modifier(country, modifier, addition = 0):
         result = min(1 + addition, max(-1, result))
     return result
 
-def get_city_name(city_id):
-    return db.cities.find_one({"_id":city_id})["name"]
-
 def get_is_pacifism(country):
     return country["national_spirits"][2].get("is_pacifism")

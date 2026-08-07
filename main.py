@@ -23,9 +23,11 @@ import handlers.ingame_texting.default_texting
 import handlers.ingame_texting.country_rename
 import handlers.ingame_texting.api_key_change
 from services.constants import set_buildings, set_army_types, set_mobilization
+from services.map.map_management import init_map
 
 set_buildings()
 set_army_types()
 set_mobilization()
+init_map()
 
 bot.infinity_polling()

@@ -2,7 +2,7 @@ from services.constants import BUILDINGS, get_modifier
 from services.bot import db
 
 def get_total_population(player, country_id):
-    cities = db.cities.find({"player_id":player["tg_id"], "owner":country_id})
+    cities = get_cities(player, country_id)
     return int(sum(
         city["population"]
         for city in cities
@@ -12,8 +12,7 @@ def get_avg_population(player, country_id):
     return int(get_total_population(player, country_id)/len(get_cities(player, country_id)))
 
 def get_largest_city(player, country_id):
-    city = db.cities.find_one({"player_id":player["tg_id"], "owner":country_id},
-                       sort=[("population",-1)])
+    city = max(get_cities(player, country_id), key=lambda c:c["population"])
     return city["name"]
 
 def get_next_step_growth(player, country):
@@ -43,4 +42,60 @@ def get_percent_pop_growth(country):
     return get_modifier(country, "population_growth") + get_modifier(country, "population_growth_invest") * get_modifier(country, "stability", 0.35)
 
 def get_cities(player, country_id):
-    return list(db.cities.find({"player_id": player["tg_id"], "owner": country_id}))
+    return [city for city in player["cities"] if city["owner"] == country_id]
+
+def get_city_by_name(player, name):
+    return next((city for city in player["cities"] if city["name"] == name), None)
+
+def build_in_city(player, city, building_id, country_id = 0, is_free = False):
+    b = next((b for b in city["buildings"] if b["id"] == building_id), None)
+    buildings = city["buildings"]
+    if b:
+        buildings = [building.update({"amount": building["amount"] + 1}) if building["id"] == building_id else building for building in city["buildings"]]
+    else:
+        buildings.append({"id": building_id, "amount": 1})
+
+    db.players.update_one({"tg_id":player["tg_id"], "cities.name":city["name"]},
+                          {
+                              "$set":{
+                                  "cities.$.buildings":buildings
+                              }
+                          })
+    if not is_free:
+        db.players.update_one({"tg_id":player["tg_id"], "countries.id":country_id},
+                              {
+                                  "$inc":{
+                                      "countries.$.money":-BUILDINGS[building_id]["cost"]
+                                  }
+                              })
+
+def change_population(player, country_id, change_on):
+    db.players.update_one({"tg_id": player["tg_id"]},
+                          [
+                              {
+                                  "$set": {
+                                      "cities": {
+                                          "$map": {
+                                              "input": "$cities",
+                                              "as": "city",
+                                              "in": {
+                                                  "$cond": [
+                                                      {"$eq": ["$$city.owner", country_id]},
+                                                      {
+                                                          "$mergeObjects": [
+                                                              "$$city",
+                                                              {
+                                                                  "population": {
+                                                                      "$add": ["$$city.population", change_on]
+                                                                  }
+                                                              }
+                                                          ]
+                                                      },
+                                                      "$$city"
+                                                  ]
+                                              }
+                                          }
+                                      }
+                                  }
+                              }
+                          ])

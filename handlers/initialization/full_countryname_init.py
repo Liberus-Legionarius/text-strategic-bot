@@ -5,10 +5,10 @@ import services.ai as ai
 
 # Выбор полного названия страны.
 @bot.message_handler(func = lambda msg: get_player(msg.from_user).get("bot_state") == "INIT_FULLNAME")
-def ideology_init(message):
+def full_countryname_init(message):
     if check_format(PATTERN_UPPERCASE, message.text, message.chat.id):
         player = get_player(message.from_user)
-        ai_check = ai.check_fullname(message.text, player["countries"][0]["countryname"], player.get("ideology"), player["api_key"])
+        ai_check = ai.check_fullname(message.text, player["countries"][0]["countryname"], player["countries"][0]["ideology"], player["api_key"])
         print(ai_check.get("refusal_description"))
         if name_handler(ai_check, message.chat.id, "полное название страны"):
             bot.send_message(message.chat.id, "Отлично, теперь остаётся только выбрать столицу вашей страны.\n"
