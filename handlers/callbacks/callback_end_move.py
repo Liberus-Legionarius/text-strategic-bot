@@ -43,65 +43,71 @@ def callback_end_move(call):
             dice = min(dice, 6)
             print(dice)
             CAMPAIGN_RESULT[dice](player, campaign)
-        on_move_effects(player, player_country, call.from_user, call.message.chat.id, call.message.message_id)
+        on_move_effects(player, call.from_user, call.message.chat.id, call.message.message_id)
     else:
         db.players.update_one({"tg_id":player["tg_id"]},
                               {
                                   "$inc": {"event_chance":0.33}
                               })
-        on_move_effects(player, player_country, call.from_user, call.message.chat.id, call.message.message_id)
+        on_move_effects(player, call.from_user, call.message.chat.id, call.message.message_id)
 
 
-def on_move_effects(player, country, user, chat_id, message_id):
-    balance = get_total_income(player, country) - get_total_spending(player, country)
-    polit_power_gain = get_modifier(country, "polit_power_gain_flat")
-    polit_power_modifier = get_modifier(country, "polit_power_gain_modifier", 1)
-    pop_growth = ((get_modifier(country, "population_growth") +
-                  get_modifier(country,"population_growth_invest")) *
-                  get_modifier(country, "stability", 0.35) + 1)
+def on_move_effects(player, user, chat_id, message_id):
+    for country in player["countries"]:
+        balance = get_total_income(player, country) - get_total_spending(player, country)
+        polit_power_gain = get_modifier(country, "polit_power_gain_flat")
+        polit_power_modifier = get_modifier(country, "polit_power_gain_modifier", 1)
+        pop_growth = ((get_modifier(country, "population_growth") +
+                      get_modifier(country,"population_growth_invest")) *
+                      get_modifier(country, "stability", 0.35) + 1)
+        db.players.update_one({"tg_id": player["tg_id"]},
+                              {
+                                  "$inc": {
+                                      f"countries.{country['id']}.money": balance,
+                                      f"countries.{country['id']}.polit_power": polit_power_gain * polit_power_modifier,
+                                      f"countries.{country['id']}.national_spirits.0.stability": get_stability_growth(country),
+                                      f"countries.{country['id']}.national_spirits.0.militarization": get_militarization_growth(country)
+
+                                  }
+                              })
+        db.players.update_one({"tg_id": player["tg_id"]},
+                              [
+                                  {
+                                      "$set": {
+                                          "cities": {
+                                              "$map": {
+                                                  "input": "$cities",
+                                                  "as": "city",
+                                                  "in": {
+                                                      "$cond": [
+                                                          {"$eq": ["$$city.owner", country["id"]]},
+                                                          {
+                                                              "$mergeObjects": [
+                                                                  "$$city",
+                                                                  {
+                                                                      "population": {
+                                                                          "$multiply": ["$$city.population", pop_growth]
+                                                                      }
+                                                                  }
+                                                              ]
+                                                          },
+                                                          "$$city"
+                                                      ]
+                                                  }
+                                              }
+                                          }
+                                      }
+                                  }
+                              ])
     date = player["date"] + relativedelta(months=1)
-    db.players.update_one({"tg_id": player["tg_id"]},
+    db.players.update_one({"tg_id":player["tg_id"]},
                           {
-                              "$inc": {
-                                  "countries.0.money": balance,
-                                  "countries.0.polit_power": polit_power_gain * polit_power_modifier,
-                                  "countries.0.national_spirits.0.stability": get_stability_growth(country),
-                                  "countries.0.national_spirits.0.militarization": get_militarization_growth(country),
-                                  "step": 1,
-
+                              "$inc":{
+                                  "step":1
                               },
                               "$set": {
                                   "ai_plot": None,
                                   "date": date
                               }
                           })
-    db.players.update_one({"tg_id": player["tg_id"]},
-                          [
-                              {
-                                  "$set": {
-                                      "cities": {
-                                          "$map": {
-                                              "input": "$cities",
-                                              "as": "city",
-                                              "in": {
-                                                  "$cond": [
-                                                      {"$eq": ["$$city.owner", 0]},
-                                                      {
-                                                          "$mergeObjects": [
-                                                              "$$city",
-                                                              {
-                                                                  "population": {
-                                                                      "$multiply": ["$$city.population", pop_growth]
-                                                                  }
-                                                              }
-                                                          ]
-                                                      },
-                                                      "$$city"
-                                                  ]
-                                              }
-                                          }
-                                      }
-                                  }
-                              }
-                          ])
     open_state_panel(user, chat_id, message_id)

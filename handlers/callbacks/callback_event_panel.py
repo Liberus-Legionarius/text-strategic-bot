@@ -17,4 +17,4 @@ def callback_event(call):
     for effect, value in option["effects"].items():
         on_effect(effect, value, player, country)
 
-    on_move_effects(player, country, call.from_user, call.message.chat.id, call.message.message_id)
+    on_move_effects(player, call.from_user, call.message.chat.id, call.message.message_id)
