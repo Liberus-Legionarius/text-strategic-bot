@@ -1,0 +1,73 @@
+{
+    "Северная Швейцария": {
+        "cities":[
+            {"name": "Цюрих", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Базель", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лауфенбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шаффхаузен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Арау", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Райнфельден", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Эльзас", "Баден", "Центральная Швейцария", "Бернское Плато"]
+    },
+
+    "Центральная Швейцария": {
+        "cities":[
+            {"name": "Люцерн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Цуг", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Швиц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Санкт-Галлен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гларус", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Северная Швейцария", "Бернское Плато", "Граубюнден", "Форарльберг-Лихтенштейн"]
+    },
+
+    "Бернское плато": {
+        "cities":[
+            {"name": "Берн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Биль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Тун", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Интерлакен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бургдорф", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фрибур", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Золотурн", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Тичино", "Северная Швейцария", "Центральная Швейцария", "Романдия"]
+    },
+
+    "Романдия": {
+        "cities":[
+            {"name": "Женева", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лозанна", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фрибур", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Невшатель", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сьон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Монтрё", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ивердон-ле-Бен", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Тичино", "Бернское Плато", "Бургундия", "Рона-Альпы", "Пьемонт"]
+    },
+
+    "Тичино": {
+        "cities":[
+            {"name": "Лугано", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Беллинцона", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Локарно", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мендризио", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кьяссо", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Ломбардия", "Пьемонт", "Бернское плато"]
+    },
+
+    "Граубюнден": {
+        "cities":[
+            {"name": "Иланц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Поскьяво", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Самедан", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кур", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Давос", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Санкт-Мориц", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Центральная Швейцария", "Ломбардия", "Форарльберг-Лихтенштейн"]
+    }
+}

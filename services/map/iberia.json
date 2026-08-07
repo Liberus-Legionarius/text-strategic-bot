@@ -1,0 +1,327 @@
+{
+    "Галисия": {
+        "cities": [
+            {"name": "Ла-Корунья", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Виго", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сантьяго-де-Компостела", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Луго", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Оренсе", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Понтеведра", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ферроль", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Астурия-Кантабрия",
+            "Леон",
+            "Порту"
+        ]
+    },
+
+    "Астурия-Кантабрия": {
+        "cities": [
+            {"name": "Овьедо", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Хихон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Авилес", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сантандер", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Торрелавега", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ларедо", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Галисия",
+            "Кастилия",
+            "Леон",
+            "Васкония"
+        ]
+    },
+
+    "Васкония": {
+        "cities": [
+            {"name": "Бильбао", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Витория", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сан-Себастьян", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Памплона", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Тудела", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дуранго", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Асурия-Кантабрия",
+            "Кастилия",
+            "Арагон",
+            "Аквитания"
+        ]
+    },
+
+
+    "Кастилия": {
+        "cities": [
+            {"name": "Вальядолид", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Авила", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бургос", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сеговия", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сория", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Паленсия", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Миранда-де-Эбро", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Леон",
+            "Астурия-Кантабрия",
+            "Васкония",
+            "Мадрид-Толедо",
+            "Арагон",
+            "Кастилия-Ла-Манча"
+        ]
+    },
+
+    "Леон": {
+        "cities": [
+            {"name": "Самора", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Леон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бенавенте", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Саламанка", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Асторга", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сьюдад-Родриго", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Галисия",
+            "Астурия-Кантабрия",
+            "Кастилия",
+            "Эстремадура",
+            "Порту",
+            "Лиссабон"
+        ]
+    },
+
+    "Арагон": {
+        "cities": [
+            {"name": "Сарагоса", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Уэска", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Теруэль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Калатаюд", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Альканьис", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Барбастро", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Васкония",
+            "Кастилия",
+            "Каталония",
+            "Валенсия",
+            "Кастилия-Ла-Манча",
+            "Тулуза"
+        ]
+    },
+
+    "Каталония": {
+        "cities": [
+            {"name": "Барселона", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Таррагона", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Жирона", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Льейда", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Тортоса", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Манреса", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Андорра", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Арагон",
+            "Валенсия",
+            "Лангедок"
+        ]
+    },
+
+    "Мадрид-Толедо": {
+        "cities": [
+            {"name": "Мадрид", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Алькала-де-Энарес", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Толедо", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гвадалахара", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Аранхуэс", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Талавера-де-ла-Рейна", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Кастилия",
+            "Кастилия-Ла-Манча"
+        ]
+    },
+
+    "Кастилия-Ла-Манча": {
+        "cities": [
+            {"name": "Альмагро", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Альбасете", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сьюдад-Реаль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Куэнка", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Алькасар-де-Сан-Хуан", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Пуэртольяно", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Кастилия",
+            "Мадрид-Толедо",
+            "Арагон",
+            "Валенсия",
+            "Мурсия",
+            "Андалусия",
+            "Эстремадура"
+        ]
+    },
+
+    "Валенсия": {
+        "cities": [
+            {"name": "Валенсия", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Аликанте", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кастельон-де-ла-Плана", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Хатива", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гандия", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ориуэла", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Каталония",
+            "Арагон",
+            "Кастилия-Ла-Манча",
+            "Мурсия",
+            "Балеарские острова"
+        ]
+    },
+
+    "Эстремадура": {
+        "cities": [
+            {"name": "Бадахос", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Касерес", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мерида", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Пласенсия", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Трухильо", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Алькантара", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Леон",
+            "Кастилия-Ла-Манча",
+            "Андалусия",
+            "Лиссабон",
+            "Алентежу"
+        ]
+    },
+
+    "Андалусия": {
+        "cities": [
+            {"name": "Севилья", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Херес-де-ла-Фронтера", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гранада", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кордова", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кадис", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Уэльва", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эсиха", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Эстремадура",
+            "Кастилия-Ла-Манча",
+            "Алентежу",
+            "Алгарве",
+            "Гранада"
+        ]
+    },
+
+    "Гранада": {
+        "cities": [
+            {"name": "Гуадикс", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Малага", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гранада", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Баса", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мотриль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Альмерия", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Андалусия",
+            "Мурсия"
+        ]
+    },
+
+    "Мурсия": {
+        "cities": [
+            {"name": "Мурсия", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Картахена", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лорка", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Йекла", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Каравака-де-ла-Крус", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Валенсия",
+            "Кастилия-Ла-Манча",
+            "Гранада"
+        ]
+    },
+
+    "Порту": {
+        "cities": [
+            {"name": "Порту", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Брага", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гимарайнш", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вила-Реал", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Браганса", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шавиш", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Виана-ду-Каштелу", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Галисия",
+            "Леон",
+            "Лиссабон"
+        ]
+    },
+
+    "Лиссабон": {
+        "cities": [
+            {"name": "Лиссабон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Коимбра", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сантарен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лейрия", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Томар", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сетубал", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Абрантиш", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Порту",
+            "Алентежу",
+            "Эстремадура"
+        ]
+    },
+
+    "Алентежу": {
+        "cities": [
+            {"name": "Эвора", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бежа", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Элваш", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Серпа", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Порталегри", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эштремош", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Лиссабон",
+            "Эстремадура",
+            "Алгарве",
+            "Андалусия"
+        ]
+    },
+
+    "Алгарве": {
+        "cities": [
+            {"name": "Тавира", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Силвеш", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фару", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Портиман", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лагуш", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Албуфейра", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Алентежу",
+            "Андалусия"
+        ]
+    },
+
+    "Балеарские острова": {
+        "cities": [
+            {"name": "Ивиса", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Пальма", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Маон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сьюдадела", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Манакор", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Валенсия"
+        ]
+    }
+}

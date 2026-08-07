@@ -1,0 +1,85 @@
+{
+    "Верхняя Австрия": {
+        "cities":[
+            {"name": "Вельс", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Штайр", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Энс", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Линц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гмунден", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Браунау-ам-Инн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фрайштадт", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Зальцбург", "Нижняя Австрия", "Штирия", "Нижняя Бавария"]
+    },
+
+    "Зальцбург": {
+        "cities":[
+            {"name": "Зальцбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бишофсхофен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Халлайн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Санкт-Йоханн-им-Понгау", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Целль-ам-Зее", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Радштадт", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Верхняя Австрия", "Штирия", "Каринтия", "Тироль", "Верхняя Бавария"]
+    },
+
+    "Нижняя Австрия": {
+        "cities":[
+            {"name": "Вена", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Санкт-Пёльтен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Винер-Нойштадт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кремс", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Корнойбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Тульн", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Верхняя Австрия", "Штирия"]
+    },
+
+    "Штирия": {
+        "cities":[
+            {"name": "Грац", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Брук-ан-дер-Мур", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Юденбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Леобен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Книттельфельд", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фельдбах", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Хартберг", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Верхняя Австрия", "Нижняя Австрия", "Зальцбург", "Каринтия"]
+    },
+    "Каринтия": {
+        "cities":[
+            {"name": "Клагенфурт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Филлах", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Санкт-Файт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шпитталь", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фёлькермаркт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вольфсберг", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Фриули", "Зальцбург", "Штирия"]
+    },
+    "Тироль": {
+        "cities":[
+            {"name": "Инсбрук", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Куфштайн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лиенц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кицбюэль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Швац", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Имст", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ландек", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Форарльберг-Лихтенштейн", "Южный Тироль","Верхняя Бавария", "Зальцбург"]
+    },
+    "Форарльберг-Лихтенштейн": {
+        "cities":[
+            {"name": "Брегенц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дорнбирн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фельдкирх", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Блуденц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вадуц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шан", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Тироль", "Центральная Швейцария", "Граубюнден", "Верхняя Бавария"]
+    }
+}

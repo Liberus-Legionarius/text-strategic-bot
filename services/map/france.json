@@ -1,0 +1,338 @@
+{
+  "Иль-де-Франс": {
+        "cities": [
+            {"name": "Париж", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Версаль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сен-Дени", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мелён", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фонтенбло", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Этамп", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Провен", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Пикардия",
+            "Нормандия",
+            "Долина Луары",
+            "Орлеан",
+            "Шампань-Арденны"
+        ]
+    },
+
+    "Нормандия": {
+        "cities": [
+            {"name": "Руан", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гавр", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кан", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шербур", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эврё", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дьеп", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Алансон", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Пикардия",
+            "Иль-де-Франс",
+            "Долина Луары",
+            "Орлеан",
+            "Бретань"
+        ]
+    },
+
+    "Бретань": {
+        "cities": [
+            {"name": "Ренн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Брест", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Нант", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ванн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сен-Мало", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кемпер", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Морле", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Нормандия",
+            "Долина Луары",
+            "Анжу"
+        ]
+    },
+
+    "Пикардия": {
+        "cities": [
+            {"name": "Лилль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Амьен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кале", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дюнкерк", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Аррас", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Булонь-сюр-Мер", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сен-Кантен", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Нормандия",
+            "Иль-де-Франс",
+            "Шампань-Арденны",
+            "Фландрия",
+            "Валлония"
+        ]
+    },
+
+    "Лоррейн": {
+        "cities": [
+            {"name": "Мец", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Нанси", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Верден", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эпиналь", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бар-ле-Дюк", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Туль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сен-Дье", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Шампань-Арденны",
+            "Эльзас",
+            "Бургундия",
+            "Люксембург",
+            "Рейнланд-Пфальц"
+        ]
+    },
+    "Эльзас": {
+        "cities": [
+            {"name": "Страсбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мюлуз", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кольмар", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Агно", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Селеста", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Висамбур", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Лоррейн",
+            "Рона-Альпы",
+            "Бургундия",
+            "Баден",
+            "Северная Швейцария"
+        ]
+    },
+
+    "Шампань-Арденны": {
+        "cities": [
+            {"name": "Реймс", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Седан", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Труа", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шалон-ан-Шампань", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шарлевиль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лангр", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шомон", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Пикардия",
+            "Иль-де-Франс",
+            "Бургундия",
+            "Арденны",
+            "Лоррейн"
+        ]
+    },
+
+    "Бургундия": {
+        "cities": [
+            {"name": "Дижон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Безансон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Осер", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шалон-сюр-Сон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Макон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Доль", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Шампань-Арденны",
+            "Иль-де-Франс",
+            "Орлеан",
+            "Рона-Альпы",
+            "Лимузен-Овернь",
+            "Лоррейн",
+            "Эльзас",
+            "Романдия"
+        ]
+    },
+
+    "Орлеан": {
+        "cities": [
+            {"name": "Орлеан", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шатору", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Блуа", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шартр", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бурж", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дрё", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вандом", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Нормандия",
+            "Иль-де-Франс",
+            "Бургундия",
+            "Анжу",
+            "Пуату",
+            "Лимузен-Овернь"
+        ]
+    },
+
+    "Анжу": {
+        "cities": [
+            {"name": "Сомюр", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Анже", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шоле", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ла-Флеш", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Боже", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сегре", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Бретань",
+            "Нормандия",
+            "Долина Луары",
+            "Орлеан"
+        ]
+    },
+
+    "Долина Луары": {
+        "cities": [
+            {"name": "Тур", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Амбуаз", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шинон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лош", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вандом", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Монтаржи", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Бретань",
+            "Анжу",
+            "Пуату"
+        ]
+    },
+
+    "Аквитания": {
+        "cities": [
+            {"name": "Бордо", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ажен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бержерак", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Перигё", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Байонна", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Либурн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дакс", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Пуату",
+            "Лимузен-Овернь",
+            "Тулуза",
+            "Васкония"
+        ]
+    },
+
+    "Пуату": {
+        "cities": [
+            {"name": "Пуатье", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ла-Рошель", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ньор", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Рошфор", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Люсон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фонтене-ле-Конт", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Долина Луары",
+            "Аквитания",
+            "Лимузен-Овернь",
+            "Орлеан"
+        ]
+    },
+
+    "Лимузен-Овернь": {
+        "cities": [
+            {"name": "Лимож", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Орийак", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Брив-ла-Гайард", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мулен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Клермон-Ферран", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Риом", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Тюль", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Бургундия",
+            "Долина Луары",
+            "Аквитания",
+            "Тулуза",
+            "Рона-Альпы",
+            "Лангедок",
+            "Пуату",
+            "Орлеан"
+        ]
+    },
+
+    "Рона-Альпы": {
+        "cities": [
+            {"name": "Лион", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гренобль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Сент-Этьен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Анси", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шамбери", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Валанс", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вьенн", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Бургундия",
+            "Романдия",
+            "Пьемонт",
+            "Лангедок",
+            "Прованс",
+            "Лимузен-Овернь"
+        ]
+    },
+
+    "Тулуза": {
+        "cities": [
+            {"name": "Тулуза", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Альби", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кастр", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ош", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Каор", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Монтобан", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фуа", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Аквитания",
+            "Лимузен-Овернь",
+            "Лангедок",
+            "Арагон"
+        ]
+    },
+
+    "Прованс": {
+        "cities": [
+            {"name": "Марсель", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Экс-ан-Прованс", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Тулон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Арль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Авиньон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Динь", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Драгиньян", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Монако", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Лангедок",
+            "Рона-Альпы",
+            "Пьемонт",
+            "Лигурия",
+            "Корсика"
+        ]
+    },
+
+    "Лангедок": {
+        "cities": [
+            {"name": "Каркассон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Монпелье", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ним", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Нарбонна", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Безье", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Манд", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Аля", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Тулуза",
+            "Рона-Альпы",
+            "Каталония",
+            "Прованс",
+            "Лимузен-Овернь"
+        ]
+    }
+}

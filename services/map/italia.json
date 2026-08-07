@@ -1,0 +1,241 @@
+{
+    "Пьемонт": {
+      "cities":[
+        {"name": "Турин", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Асти", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Новара", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Алессандрия", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Кунео", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Ивреа", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Верчелли", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Прованс", "Рона-Альпы", "Ломбардия", "Лигурия", "Романдия", "Тичино"]
+    },
+
+    "Ломбардия": {
+      "cities":[
+        {"name": "Милан", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Брешиа", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Бергамо", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Комо", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Павия", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Кремона", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Мантуя", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Лоди", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Пьемонт", "Венето", "Тренто", "Тичино", "Эмилия-Романья", "Граубюнден"]
+    },
+
+    "Венето": {
+      "cities":[
+        {"name": "Венеция", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Верона", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Падуя", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Виченца", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Тревизо", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Ровиго", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Беллуно", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Тренто", "Фриули", "Ломбардия", "Эмилия-Романья"]
+    },
+    "Тренто": {
+      "cities":[
+        {"name": "Тренто", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Рива-дель-Гарда", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Роверето", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Арко", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Перджине-Вальсугана", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Венето", "Ломбардия", "Южный Тироль"]
+    },
+    "Южный Тироль": {
+      "cities":[
+        {"name": "Больцано", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Мерано", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Брессаноне", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Брунико", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Ла-Вилла", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Тренто", "Ломбардия", "Тироль"]
+    },
+    "Фриули":{
+      "cities":[
+          {"name": "Триест", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Удине", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Гориция", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Порденоне", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Чивидале-дель-Фриули", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Монфальконе", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Венето", "Каринтия"]
+    },
+    "Лигурия": {
+      "cities":[
+          {"name": "Генуя", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Ла-Специя", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Савона", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Альбенга", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Империя", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Кьявари", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Вентимилья", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Ницца", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Пьемонт", "Прованс", "Тоскана", "Корсика"]
+    },
+
+    "Эмилия-Романья": {
+      "cities":[
+          {"name": "Болонья", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Парма", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Модена", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Равенна", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Реджо-нель-Эмилия", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Феррара", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Пьяченца", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Сан-Марино", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Тоскана", "Лигурия", "Ломбардия", "Венето", "Марке-Умбрия"]
+    },
+
+    "Тоскана": {
+      "cities":[
+          {"name": "Флоренция", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Пиза", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Сиена", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Ливорно", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Ареццо", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Лукка", "population": 0, "owner": null, "controller": null, "buildings": []},
+          {"name": "Прато", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Лигурия", "Корсика", "Эмилия-Романья", "Лацио", "Марке-Умбрия"]
+    },
+
+    "Лацио": {
+      "cities":[
+        {"name": "Рим", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Витербо", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Чивитавеккья", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Тиволи", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Фрозиноне", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Террачина", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Гаэта", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Ватикан", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Тоскана", "Марке-Умбрия", "Абруццо-Молизе", "Кампания"]
+    },
+    "Марке-Умбрия": {
+      "cities":[
+        {"name": "Анкона", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Перуджа", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Сполето", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Ассизи", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Урбино", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Пезаро", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Фолиньо", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Тоскана", "Эмилия-Романья", "Абруццо-Молизе", "Лацио"]
+    },
+
+    "Абруццо-Молизе": {
+      "cities":[
+        {"name": "Л'Акуила", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Пескара", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Терамо", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Кьети", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Кампобассо", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Изерния", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Кампания", "Лацио", "Марке-Умбрия", "Апулия"]
+    },
+
+    "Кампания": {
+      "cities":[
+        {"name": "Неаполь", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Салерно", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Казерта", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Аверса", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Беневенто", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Капуя", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Сорренто", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Базиликата", "Лацио", "Апулия", "Абруццо-Молизе"]
+    },
+
+    "Апулия": {
+      "cities":[
+        {"name": "Бари", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Таранто", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Лечче", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Бриндизи", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Фоджа", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Барлетта", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Трани", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Базиликата", "Абруццо-Молизе", "Кампания"]
+    },
+  
+    "Базиликата":{
+      "cities":[
+        {"name": "Потенца", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Матера", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Мельфи", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Веноза", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Поликоро", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Апулия", "Кампания", "Калабрия"]
+    },
+  
+    "Калабрия":{
+      "cities":[
+        {"name": "Реджо-ди-Калабрия", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Катандзаро", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Кротоне", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Козенца", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Вибо-Валентия", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Россано", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Базиликата", "Сицилия"]
+    },
+
+    "Сицилия": {
+      "cities":[
+        {"name": "Палермо", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Катания", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Мессина", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Сиракузы", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Трапани", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Агридженто", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Кальтаниссетта", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Валлетта", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Калабрия", "Сардиния"]
+    },
+
+    "Сардиния": {
+      "cities":[
+        {"name": "Кальяри", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Сассари", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Альгеро", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Нуоро", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Ористано", "population": 0, "owner": null, "controller": null, "buildings": []},
+        {"name": "Иглезиас", "population": 0, "owner": null, "controller": null, "buildings": []}
+      ],
+      "connected_with": ["Корсика", "Калабрия"]
+    },
+
+    "Корсика": {
+        "cities": [
+            {"name": "Аяччо", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бастия", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кальви", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Порто-Веккьо", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Корте", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бонифачо", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": [
+            "Сардиния",
+            "Лигурия",
+            "Тоскана"
+        ]
+    }
+}

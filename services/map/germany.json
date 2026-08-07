@@ -1,0 +1,251 @@
+{
+    "Шлезвиг-Гольштейн": {
+        "cities":[
+            {"name": "Киль", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Любек", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фленсбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ноймюнстер", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Итцехо", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шлезвиг", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Нижняя Эльба", "Мекленбург"]
+    },
+
+    "Нижняя Эльба": {
+        "cities":[
+            {"name": "Гамбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Люнебург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Штаде", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Букстехуде", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Целле", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Куксхафен", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Шлезвиг-Гольштейн", "Нижняя Саксония", "Мекленбург"]
+    },
+
+    "Нижняя Саксония": {
+        "cities":[
+            {"name": "Ганновер", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бремен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Брауншвейг", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Хильдесхайм", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ольденбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Оснабрюк", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вольфенбюттель", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эмден", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Вестфалия", "Саксония-Ангальт", "Тюрингия", "Гессен", "Фризия", "Мекленбург"]
+    },
+
+    "Вестфалия": {
+        "cities":[
+            {"name": "Мюнстер", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Билефельд", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Падерборн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Минден", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Херфорд", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Зост", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Нижняя Саксония", "Рур", "Утрехт", "Гессен"]
+    },
+
+    "Рур": {
+        "cities":[
+            {"name": "Дортмунд", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эссен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дуйсбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бохум", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Хаген", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вупперталь", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дюссельдорф", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Рейнская область", "Вестфалия", "Северный Брабант-Лимбург", "Утрехт"]
+    },
+
+    "Рейнская область": {
+        "cities":[
+            {"name": "Кёльн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бонн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ахен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Крефельд", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мёнхенгладбах", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Нойс", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Северный Брабант-Лимбург", "Арденны", "Рур", "Рейнланд-Пфальц"]
+    },
+
+    "Гессен": {
+        "cities":[
+            {"name": "Франкфурт-на-Майне", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фульда", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кассель", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вецлар", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Марбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гисен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ханау", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Вестфалия", "Рейнланд-Пфальц", "Баден", "Франкония", "Тюрингия", "Нижняя Саксония"]
+    },
+
+    "Рейнланд-Пфальц": {
+        "cities":[
+            {"name": "Майнц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Саарбрюккен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кобленц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Трир", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кайзерслаутерн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Людвигсхафен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шпайер", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вормс", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Люксембург", "Лоррейн", "Рейнская область", "Гессен", "Баден"]
+    },
+
+    "Баден": {
+        "cities":[
+            {"name": "Баден-Баден", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Оффенбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Карлсруэ", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фрайбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Констанц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лёррах", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Рейнланд-Пфальц", "Вюртемберг", "Гессен", "Эльзас", "Северная Швейцария"]
+    },
+
+    "Вюртемберг": {
+        "cities":[
+            {"name": "Штутгарт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Хайльбронн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Тюбинген", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ройтлинген", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эслинген-на-Неккаре", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ульм", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Баден", "Верхняя Бавария", "Франкония"]
+    },
+
+    "Верхняя Бавария": {
+        "cities":[
+            {"name": "Мюнхен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Аугсбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фрайзинг", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ингольштадт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Розенхайм", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эрдинг", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Берхтесгаден", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Франкония", "Нижняя Бавария", "Вюртемберг", "Форарльберг-Лихтенштейн", "Зальцбург", "Тироль"]
+    },
+
+    "Нижняя Бавария": {
+        "cities":[
+            {"name": "Пассау", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Штраубинг", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Регенсбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Деггендорф", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кельхайм", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ландсхут", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Верхняя Бавария", "Франкония", "Верхняя Австрия"]
+    },
+
+    "Франкония": {
+        "cities":[
+            {"name": "Нюрнберг", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вюрцбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бамберг", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ансбах", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Байройт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Швайнфурт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кульмбах", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Верхняя Бавария", "Нижняя Бавария", "Тюрингия", "Гессен", "Вюртемберг"]
+    },
+
+    "Саксония": {
+        "cities":[
+            {"name": "Лейпциг", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дрезден", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Хемниц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Цвиккау", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мейсен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Фрайберг", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Пирна", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Тюрингия", "Саксония-Ангальт", "Бранденбург", "Лужица"]
+    },
+    
+    "Лужица": {
+        "cities":[
+            {"name": "Котбус", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Баутцен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гёрлиц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Жары", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Хойерсверда", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Любань", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Згожелец", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Бранденбург", "Саксония"]
+    },
+  
+    "Тюрингия": {
+        "cities":[
+            {"name": "Веймар", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Айзенах", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эрфурт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Йена", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гота", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Нордхаузен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Зуль", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Саксония", "Саксония-Ангальт", "Нижняя Саксония", "Гессен", "Франкония"]
+    },
+  
+    "Бранденбург": {
+        "cities":[
+            {"name": "Берлин", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Потсдам", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бранденбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Франкфурт-на-Одере", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Пренцлау", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эберсвальде", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Саксония", "Лужица", "Саксония-Ангальт", "Мекленбург", "Западная Померания"]
+    },
+
+    "Мекленбург": {
+        "cities":[
+            {"name": "Росток", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шверин", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Висмар", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Нойбранденбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Нойштрелиц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гюстров", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Варнемюнде", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Западная Померания", "Шлезвиг-Гольштейн", "Нижняя Эльба", "Нижняя Саксония"]
+    },
+    "Западная Померания": {
+        "cities":[
+            {"name": "Штральзунд", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Грайфсвальд", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вольгаст", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Анклам", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Штеттин", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Мекленбург", "Бранденбург"]
+    },
+    "Саксония-Ангальт": {
+        "cities":[
+            {"name": "Магдебург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Галле", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дессау", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кведлинбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Виттенберг", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Наумбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мерзебург", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Саксония", "Тюрингия", "Бранденбург", "Нижняя Саксония"]
+    }
+}

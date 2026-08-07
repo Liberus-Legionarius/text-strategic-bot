@@ -1,0 +1,116 @@
+{
+    "Фризия": {
+        "cities":[
+            {"name": "Гронинген", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Леуварден", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ассен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эммен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Доккюм", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Снек", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Нижняя Саксония", "Утрехт", "Голландия"]
+    },
+
+    "Голландия": {
+        "cities":[
+            {"name": "Амстердам", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Роттердам", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гаага", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Харлем", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лейден", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Делфт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дордрехт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мидделбург", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Фризия", "Утрехт", "Северный Брабант-Лимбург", "Фландрия"]
+    },
+
+    "Утрехт": {
+        "cities":[
+            {"name": "Утрехт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Амерсфорт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Арнем", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Неймеген", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Апелдорн", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Зютфен", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Фризия", "Голландия", "Северный Брабант-Лимбург", "Рур", "Вестфалия"]
+    },
+
+    "Северный Брабант-Лимбург": {
+        "cities":[
+            {"name": "Эйндховен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Маастрихт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Тилбург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бреда", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Хертогенбос", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Венло", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Рурмонд", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Голландия", "Утрехт", "Рур", "Рейнская область", "Южный Брабант", "Валлония"]
+    },
+
+    "Фландрия": {
+        "cities":[
+            {"name": "Остенде", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Антверпен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гент", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Брюгге", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ипр", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кортрейк", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Синт-Никлас", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Пикардия", "Южный Брабант", "Валлония", "Голландия"]
+    },
+
+    "Южный Брабант": {
+        "cities":[
+            {"name": "Брюссель", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Лёвен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мехелен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Ватерлоо", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Халле", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вавр", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Хасселт", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Фландрия", "Валлония", "Северный Брабант-Лимбург"]
+    },
+
+    "Валлония": {
+        "cities":[
+            {"name": "Льеж", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Шарлеруа", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Намюр", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Монс", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Турне", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вервье", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Юи", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Арденны", "Фландрия", "Южный Брабант", "Северный Брабант-Лимбург", "Пикардия"]
+    },
+
+    "Арденны": {
+        "cities":[
+            {"name": "Арлон", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Бастонь", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Динан", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Марш-ан-Фамен", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мальмеди", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Спа", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Валлония", "Шампань-Арденны", "Люксембург", "Рейнская область"]
+    },
+
+    "Люксембург": {
+        "cities":[
+            {"name": "Люксембург", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эш-сюр-Альзетт", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дикирх", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Эхтернах", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вильц", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гревенмахер", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Арденны", "Лоррейн", "Рейнланд-Пфальц"]
+    }
+}
+
