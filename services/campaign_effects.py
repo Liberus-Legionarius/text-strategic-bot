@@ -112,12 +112,14 @@ def four_dice(player, campaign):
         else:
             city_name = get_unknown_city(player, campaign["province"])["name"]
             city = ai.generate_city(player, city_name)
+            army = campaign["army"]
+            army.update({"morale": army["morale"] * random.random(), "hp": army["hp"] * random.random()})
+            print(army)
             db.players.update_one({"tg_id": player["tg_id"]},
                                   {
                                       "$push": {
                                           "actions": f"{player['date']}: Исследовательская экспедиция в составе армейского подразделения {campaign['army']['name']} вернулась с новостями: обнаружен заселённый бункер, к сожалению, местное население подчинилось нам только после боя. На экспедицию было потрачено {campaign['cost']} монет.",
-                                          "countries.0.armies": campaign["army"].update(
-                                      {"morale": campaign["army"]["morale"] * random.random(), "hp": campaign["army"]["hp"] * random.random()})}
+                                          "countries.0.armies": army}
                                   })
             db.players.update_one({"tg_id": player["tg_id"], "cities.name": city_name},
                                   {
@@ -144,13 +146,13 @@ CAMPAIGN_BONUS = {
 }
 
 def get_unknown_city(player, province):
-    cities = [city for city in player["cities"] if city["name"] in province["cities"] and not city["owner"]]
-    percent = len(cities) / (len(province["cities"])-1)
+    cities = [city for city in player["cities"] if city["name"] in province["cities"] and city["owner"] is None]
+    percent =  len(cities) / (len(province["cities"]))
     if len(cities) < 1 or random.random() > percent:
         provinces = [p for p in player["province_map"] if p["name"] in province["connected_with"]]
         cities = []
         for prov in provinces:
-            cs = [city for city in player["cities"] if city["name"] in prov and not city["owner"]]
+            cs = [city for city in player["cities"] if city["name"] in prov["cities"] and city["owner"] is None]
             if len(cs) < 1: break
             cities.extend(cs)
         return  random.choice(cities)

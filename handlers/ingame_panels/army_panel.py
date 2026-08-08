@@ -139,7 +139,7 @@ def open_province_selection_panel(user, chat_id, message_id, army_id):
         for prov in provinces:
                 if has_unknown_city(player, prov):
                         provs.append(prov)
-                        break
+                        continue
                 ps = [p for p in player["province_map"] if p["name"] in prov["connected_with"]]
                 for p in ps:
                         if has_unknown_city(player, p):
