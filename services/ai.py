@@ -3,11 +3,14 @@ from pathlib import Path
 import re
 import json
 from services.bot import db
+from services.ideologies import ideologies, ideology_relations
+from services.map.map_management import province_map
 from services.math.economy_math import get_total_income, get_total_spending
-from services.math.territory_math import get_cities
+from services.math.territory_math import get_cities, get_free_cities
 from services.modifiers import modifiers
-from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier, BUILDINGS
+from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier, BUILDINGS, get_country
 from services.effects import effects
+from services.npc_logic import npc_logic_parameters
 
 NARRATOR_PROMPT = Path("prompts/narrator.txt").read_text(encoding = "utf-8")
 NAME_CHECKER_PROMPT = Path("prompts/name_checker.txt").read_text(encoding="utf-8")
@@ -21,6 +24,7 @@ RENAME_SHORT_CHECKER_PROMPT = Path("prompts/rename_short_checker.txt").read_text
 RENAME_LONG_CHECKER_PROMPT = Path("prompts/rename_long_checker.txt").read_text(encoding="utf-8")
 EVENTS_PROMPT = Path("prompts/events.txt").read_text(encoding="utf-8")
 CITY_GEN_PROMPT = Path("prompts/cities_generator.txt").read_text(encoding="utf-8")
+COUNTRY_GEN_PROMPT = Path("prompts/countries_generator.txt").read_text(encoding="utf-8")
 
 JSON_PATTERN = r"\{.*\}"
 
@@ -180,11 +184,40 @@ def generate_city(player, city, population = None, buildings = None):
                 "}")
     return ask_ai(request, CITY_GEN_PROMPT, player["api_key"])
 
+def generate_country(player, city_name, max_size, relation_to_player):
+    country = get_country(player, 0)
+    cities = get_cities(player, 0)
+    free_cities = get_free_cities(player)
+    army_types = list(ARMY_TYPES.values())
+    for a in army_types:
+        a.update({"_id": str(a["_id"]), "counteracts": None})
+
+    mobilization_laws = list(MOBILIZATION_LAWS.values())
+    for l in mobilization_laws:
+        l.update({"_id": str(l["_id"])})
+    request = ("{"
+               f'"player_countryname": "{country["full_countryname"]}",'
+               f'"player_ideology": "{country["ideology"]}",'
+               f'"player_ideology_desc": "{country["ideology_desc"]}",'
+               f'"player_cities":{json.dumps(cities, ensure_ascii=False)},'
+               f'"army_types":{json.dumps(army_types, ensure_ascii=False)},'
+               f'"max_country_size":{max_size},'
+               f'"free_cities":{json.dumps(free_cities, ensure_ascii=False)},'
+               f'"provinces": {json.dumps(province_map, ensure_ascii=False)},'
+               f'"discovered_city": "{city_name}",'
+               f'"new_country_relation_to_player": "{relation_to_player}",'
+               f'"modifiers":{json.dumps(modifiers, ensure_ascii=False)},'
+               f'"mobilization_laws":{json.dumps(mobilization_laws, ensure_ascii=False)},'
+               f'"ideologies_info": {json.dumps(ideologies, ensure_ascii=False)},'
+               f'"ideologies_relations": {json.dumps(ideology_relations, ensure_ascii=False)},'
+               f'"ai_logic_control": {json.dumps(npc_logic_parameters, ensure_ascii=False)}'
+               "}")
+    return ask_ai(request, COUNTRY_GEN_PROMPT, player["api_key"])
+
 def ask_ai(request, base_prompt, api_key):
     ai = genai.Client(api_key=api_key)
     prompt = f"""{base_prompt}
     Ввод пользователя: {request}"""
-    print(prompt)
     interaction = ai.interactions.create(
         model="gemini-3.1-flash-lite",
         input=prompt

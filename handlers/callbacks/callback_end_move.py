@@ -60,13 +60,13 @@ def on_move_effects(player, user, chat_id, message_id):
         pop_growth = ((get_modifier(country, "population_growth") +
                       get_modifier(country,"population_growth_invest")) *
                       get_modifier(country, "stability", 0.35) + 1)
-        db.players.update_one({"tg_id": player["tg_id"]},
+        db.players.update_one({"tg_id": player["tg_id"], "countries.id":country["id"]},
                               {
                                   "$inc": {
-                                      f"countries.{country['id']}.money": balance,
-                                      f"countries.{country['id']}.polit_power": polit_power_gain * polit_power_modifier,
-                                      f"countries.{country['id']}.national_spirits.0.stability": get_stability_growth(country),
-                                      f"countries.{country['id']}.national_spirits.0.militarization": get_militarization_growth(country)
+                                      f"countries.$.money": balance,
+                                      f"countries.$.polit_power": polit_power_gain * polit_power_modifier,
+                                      f"countries.$.national_spirits.0.stability": get_stability_growth(country),
+                                      f"countries.$.national_spirits.0.militarization": get_militarization_growth(country)
 
                                   }
                               })

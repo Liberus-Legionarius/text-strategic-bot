@@ -99,3 +99,6 @@ def change_population(player, country_id, change_on):
                                   }
                               }
                           ])
+
+def get_free_cities(player):
+    return [city for city in player["cities"] if city["owner"] is None]

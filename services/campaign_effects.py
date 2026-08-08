@@ -1,7 +1,10 @@
 import random
 import services.ai as ai
-from services.math.territory_math import get_cities, change_population
+from services.constants import MOBILIZATION_LAWS
+from services.math.army_math import get_army_type
+from services.math.territory_math import get_cities, change_population, get_free_cities
 from services.bot import db
+from bson import ObjectId
 
 CAMPAIGN_RESULT = {
     0: lambda player, campaign: zero_dice(player, campaign),
@@ -9,8 +12,8 @@ CAMPAIGN_RESULT = {
     2: lambda player, campaign: two_dice(player, campaign),
     3: lambda player, campaign: three_dice(player, campaign),
     4: lambda player, campaign: four_dice(player, campaign),
-    5: lambda player, campaign: four_dice(player, campaign),
-    6: lambda player, campaign: four_dice(player, campaign),
+    5: lambda player, campaign: five_dice(player, campaign),
+    6: lambda player, campaign: six_dice(player, campaign),
 }
 
 def remove_campaign(player, campaign):
@@ -114,7 +117,6 @@ def four_dice(player, campaign):
             city = ai.generate_city(player, city_name)
             army = campaign["army"]
             army.update({"morale": army["morale"] * random.random(), "hp": army["hp"] * random.random()})
-            print(army)
             db.players.update_one({"tg_id": player["tg_id"]},
                                   {
                                       "$push": {
@@ -133,10 +135,37 @@ def four_dice(player, campaign):
     remove_campaign(player, campaign)
 
 def five_dice(player, campaign): # Найдено государство (нейтральное или враждебное).
-    pass
+    city = get_unknown_city(player, campaign["province"])["name"]
+    print(city)
+    relation = "Враждебны" if random.random() < 0.45 else "Нейтральны"
+    new_country = ai.generate_country(player, city, get_max_country_size(player), relation)
+    print(new_country)
+    paste_country(player, new_country)
+
+    db.players.update_one({"tg_id":player["tg_id"]},
+                          {
+                              "$push":{
+                                  "countries.0.armies": campaign["army"],
+                                  "actions":f"{player['date']}: Исследовательская экспедиция в составе армейского подразделения {campaign['army']['name']} вернулась с новостями: они встретили государство. Они к нам {relation}. Их держава называется {new_country['full_countryname']} со столицей в городе {new_country['capital_name']}, а их идеология это {new_country['ideology']}. Подробности об их идеологии: {new_country['ideology_desc']}. Суть их страны: {new_country['country_characteristics']}."
+                              }
+                          })
+    remove_campaign(player, campaign)
 
 def six_dice(player, campaign): # Найдено государство (дружественное, возможно, даже слишком).
-    pass
+    city = get_unknown_city(player, campaign["province"])["name"]
+    print(city)
+    new_country = ai.generate_country(player, city, get_max_country_size(player), "Дружественны")
+    print(new_country)
+    paste_country(player, new_country)
+
+    db.players.update_one({"tg_id":player["tg_id"]},
+                          {
+                              "$push":{
+                                  "countries.0.armies": campaign["army"],
+                                  "actions":f"{player['date']}: Исследовательская экспедиция в составе армейского подразделения {campaign['army']['name']} вернулась с новостями: они встретили дружественное нам государство. Их держава называется {new_country['full_countryname']} со столицей в городе {new_country['capital_name']}, а их идеология это {new_country['ideology']}. Подробности об их идеологии: {new_country['ideology_desc']}. Суть их страны: {new_country['country_characteristics']}."
+                              }
+                          })
+    remove_campaign(player, campaign)
 
 CAMPAIGN_BONUS = {
     250: -1,
@@ -158,3 +187,109 @@ def get_unknown_city(player, province):
         return  random.choice(cities)
     else:
         return random.choice(cities)
+
+def get_max_country_size(player):
+    player_size = len(get_cities(player, 0))
+    free_cities = len(get_free_cities(player))
+    if free_cities < player_size:
+        size = int(free_cities/5*random.uniform(0.25,5))
+    elif player_size < 5:
+        size = random.randint(1,int(player_size*random.uniform(1,2)))
+    elif player_size < free_cities/20:
+        size = int(player_size*random.uniform(0.25,3.5))
+    else:
+        size = int(player_size*random.uniform(0.75,1.5))
+    return  size
+
+def paste_country(player, new_country):
+    armies = []
+    for i, army in enumerate(new_country["armies"]):
+        a_type = get_army_type(army)
+        armies.append({
+            "army_id": i,
+            "name": army["name"],
+            "size": 1,
+            "hp": a_type["hp"],
+            "morale": a_type["morale"],
+            "type_id": ObjectId(army["type_id"])
+        })
+
+    taxes_politic = {
+        "id": 1,
+        "name": "Налоговая ставка",
+        "tax_rate": 0.0,
+        "stability": 0.0
+    }
+
+    mobilization_law = {
+        "id": 2,
+        "name": "Политика призыва"
+    }
+
+    for key, value in MOBILIZATION_LAWS[ObjectId(new_country["mobilization_law"])].items():
+        mobilization_law.update({key: value})
+
+    invest_in_pop_growth = {
+        "id": 3,
+        "name": "Дополнительные вложения в рост населения",
+        "population_growth_invest": 0.0,
+        "polit_power_gain_modifier": 0.0
+    }
+
+    invest_in_army = {
+        "id": 4,
+        "name": "Обеспечение армии",
+        "army_maintenance": 1.0,
+        "attack_modifier": 0.0,
+        "defense_modifier": 0.0,
+        "hp_modifier": 0.0,
+        "morale_modifier": 0.0
+    }
+
+    invest_in_stability = {
+        "id": 5,
+        "name": "Дополнительные вложения в рост стабильности",
+        "stability_invest": 0.0
+    }
+
+    invest_in_militarization = {
+        "id": 6,
+        "name": "Дополнительные вложения в рост милитаризации общества",
+        "militarization_invest": 0.0
+    }
+    country_id = ObjectId()
+    db.players.update_one({"tg_id": player["tg_id"]},
+                          {
+                              "$push": {
+                                  "countries": {
+                                      "id": country_id,
+                                      "countryname": new_country["countryname"],
+                                      "full_countryname": new_country["full_countryname"],
+                                      "capital": new_country["capital_name"],
+                                      "ideology": new_country["ideology"],
+                                      "ideology_desc": new_country["ideology_desc"],
+                                      "country_characteristics": new_country["country_characteristics"],
+                                      "ai_logic": new_country["ai_logic"],
+                                      'territorial_ambitions': new_country["ambitions"],
+                                      "money": new_country["money"],
+                                      "polit_power": new_country["polit_power"],
+                                      "armies": armies,
+                                      "loans": 0,
+                                      "interest": 0.04,
+                                      "national_spirits": [new_country["national_spirit"], taxes_politic,
+                                                           mobilization_law, invest_in_pop_growth, invest_in_army,
+                                                           invest_in_stability, invest_in_militarization]
+                                  }
+                              }
+                          })
+    for city in new_country["cities"]:
+        city_data = ai.generate_city(player, city)
+        db.players.update_one({"tg_id":player["tg_id"], "cities.name":city},
+                              {
+                                  "$set":{
+                                      "cities.$.owner": country_id,
+                                      "cities.$.controller": country_id,
+                                      "cities.$.population":city_data["population"],
+                                      "cities.$.buildings": city_data["buildings"]
+                                  }
+                              })
