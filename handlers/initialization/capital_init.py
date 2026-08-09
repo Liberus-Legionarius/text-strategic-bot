@@ -32,7 +32,7 @@ def capital_init(message):
 
             ultimate_goal = f"Наша конечная цель:\n{response['ultimate_goal']}"
 
-            set_details(message.from_user.id, response["ideology"], response["goals"], response["ultimate_goal"], response["territorial_ambitions"], response["country_characteristics"])
+            set_details(message.from_user.id, response["ideology"], response["ideology_type"], response["goals"], response["ultimate_goal"], response["territorial_ambitions"], response["country_characteristics"])
 
             details_kb = InlineKeyboardMarkup()
             details_kb.add(InlineKeyboardButton("Да, мне это подходит", callback_data = f"init:enter"),

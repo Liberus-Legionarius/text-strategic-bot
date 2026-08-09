@@ -52,21 +52,25 @@ def check_capital(name, countryname, api_key):
 def write_country_lore(player):
     country = player["countries"][0]
     request = ("{"
-               f'"full_countryname":{country["full_countryname"]},'
-               f'"countryname":{country["countryname"]},'
-               f'"capital":{country["capital"]},'
-               f'"ideology":{country["ideology"]}'
+               f'"full_countryname":"{country["full_countryname"]}",'
+               f'"countryname":"{country["countryname"]}",'
+               f'"capital":"{country["capital"]}",'
+               f'"ideology":"{country["ideology"]}",'
+               f'"ideology_types": {json.dumps(ideologies, ensure_ascii=False)},'
+               f'"provinces": {json.dumps(province_map, ensure_ascii=False)}'
                "}")
     return ask_ai(request, COUNTRY_LORE_PROMPT, player["api_key"])
 
 def define_details(details, player):
     country = player["countries"][0]
     request = ("{"
-               f'"full_countryname":{country["full_countryname"]},'
-               f'"countryname":{country["countryname"]},'
-               f'"capital":{country["capital"]},'
-               f'"ideology":{country["ideology"]},'
-               f'"user_input":{details}'
+               f'"full_countryname":"{country["full_countryname"]}",'
+               f'"countryname":"{country["countryname"]}",'
+               f'"capital":"{country["capital"]}",'
+               f'"ideology":"{country["ideology"]}",'
+               f'"ideology_types": {json.dumps(ideologies, ensure_ascii=False)},'
+               f'"provinces": {json.dumps(province_map, ensure_ascii=False)},'
+               f'"user_input":"{details}"'
                "}")
     return ask_ai(request, DETAILS_PROMPT, player["api_key"])
 
