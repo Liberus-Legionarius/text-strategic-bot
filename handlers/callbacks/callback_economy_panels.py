@@ -1,10 +1,14 @@
+from handlers.actions.tax_action import change_tax_rate
 from services.bot import bot, db
 from handlers.ingame_panels.economy_panel import open_economy_panel, open_income_panel, open_loan_panel
+from services.constants import get_player
+
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("economy"))
 def callback_economy(call):
     bot.answer_callback_query(call.id)
     panel = call.data.split(':')[1]
+    player = get_player(call.from_user)
      # Базовая панель.
     if panel == "base":
         open_economy_panel(call.from_user, call.message.chat.id, call.message.message_id)
@@ -12,17 +16,9 @@ def callback_economy(call):
     elif panel == "income":
         panel = call.data.split(':')[2]
         if panel == "rise":
-            db.players.update_one({"tg_id":call.from_user.id, "countries.id": 0},
-                                  {"$inc":{
-                                        "countries.$.national_spirits.1.stability":-0.05,
-                                        "countries.$.national_spirits.1.tax_rate": 0.05}
-                                  })
+            change_tax_rate(player, 0, 0.05)
         elif panel == "down":
-            db.players.update_one({"tg_id": call.from_user.id, "countries.id": 0},
-                                  {"$inc": {
-                                      "countries.$.national_spirits.1.stability": 0.05,
-                                      "countries.$.national_spirits.1.tax_rate": -0.05}
-                                  })
+            change_tax_rate(player, 0, -0.05)
         open_income_panel(call.from_user, call.message.chat.id, call.message.message_id)
     # Займы.
     elif panel == "loan":

@@ -1,3 +1,5 @@
+from handlers.actions.conscript_army_action import conscript_army
+from handlers.actions.reorganize_amy_action import reorganize_army
 from handlers.ingame_panels.territory_panel import open_one_city_panel
 from services.bot import bot, db
 from handlers.ingame_panels.army_panel import open_army_panel, open_mobilization_panel, open_armies_panel, \
@@ -70,17 +72,7 @@ def callback_army(call):
                         open_army_reorganize_unit_info(call.from_user, call.message.chat.id, call.message.message_id, panel, datas[4])
                     elif len(datas) == 6:
                         if datas[5] == "yes":
-                            a = db.players.find_one({"tg_id":call.from_user.id, "countries.armies.army_id":int(panel)})
-                            print(next((s for s in a["countries"][0]["armies"] if s["army_id"] == int(panel)), None)["size"])
-                            db.players.update_one({"tg_id":call.from_user.id, "countries.0.armies.army_id":int(panel)},
-                                                  {
-                                                      "$set":{
-                                                          "countries.0.armies.$.type_id": ObjectId(datas[4])
-                                                      },
-                                                      "$inc":{
-                                                          "countries.0.money": -cost
-                                                      }
-                                                  })
+                            reorganize_army(get_player(call.from_user), 0, army["army_id"], army_type["_id"])
                         open_one_army_panel(call.from_user, call.message.chat.id, call.message.message_id, panel)
                 else:
                     open_army_reorganize(call.from_user, call.message.chat.id, call.message.message_id, panel)
@@ -104,26 +96,7 @@ def callback_army(call):
             return
         if get_manpower(player, country) >= 100:
             if len(datas) == 4:
-                i = max(country["armies"], key = lambda a: a["army_id"])["army_id"] + 1
-                a_type = ARMY_TYPES[ObjectId(datas[3])]
-                change_pops = 100/len(get_cities(player, country["id"]))
-                change_population(player, 0, -change_pops)
-                db.players.update_one({"tg_id":player["tg_id"]},
-                                      {
-                                          "$push":{
-                                              "countries.0.armies":{
-                                                  "army_id":i,
-                                                  "name": f"Армия №{i}",
-                                                  "size": 1,
-                                                  "hp": a_type["hp"],
-                                                  "morale": a_type["morale"],
-                                                  "type_id": ObjectId(datas[3])
-                                              }
-                                          },
-                                          "$inc":{
-                                              "countries.0.money": -a_type["cost"]
-                                          }
-                                      })
+                conscript_army(player, country, datas[3])
                 open_one_city_panel(call.from_user, call.message.chat.id, call.message.message_id, datas[2])
             else:
                 open_army_creation_panel(call.from_user, call.message.chat.id, call.message.message_id, datas[2])

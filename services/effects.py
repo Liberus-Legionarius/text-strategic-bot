@@ -74,12 +74,11 @@ def on_effect(effect, value, player, country):
                                           "size": 1,
                                           "hp": a_type["hp"],
                                           "morale": a_type["morale"],
-                                          "type_id": ObjectId(value("type_id"))
+                                          "type_id": ObjectId(value["type_id"])
                                       }
                                   }
                               })
     elif effect == "create_building":
-        print(get_city_by_name(player, value["city_name"]))
         build_in_city(player, get_city_by_name(player, value["city_name"]), value["building_id"], 0, True)
     elif effect == "change_population":
         db.players.update_one({"tg_id": player["tg_id"], "cities.name":value["city_name"]},

@@ -188,7 +188,7 @@ def generate_city(player, city, population = None, buildings = None):
                 "}")
     return ask_ai(request, CITY_GEN_PROMPT, player["api_key"])
 
-def generate_country(player, city_name, max_size, relation_to_player):
+def generate_country(player, city_name, max_size, new_country_ideology):
     country = get_country(player, 0)
     cities = get_cities(player, 0)
     free_cities = get_free_cities(player)
@@ -202,6 +202,7 @@ def generate_country(player, city_name, max_size, relation_to_player):
     request = ("{"
                f'"player_countryname": "{country["full_countryname"]}",'
                f'"player_ideology": "{country["ideology"]}",'
+               f'"player_ideology_type":"{country["ideology_type"]}",'
                f'"player_ideology_desc": "{country["ideology_desc"]}",'
                f'"player_cities":{json.dumps(cities, ensure_ascii=False)},'
                f'"army_types":{json.dumps(army_types, ensure_ascii=False)},'
@@ -209,7 +210,7 @@ def generate_country(player, city_name, max_size, relation_to_player):
                f'"free_cities":{json.dumps(free_cities, ensure_ascii=False)},'
                f'"provinces": {json.dumps(province_map, ensure_ascii=False)},'
                f'"discovered_city": "{city_name}",'
-               f'"new_country_relation_to_player": "{relation_to_player}",'
+               f'"new_country_ideology": "{new_country_ideology}",'
                f'"modifiers":{json.dumps(modifiers, ensure_ascii=False)},'
                f'"mobilization_laws":{json.dumps(mobilization_laws, ensure_ascii=False)},'
                f'"ideologies_info": {json.dumps(ideologies, ensure_ascii=False)},'

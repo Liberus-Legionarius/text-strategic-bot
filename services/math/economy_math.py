@@ -17,6 +17,9 @@ def get_buildings_income(player, country):
     buildings_income_efficiency = get_modifier(country, "buildings_income_efficiency")
     for city in cities:
         for building in city["buildings"]:
+            if building is None:
+                print(city["name"])
+                continue
             sum += BUILDINGS[building["id"]]["income_per_pop"] * city["population"] * buildings_income_efficiency * building["amount"]
     return sum
 

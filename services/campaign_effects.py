@@ -1,6 +1,7 @@
 import random
 import services.ai as ai
 from services.constants import MOBILIZATION_LAWS
+from services.ideologies import ideology_relations
 from services.math.army_math import get_army_type
 from services.math.territory_math import get_cities, change_population, get_free_cities
 from services.bot import db
@@ -136,33 +137,33 @@ def four_dice(player, campaign):
 
 def five_dice(player, campaign): # Найдено государство (нейтральное или враждебное).
     city = get_unknown_city(player, campaign["province"])["name"]
-    print(city)
     relation = "Враждебны" if random.random() < 0.45 else "Нейтральны"
-    new_country = ai.generate_country(player, city, get_max_country_size(player), relation)
-    print(new_country)
-    paste_country(player, new_country)
+    ideology = ideology_relations[player["countries"][0]["ideology_type"]][relation]
+    ideology = random.choice(ideology)
+    new_country = ai.generate_country(player, city, get_max_country_size(player), ideology)
+    paste_country(player, new_country, ideology)
 
     db.players.update_one({"tg_id":player["tg_id"]},
                           {
                               "$push":{
                                   "countries.0.armies": campaign["army"],
-                                  "actions":f"{player['date']}: Исследовательская экспедиция в составе армейского подразделения {campaign['army']['name']} вернулась с новостями: они встретили государство. Они к нам {relation}. Их держава называется {new_country['full_countryname']} со столицей в городе {new_country['capital_name']}, а их идеология это {new_country['ideology']}. Подробности об их идеологии: {new_country['ideology_desc']}. Суть их страны: {new_country['country_characteristics']}."
+                                  "actions":f"{player['date']}: Исследовательская экспедиция в составе армейского подразделения {campaign['army']['name']} вернулась с новостями: они встретили государство. Они к нам {relation}. Их держава называется {new_country['full_countryname']} со столицей в городе {new_country['capital_name']}, а их идеология это {ideology}. Подробности об их идеологии: {new_country['ideology_desc']}. Суть их страны: {new_country['country_characteristics']}."
                               }
                           })
     remove_campaign(player, campaign)
 
 def six_dice(player, campaign): # Найдено государство (дружественное, возможно, даже слишком).
     city = get_unknown_city(player, campaign["province"])["name"]
-    print(city)
-    new_country = ai.generate_country(player, city, get_max_country_size(player), "Дружественны")
-    print(new_country)
-    paste_country(player, new_country)
+    ideology = ideology_relations[player["countries"][0]["ideology_type"]]["Дружественны"]
+    ideology = random.choice(ideology)
+    new_country = ai.generate_country(player, city, get_max_country_size(player), ideology)
+    paste_country(player, new_country, ideology)
 
     db.players.update_one({"tg_id":player["tg_id"]},
                           {
                               "$push":{
                                   "countries.0.armies": campaign["army"],
-                                  "actions":f"{player['date']}: Исследовательская экспедиция в составе армейского подразделения {campaign['army']['name']} вернулась с новостями: они встретили дружественное нам государство. Их держава называется {new_country['full_countryname']} со столицей в городе {new_country['capital_name']}, а их идеология это {new_country['ideology']}. Подробности об их идеологии: {new_country['ideology_desc']}. Суть их страны: {new_country['country_characteristics']}."
+                                  "actions":f"{player['date']}: Исследовательская экспедиция в составе армейского подразделения {campaign['army']['name']} вернулась с новостями: они встретили дружественное нам государство. Их держава называется {new_country['full_countryname']} со столицей в городе {new_country['capital_name']}, а их идеология это {ideology}. Подробности об их идеологии: {new_country['ideology_desc']}. Суть их страны: {new_country['country_characteristics']}."
                               }
                           })
     remove_campaign(player, campaign)
@@ -201,7 +202,7 @@ def get_max_country_size(player):
         size = int(player_size*random.uniform(0.75,1.5))
     return  size
 
-def paste_country(player, new_country):
+def paste_country(player, new_country, ideology):
     armies = []
     for i, army in enumerate(new_country["armies"]):
         a_type = get_army_type(army)
@@ -266,7 +267,8 @@ def paste_country(player, new_country):
                                       "countryname": new_country["countryname"],
                                       "full_countryname": new_country["full_countryname"],
                                       "capital": new_country["capital_name"],
-                                      "ideology": new_country["ideology"],
+                                      "ideology": ideology,
+                                      "ideology_type": ideology,
                                       "ideology_desc": new_country["ideology_desc"],
                                       "country_characteristics": new_country["country_characteristics"],
                                       "ai_logic": new_country["ai_logic"],
