@@ -11,7 +11,7 @@ def callback(call):
             init_state(call.from_user)
         open_state_panel(call.message.chat.id, call.from_user)
     else:
-        new_start(call.message.chat.id, call.from_user)
+        new_start(call.message.chat.id, call.message.message_id, call.from_user)
         bot.edit_message_text(
             "Ваш предыдущий прогресс очищен.",
             chat_id=call.message.chat.id,

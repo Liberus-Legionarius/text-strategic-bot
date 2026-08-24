@@ -231,3 +231,14 @@ def ask_ai(request, base_prompt, api_key):
     json_text = re.search(JSON_PATTERN, output, re.DOTALL)
     result = json.loads(json_text.group())
     return result
+
+def check_api_key(api_key):
+    try:
+        ai = genai.Client(api_key = api_key)
+        interaction = ai.interactions.create(
+            model="gemini-3.1-flash-lite",
+            input="Answer me: Ok."
+        )
+        return True
+    except Exception as e:
+        return False

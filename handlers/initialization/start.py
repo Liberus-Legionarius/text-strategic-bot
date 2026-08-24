@@ -13,10 +13,11 @@ def start(message):
     if user and user.get("bot_state") == "IN_GAME":
         bot.send_message(message.chat.id, f"Добро пожаловать обратно, {message.from_user.first_name}!\nЖелаете продолжить?", reply_markup=yes_no_kb)
     else:
-        new_start(message.chat.id, message.from_user)
+        new_start(message.chat.id, None, message.from_user)
 
-def new_start(chat_id, user):
-    bot.send_message(chat_id, start_text.format(user.first_name))
+def new_start(chat_id, message_id, user):
+    temp = bot.send_message(chat_id, start_text.format(user.first_name))
+    if message_id is None: message_id = temp.message_id
     if db.players.find_one({"tg_id":user.id}):
         db.players.delete_one({"tg_id":user.id})
-    db.players.insert_one({"tg_id": user.id, "bot_state": "INIT_KEYAPI"})
+    db.players.insert_one({"tg_id": user.id, "bot_state": "INIT_KEYAPI", "last_message":message_id})
