@@ -3,28 +3,67 @@ import re
 
 PATTERN_UPPERCASE = r"^([А-ЯЁ][а-яё]+(?:[\s|-][А-ЯЁ][а-яё]+)*)"
 
-def check_format(pattern, str, id):
+def check_format(pattern, str, chat_id, message_id):
     if re.match(pattern, str):
-        bot.send_message(id, "Формат верный, сейчас проверю, насколько название приемлемое. Минуточку...")
+        bot.edit_message_text(
+            "Формат верный, сейчас проверю, насколько название приемлемое. Минуточку...",
+            chat_id=chat_id,
+            message_id=message_id
+        )
         return True
     else:
-        bot.send_message(id, "Хм... Что-то здесь не так... Убедитесь, что каждое слово написано с большой буквы и нет цифр.")
+        bot.edit_message_text(
+            "Хм... Что-то здесь не так... Убедитесь, что каждое слово написано с большой буквы и нет цифр.",
+            chat_id =chat_id,
+            message_id = message_id
+        )
         return False
 
-def name_handler(ai_check, id, placeholder):
+def name_handler(ai_check, chat_id, message_id, placeholder):
     if ai_check.get("response"):
-        bot.send_message(id, f"Хорошо, {placeholder} принято, можем продолжать.")
+        bot.edit_message_text(
+            f"Хорошо, {placeholder} принято, можем продолжать.",
+            chat_id = chat_id,
+            message_id = message_id
+        )
         return True
     elif ai_check.get("refusal_code") == "OBSCENE_LANGUAGE":
-        bot.send_message(id, f"Кхм... Как некультурно. Подберите {placeholder} без нецензурной брани.")
+        bot.edit_message_text(
+            f"Кхм... Как некультурно. Подберите {placeholder} без нецензурной брани.",
+            chat_id=chat_id,
+            message_id=message_id
+        )
         return False
     elif ai_check.get("refusal_code") == "MAKES_NO_SENSE":
-        bot.send_message(id, f"Придумайте другое {placeholder}, которое не будет представлять из себя случайный набор букв.")
+        bot.edit_message_text(
+            f"Придумайте другое {placeholder}, которое не будет представлять из себя случайный набор букв.",
+            chat_id=chat_id,
+            message_id=message_id
+        )
         return False
     elif ai_check.get("refusal_code") == "GEOGRAPHICAL_INCONSISTENCY":
-        bot.send_message(id, f"Вы уверены, что с географической точки зрения написали {placeholder}, имеющее смысл?\nПридумайте другое {placeholder}.")
+        bot.edit_message_text(
+            f"Вы уверены, что с географической точки зрения ваше {placeholder} имеет смысл?\n"
+            f"Придумайте другое {placeholder}.",
+            chat_id=chat_id,
+            message_id=message_id
+        )
+        return False
+    elif ai_check.get("refusal_code") == "NAME_IS_NOT_SHORT":
+        bot.edit_message_text(
+            f"Хм... Кажется, ваше {placeholder} нельзя назвать коротким.\n"
+            f"Придумайте другое {placeholder}, которое не будет содержать намёков на государственный строй или идеологию.",
+            chat_id=chat_id,
+            message_id=message_id
+        )
+        return False
     else:
-        bot.send_message(id, f"Я затрудняюсь определить ошибку, которую вы допустили... Пожалуйста, придумайте другое {placeholder}.\n{ai_check.get('refusal_code')}")
+        bot.edit_message_text(
+            f"Я затрудняюсь определить ошибку, которую вы допустили... \n"
+            f"Пожалуйста, придумайте другое {placeholder}.",
+            chat_id=chat_id,
+            message_id=message_id
+        )
         return False
 
 def set_details(tg_id, ideology, ideology_type, goals, ultimate_goal, territorial_ambitions, characteristics):
