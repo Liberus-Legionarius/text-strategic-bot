@@ -4,28 +4,26 @@ import re
 PATTERN_UPPERCASE = r"^([А-ЯЁ][а-яё]+(?:[\s|-][А-ЯЁ][а-яё]+)*)"
 
 def check_format(pattern, str, chat_id, message_id):
-    if re.match(pattern, str):
-        bot.edit_message_text(
-            "Формат верный, сейчас проверю, насколько название приемлемое. Минуточку...",
-            chat_id=chat_id,
-            message_id=message_id
-        )
-        return True
-    else:
-        bot.edit_message_text(
-            "Хм... Что-то здесь не так... Убедитесь, что каждое слово написано с большой буквы и нет цифр.",
-            chat_id =chat_id,
-            message_id = message_id
-        )
+    try:
+        if re.match(pattern, str):
+            bot.edit_message_text(
+                "Формат верный, сейчас проверю, насколько название приемлемое. Минуточку...",
+                chat_id=chat_id,
+                message_id=message_id
+            )
+            return True
+        else:
+            bot.edit_message_text(
+                "Хм... Что-то здесь не так... Убедитесь, что каждое слово написано с большой буквы и нет цифр.",
+                chat_id =chat_id,
+                message_id = message_id
+            )
+            return False
+    except Exception as e:
         return False
 
 def name_handler(ai_check, chat_id, message_id, placeholder):
     if ai_check.get("response"):
-        bot.edit_message_text(
-            f"Хорошо, {placeholder} принято, можем продолжать.",
-            chat_id = chat_id,
-            message_id = message_id
-        )
         return True
     elif ai_check.get("refusal_code") == "OBSCENE_LANGUAGE":
         bot.edit_message_text(
