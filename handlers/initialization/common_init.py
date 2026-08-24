@@ -55,6 +55,22 @@ def name_handler(ai_check, chat_id, message_id, placeholder):
             message_id=message_id
         )
         return False
+    elif ai_check.get("refusal_code") == "IDEOLOGY_MISMATCH":
+        bot.edit_message_text(
+            f"Похоже, вы проигнорировали идеологию, когда написали {placeholder}.\n"
+            f"Придумайте другое {placeholder}, которое будет соответствовать идеологии.",
+            chat_id=chat_id,
+            message_id=message_id
+        )
+        return False
+    elif ai_check.get("refusal_code") == "SHORT_COUNTRYNAME_MISMATCH":
+        bot.edit_message_text(
+            f"Увы, вы не можете выбрать {placeholder}, которое не будет подходить короткому названию.\n"
+            f"Придумайте другое {placeholder}.",
+            chat_id=chat_id,
+            message_id=message_id
+        )
+        return False
     else:
         bot.edit_message_text(
             f"Я затрудняюсь определить ошибку, которую вы допустили... \n"

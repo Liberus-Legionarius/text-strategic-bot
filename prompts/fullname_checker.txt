@@ -18,5 +18,5 @@
 Формат ответа (чистый JSON, полностью валидный и без комментариев):
 {
     "response": true/false,
-    "refusal_code": "OBSCENE_LANGUAGE"/"MAKES_NO_SENSE"
+    "refusal_code": "OBSCENE_LANGUAGE"/"MAKES_NO_SENSE"/"IDEOLOGY_MISMATCH"/"SHORT_COUNTRYNAME_MISMATCH"
 }
