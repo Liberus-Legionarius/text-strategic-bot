@@ -12,6 +12,12 @@ def get_army_power(country):
 def get_total_army(country):
     return len(country["armies"])
 
+def get_total_soldiers(country):
+    return sum(
+        army["size"] * get_army_type(army)["manpower_consumption"]
+        for army in country["armies"]
+    )
+
 def get_manpower(player, country):
     return get_total_population(player, country["id"]) / (1 if country["national_spirits"][2]['women_at_war'] else 2) * get_modifier(country, "mobilization_percent") - get_total_army(country)*100
 

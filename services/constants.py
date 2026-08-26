@@ -70,4 +70,5 @@ def get_modifier(country, modifier, addition = 0):
     return result
 
 def get_is_pacifism(country):
-    return country["national_spirits"][2].get("is_pacifism")
+    f = country["national_spirits"][2].get("is_pacifism")
+    return f if f is not None else False
