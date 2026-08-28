@@ -1,0 +1,71 @@
+{
+  "Северная Паннония": {
+		"cities":[
+			{"name":"Шопрон", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дьёр", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Секешфехервар", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Татабанья", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Веспрем", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сомбатхей", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Залаэгерсег", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южная Паннония","Центральная Венгрия","Западная Словакия","Нижняя Австрия","Штирия"]
+	},
+  "Южная Паннония": {
+		"cities":[
+			{"name":"Печ", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Капошвар", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Шиофок", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Надьканижа", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сексард", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Домбовар", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сигетвар", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северная Паннония","Южный Альфёльд","Штирия"]
+	},
+	"Буда-Пешт": {
+		"cities":[
+			{"name":"Буда", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пешт", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Эрд", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дунахарасти", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сентендре", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Эстергом", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южный Альфёльд","Северная Венгрия","Северная Паннония","Западная Словакия"]
+	},
+	"Северная Венгрия": {
+		"cities":[
+			{"name":"Эгер", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Мишкольц", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дьёндьёш", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Озд", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Шаторальяуйхей", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ясберень", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Цеглед", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северный Альфёльд","Южный Альфёльд","Буда-Пешт","Восточная Словакия"]
+	},
+	"Южный Альфёльд": {
+		"cities":[
+			{"name":"Сольнок", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кечкемет", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сегед", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бекешчаба", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дунайварош", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бая", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северная Венгрия","Северный Альфёльд","Южная Паннония","Буда-Пешт", "Кришана"]
+	},
+	"Северный Альфёльд": {
+		"cities":[
+			{"name":"Дебрецен", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ньиредьхаза", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Карцаг", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сегхалом", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кишварда", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тисафюред", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северная Венгрия","Южный Альфёльд", "Мармарош", "Кришана"]
+	}
+}

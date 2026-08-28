@@ -9,7 +9,7 @@
             {"name": "Браунау-ам-Инн", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Фрайштадт", "population": 0, "owner": null, "controller": null, "buildings": []}
         ],
-        "connected_with": ["Зальцбург", "Нижняя Австрия", "Штирия", "Нижняя Бавария"]
+        "connected_with": ["Зальцбург", "Нижняя Австрия", "Штирия", "Нижняя Бавария", "Южные Судеты"]
     },
 
     "Зальцбург": {
@@ -33,7 +33,7 @@
             {"name": "Корнойбург", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Тульн", "population": 0, "owner": null, "controller": null, "buildings": []}
         ],
-        "connected_with": ["Верхняя Австрия", "Штирия"]
+        "connected_with": ["Верхняя Австрия", "Штирия","Моравия", "Западная Словакия", "Северная Паннония"]
     },
 
     "Штирия": {
@@ -46,7 +46,7 @@
             {"name": "Фельдбах", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Хартберг", "population": 0, "owner": null, "controller": null, "buildings": []}
         ],
-        "connected_with": ["Верхняя Австрия", "Нижняя Австрия", "Зальцбург", "Каринтия"]
+        "connected_with": ["Верхняя Австрия", "Нижняя Австрия", "Зальцбург", "Каринтия", "Северная Паннония", "Южная Паннония"]
     },
     "Каринтия": {
         "cities":[

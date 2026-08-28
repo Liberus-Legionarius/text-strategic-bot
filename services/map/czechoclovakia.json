@@ -1,0 +1,86 @@
+{
+  "Северные Судеты": {
+		"cities":[
+			{"name":"Либерец", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Усти-над-Лабем", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Карловы-Вары", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Мост", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Хеб", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Наход", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Саксония","Лужица","Нижняя Силезия", "Южные Судеты", "Богемия"]
+	},
+    "Южные Судеты": {
+		"cities":[
+			{"name":"Марианске-Лазне", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Железна-Руда", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тахов", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Домажлице", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Липно-над-Влтавой", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Франкония","Нижняя Бавария","Верхняя Австрия","Богемия","Моравия"]
+	},
+  "Богемия": {
+		"cities":[
+			{"name":"Прага", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пльзень", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ческе Будеёвице", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Табор", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Градец-Карлове", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Млада-Болеслав", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пардубице", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кутна-Гора", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Писек", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северные Судеты","Южные Судеты","Моравия"]
+	},
+  "Моравия": {
+		"cities":[
+			{"name":"Брно", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Оломоуц", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Злин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Йиглава", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пршеров", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Зноймо", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бржецслав", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Угерске-Градиште", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южные Судеты","Богемия","Нижняя Австрия","Моравская Силезия","Западная Словакия"]
+	},
+  "Моравская Силезия": {
+		"cities":[
+			{"name":"Острава", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Опава", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Есеник", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тешин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Фридек-Мистек", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Богумин", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Моравия","Верхняя Силезия", "Западная Словакия"]
+	},
+  "Западная Словакия": {
+		"cities":[
+			{"name":"Братислава", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Трнава", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Нитра", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Жилина", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Комарно", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Нове Замки", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Банска-Бистрица", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Моравия","Нижняя Австрия","Моравская Силезия", "Восточная Словакия", "Малопольша", "Северная Паннония", "Буда-Пешт"]
+	},
+  "Восточная Словакия": {
+		"cities":[
+			{"name":"Кошице", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Прешов", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Рожнява", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Римавска-Собота", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лученец", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Михаловце", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Попрад", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бардеёв", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Западная Словакия","Червенские города","Малопольша", "Северная Венгрия"]
+	}
+}

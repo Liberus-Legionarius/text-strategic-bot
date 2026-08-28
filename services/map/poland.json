@@ -1,0 +1,169 @@
+{
+    "Восточная Померания": {
+        "cities":[
+            {"name": "Слупск", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кошалин", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Старгард-Щецинский", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Колобжег", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Щецинек", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Свиноуйсьце", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Новая Марка", "Западная Померания", "Великопольша", "Западная Пруссия"]
+    },
+    "Новая Марка": {
+        "cities":[
+            {"name": "Костшин-на-Одре", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Гожув-Великопольский", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Мыслибуж", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Кросно", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Дрезденко", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Губин", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Восточная Померания", "Бранденбург", "Великопольша", "Лужица", "Нижняя Силезия"]
+    },
+    "Нижняя Силезия": {
+        "cities":[
+            {"name": "Зелёна-Гура", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Еленя-Гура", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Вроцлав", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Глогов", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Легница", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Свидница", "population": 0, "owner": null, "controller": null, "buildings": []},
+            {"name": "Валбжих", "population": 0, "owner": null, "controller": null, "buildings": []}
+        ],
+        "connected_with": ["Новая Марка", "Великопольша", "Лужица", "Верхняя Силезия", "Северные Судеты"]
+    },
+    "Верхняя Силезия": {
+		"cities":[
+			{"name":"Катовице", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ополе", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бытом", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Освенцим", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Гливице", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Рыбник", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Нижняя Силезия","Центральная Польша","Малопольша", "Моравская Силезия"]
+	},
+    "Великопольша": {
+		"cities":[
+			{"name":"Познань", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Гнезно", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Калиш", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лешно", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Конин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пила", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Остров-Великопольский", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Нижняя Силезия","Центральная Польша","Восточная Померания","Новая Марка","Куявия","Западная Пруссия"]
+	},
+    "Малопольша": {
+		"cities":[
+			{"name":"Краков", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Люблин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тарнув", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Новы-Сонч", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кельце", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Радом", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бяльско-Бяла", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Верхняя Силезия","Центральная Польша","Мазовия","Червенские города", "Западная Словакия","Восточная Словакия"]
+	},
+    "Центральная Польша": {
+		"cities":[
+			{"name":"Лодзь", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ченстохова", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Серадзь", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Велюнь", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ленчица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пётркув", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Верхняя Силезия","Малопольша","Мазовия","Куявия","Великопольша"]
+	},
+    "Куявия": {
+		"cities":[
+			{"name":"Торунь", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Быдгощ", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Вроцлавек", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Иновроцлав", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Центральная Польша","Мазовия","Западная Пруссия","Великопольша"]
+	},
+    "Мазовия": {
+		"cities":[
+			{"name":"Варшава", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Плоцк", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Рава", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Визна", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Седльце", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ломжа", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Остроленка", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Цеханув", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Центральная Польша","Куявия","Малопольша","Подляшье","Мазурия"]
+	},
+    "Мазурия": {
+		"cities":[
+			{"name":"Ольштын", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Элк", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Мронгово", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Гижицко", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дзялдово", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Щитно", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Мазовия","Подляшье","Западная Пруссия","Юго-Восточная Пруссия"]
+	},
+    "Данциг": {
+		"cities":[
+			{"name":"Гданьск", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Гдыня", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Новы-Двур-Гданьский", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Западная Пруссия","Юго-Восточная Пруссия"]
+	},
+    "Юго-Восточная Пруссия": {
+		"cities":[
+			{"name":"Эльблонг", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бранево", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лидзбарк", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Моронг", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кетцин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Квидзын", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Западная Пруссия","Мазурия","Данциг"]
+	},
+    "Западная Пруссия": {
+		"cities":[
+			{"name":"Мальборк", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Нове Място", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тчев", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Хелмно", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Грудзёндз", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Хойнице", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лемборк", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Юго-Восточная Пруссия","Куявия","Данциг","Великопольша","Восточная Померания"]
+	},
+    "Подляшье": {
+		"cities":[
+			{"name":"Белосток", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сувалки", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Граево", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Августов", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сокулка", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лосице", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Мазовия","Мазурия"]
+	},
+    "Червенские города": {
+		"cities":[
+			{"name":"Перемышль", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Холм", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Замостье", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ярослав", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Жешув", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кросно", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Влодава", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Малопольша","Восточная Словакия"]
+	}
+}

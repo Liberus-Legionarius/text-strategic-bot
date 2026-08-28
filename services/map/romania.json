@@ -1,0 +1,138 @@
+{
+  "Мармарош": {
+		"cities":[
+			{"name":"Сату-Маре", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бая-Маре", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сигету-Мармацией", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Карей", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Негрешти-Оаш", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северный Альфёльд","Кришана","Северная Трансильвания"]
+	},
+    "Кришана": {
+		"cities":[
+			{"name":"Орадя", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Арад", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Залэу", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Маргита", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Салонта", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Инеу", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южный Альфёльд","Северный Альфёльд","Северная Трансильвания","Восточный Банат","Южная Трансильвания"]
+	},
+	"Восточный Банат": {
+		"cities":[
+			{"name":"Тимишоара", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лугож", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Решица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Карансебеш", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Кришана","Южная Трансильвания","Олтения"]
+	},
+	"Северная Трансильвания": {
+		"cities":[
+			{"name":"Клуж", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бистрица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Деж", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Турда", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тыргу-Муреш", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Меркуря-Чук", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сигишоара", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Кришана","Южная Трансильвания","Мармарош"]
+	},
+	"Южная Трансильвания": {
+		"cities":[
+			{"name":"Брашов", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Алба-Юлия", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дева", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сибиу", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Медиаш", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Фэгэраш", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Кришана","Северная Трансильвания","Банат","Олтения","Западная Мунтения", "Бухарест-Плоешти"]
+	},
+	"Южная Буковина": {
+		"cities":[
+			{"name":"Сирет", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сучава", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Рэдэуци", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кампулунг-Молдовенеск", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северная Молдова"]
+	},
+	"Северная Молдова": {
+		"cities":[
+			{"name":"Яссы", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дорохой", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ботошани", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пьятра-Нямц", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пашкани", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Роман", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южная Буковина","Южная Молдова"]
+	},
+	"Южная Молдова": {
+		"cities":[
+			{"name":"Галац", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бырлад", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Васлуй", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бакэу", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Фокшани", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Онешти", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Хуши", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северная Молдова","Восточная Мунтения"]
+	},
+	"Олтения": {
+		"cities":[
+			{"name":"Крайова", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тыргу-Жиу", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Рымнику-Вылча", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дробета-Турну-Северин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Драгашани", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южная Трансильвания","Восточный Банат","Западная Мунтения"]
+	},
+	"Западная Мунтения": {
+		"cities":[
+			{"name":"Слатина", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Питешти", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тырговиште", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Джурджу", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Турну-Мэгуреле", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кымпулунг-Мусчел", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южная Трансильвания","Олтения","Бухарест-Плоешти"]
+	},
+	"Бухарест-Плоешти": {
+		"cities":[
+			{"name":"Бухарест", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Плоешти", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Снагов", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южная Трансильвания","Восточная Мунтентия","Западная Мунтения"]
+	},
+	"Восточная Мунтения": {
+		"cities":[
+			{"name":"Бузэу", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Рымнику-Сэрат", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Брэила", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кэлэраши", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Слобозия", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южная Молдова","Западная Мунтения","Северная Добруджа"]
+	},
+	"Северная Добруджа": {
+		"cities":[
+			{"name":"Констанца", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тулча", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Хыршова", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Чернаводэ", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Нэводари", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Мангалия", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Журиловка", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Западная Мунтения"]
+	}
+}

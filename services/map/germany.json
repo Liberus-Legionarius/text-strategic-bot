@@ -147,7 +147,7 @@
             {"name": "Кельхайм", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Ландсхут", "population": 0, "owner": null, "controller": null, "buildings": []}
         ],
-        "connected_with": ["Верхняя Бавария", "Франкония", "Верхняя Австрия"]
+        "connected_with": ["Верхняя Бавария", "Франкония", "Верхняя Австрия", "Южные Судеты"]
     },
 
     "Франкония": {
@@ -160,7 +160,7 @@
             {"name": "Швайнфурт", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Кульмбах", "population": 0, "owner": null, "controller": null, "buildings": []}
         ],
-        "connected_with": ["Верхняя Бавария", "Нижняя Бавария", "Тюрингия", "Гессен", "Вюртемберг"]
+        "connected_with": ["Верхняя Бавария", "Нижняя Бавария", "Тюрингия", "Гессен", "Вюртемберг", "Южные Судеты"]
     },
 
     "Саксония": {
@@ -173,7 +173,7 @@
             {"name": "Фрайберг", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Пирна", "population": 0, "owner": null, "controller": null, "buildings": []}
         ],
-        "connected_with": ["Тюрингия", "Саксония-Ангальт", "Бранденбург", "Лужица"]
+        "connected_with": ["Тюрингия", "Саксония-Ангальт", "Бранденбург", "Лужица", "Северные Судеты"]
     },
     
     "Лужица": {
@@ -186,7 +186,7 @@
             {"name": "Любань", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Згожелец", "population": 0, "owner": null, "controller": null, "buildings": []}
         ],
-        "connected_with": ["Бранденбург", "Саксония"]
+        "connected_with": ["Бранденбург", "Саксония", "Новая Марка", "Нижняя Силезия", "Северные Судеты"]
     },
   
     "Тюрингия": {
@@ -211,7 +211,7 @@
             {"name": "Пренцлау", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Эберсвальде", "population": 0, "owner": null, "controller": null, "buildings": []}
         ],
-        "connected_with": ["Саксония", "Лужица", "Саксония-Ангальт", "Мекленбург", "Западная Померания"]
+        "connected_with": ["Саксония", "Лужица", "Саксония-Ангальт", "Мекленбург", "Западная Померания", "Новая Марка"]
     },
 
     "Мекленбург": {
@@ -232,9 +232,9 @@
             {"name": "Грайфсвальд", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Вольгаст", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Анклам", "population": 0, "owner": null, "controller": null, "buildings": []},
-            {"name": "Штеттин", "population": 0, "owner": null, "controller": null, "buildings": []}
+            {"name": "Шецин", "population": 0, "owner": null, "controller": null, "buildings": []}
         ],
-        "connected_with": ["Мекленбург", "Бранденбург"]
+        "connected_with": ["Мекленбург", "Бранденбург", "Восточная Померания"]
     },
     "Саксония-Ангальт": {
         "cities":[
