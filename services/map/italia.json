@@ -67,7 +67,7 @@
           {"name": "Чивидале-дель-Фриули", "population": 0, "owner": null, "controller": null, "buildings": []},
           {"name": "Монфальконе", "population": 0, "owner": null, "controller": null, "buildings": []}
       ],
-      "connected_with": ["Венето", "Каринтия"]
+      "connected_with": ["Венето", "Каринтия", "Словения"]
     },
     "Лигурия": {
       "cities":[

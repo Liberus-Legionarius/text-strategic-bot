@@ -57,7 +57,7 @@
             {"name": "Фёлькермаркт", "population": 0, "owner": null, "controller": null, "buildings": []},
             {"name": "Вольфсберг", "population": 0, "owner": null, "controller": null, "buildings": []}
         ],
-        "connected_with": ["Фриули", "Зальцбург", "Штирия"]
+        "connected_with": ["Фриули", "Зальцбург", "Штирия", "Словения"]
     },
     "Тироль": {
         "cities":[

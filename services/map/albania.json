@@ -1,0 +1,34 @@
+{
+    "Шкодра": {
+		"cities":[
+			{"name":"Шкодра", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лежа", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кукес", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тети", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Черногория","Косово и Метохия","Албания"]
+	},
+    "Албания": {
+		"cities":[
+			{"name":"Тирана", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дуррес", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Круя", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Поградец", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Люшня", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Фиери", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Берат", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Шкодра","Северная Македония","Северный Эпир"]
+	},
+    "Северный Эпир": {
+		"cities":[
+			{"name":"Влёра", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Корча", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Гирокастра", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Саранда", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тепелена", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пермети", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Албания"]
+	}
+}

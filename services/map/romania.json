@@ -27,7 +27,7 @@
 			{"name":"Решица", "population":0, "owner":null, "controller":null, "buildings":[]},
 			{"name":"Карансебеш", "population":0, "owner":null, "controller":null, "buildings":[]}
 		],
-		"connected_with":["Кришана","Южная Трансильвания","Олтения"]
+		"connected_with":["Кришана","Южная Трансильвания","Олтения", "Западный Банат", "Северное Поморавье"]
 	},
 	"Северная Трансильвания": {
 		"cities":[
@@ -92,7 +92,7 @@
 			{"name":"Дробета-Турну-Северин", "population":0, "owner":null, "controller":null, "buildings":[]},
 			{"name":"Драгашани", "population":0, "owner":null, "controller":null, "buildings":[]}
 		],
-		"connected_with":["Южная Трансильвания","Восточный Банат","Западная Мунтения"]
+		"connected_with":["Южная Трансильвания","Восточный Банат","Западная Мунтения", "Видин", "Западная Мизия"]
 	},
 	"Западная Мунтения": {
 		"cities":[
@@ -103,7 +103,7 @@
 			{"name":"Турну-Мэгуреле", "population":0, "owner":null, "controller":null, "buildings":[]},
 			{"name":"Кымпулунг-Мусчел", "population":0, "owner":null, "controller":null, "buildings":[]}
 		],
-		"connected_with":["Южная Трансильвания","Олтения","Бухарест-Плоешти"]
+		"connected_with":["Южная Трансильвания","Олтения","Бухарест-Плоешти", "Восточная Мизия", "Западная Мизия"]
 	},
 	"Бухарест-Плоешти": {
 		"cities":[
@@ -121,7 +121,7 @@
 			{"name":"Кэлэраши", "population":0, "owner":null, "controller":null, "buildings":[]},
 			{"name":"Слобозия", "population":0, "owner":null, "controller":null, "buildings":[]}
 		],
-		"connected_with":["Южная Молдова","Западная Мунтения","Северная Добруджа"]
+		"connected_with":["Южная Молдова","Западная Мунтения","Северная Добруджа", "Южная Добруджа"]
 	},
 	"Северная Добруджа": {
 		"cities":[
@@ -133,6 +133,6 @@
 			{"name":"Мангалия", "population":0, "owner":null, "controller":null, "buildings":[]},
 			{"name":"Журиловка", "population":0, "owner":null, "controller":null, "buildings":[]}
 		],
-		"connected_with":["Западная Мунтения"]
+		"connected_with":["Западная Мунтения", "Южная Добруджа"]
 	}
 }

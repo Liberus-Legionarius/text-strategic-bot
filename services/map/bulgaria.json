@@ -1,0 +1,95 @@
+{
+    "Видин": {
+		"cities":[
+			{"name":"Видин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Белоградчик", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Монтана", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лом", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Козлодуй", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Берковица", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Олтения","Северное Поморавье","София","Западная Мизия"]
+	},
+    "Южная Добруджа": {
+		"cities":[
+			{"name":"Силистра", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Добрич", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тутракан", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Балчик", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Восточная Мизия","Северная Добруджа","Восточная Мунтения"]
+	},
+    "София": {
+		"cities":[
+			{"name":"София", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Перник", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Самоков", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кюстендил", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сливница", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Трын", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Нови-Искыр", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Видин","Южное Поморавье","Северо-Западная Тракия","Пиринская Македония","Северная Македония"]
+	},
+    "Пиринская Македония": {
+		"cities":[
+			{"name":"Благоевград", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Банско", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сандански", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Гоце-Делчев", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Петрич", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Разлог", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["София","Северо-Западная Тракия","Северная Македония"]
+	},
+    "Восточная Мизия": {
+		"cities":[
+			{"name":"Русе", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Варна", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Шумен", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Велико-Тырново", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бяла", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Велики-Преслав", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северо-Восточная Тракия","Южная Добруджа","Западная Мизия", "Западная Мунтения"]
+	},
+	"Западная Мизия": {
+		"cities":[
+			{"name":"Враца", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Плевен", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ботевград", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Троян", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кнежа", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Севлиево", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северо-Западная Тракия","Видин","Восточная Мизия","София","Западная Мунтения", "Олтения"]
+	},
+	"Северо-Восточная Тракия": {
+		"cities":[
+			{"name":"Бургас", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сливен", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ямбол", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Несебыр", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Стара Загора", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Хасково", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Свиленград", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Димитровград", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Елхово", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северо-Западная Тракия","Восточная Мизия"]
+	},
+	"Северо-Западная Тракия": {
+		"cities":[
+			{"name":"Пловдив", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пазарджик", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Велинград", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Златоград", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Асеновград", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кырджали", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Панагюриште", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Хисаря", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Чирпан", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северо-Восточная Тракия","Западная Мизия","Пиринская Македония","София"]
+	}
+}

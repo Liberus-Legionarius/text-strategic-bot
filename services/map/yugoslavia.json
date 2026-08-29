@@ -1,0 +1,210 @@
+{
+    "Словения": {
+		"cities":[
+			{"name":"Любляна", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Марибор", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Блед", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Крань", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Целе", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Копер", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Постойна", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Каринтия","Фриули","Хорватия","Истрия","Северная Паннония"]
+	},
+    "Истрия": {
+		"cities":[
+			{"name":"Риека", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пула", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пазин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ровинь", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пореч", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Словения","Хорватия"]
+	},
+    "Хорватия": {
+		"cities":[
+			{"name":"Загреб", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Карловац", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Вараджин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сисак", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Беловар", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Цриквеница", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бихач", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Словения","Истрия","Далмация","Славония","Южная Паннония","Северная Босния"]
+	},
+    "Далмация": {
+		"cities":[
+			{"name":"Задар", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сплит", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дубровник", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Книн", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Шибеник", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Хорватия","Герцеговина", "Черногория"]
+	},
+    "Славония": {
+		"cities":[
+			{"name":"Осиек", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Вуковар", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Славонски-Брод", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пожега", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Вировитица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Жупанья", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Хорватия","Северная Босния","Южная Паннония","Срем", "Бачка"]
+	},
+    "Подринье": {
+		"cities":[
+			{"name":"Тузла", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Брчко", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Биелина", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сребреница", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Вишеград", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Фоча", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Зворник", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северная Босния","Центральная Сербия","Центральная Босния", "Черногория"]
+	},
+    "Герцеговина": {
+		"cities":[
+			{"name":"Мостар", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Требине", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Чаплина", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ливно", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Невесине", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Меджугорье", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Центральная Босния","Далмация","Черногория"]
+	},
+    "Северная Босния": {
+		"cities":[
+			{"name":"Баня-Лука", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Приедор", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Градишка", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Добой", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Нови-Град", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дервента", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Хорватия","Славония","Подринье","Центральная Босния"]
+	},
+    "Белград": {
+		"cities":[
+			{"name":"Белград", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Борча", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Панчево", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бели-Поток", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Срем","Центральная Сербия"]
+	},
+    "Срем": {
+		"cities":[
+			{"name":"Сремска-Митровица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Шид", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Инджия", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Славония","Белград","Бачка","Западный Банат", "Центральная Сербия"]
+	},
+    "Бачка": {
+		"cities":[
+			{"name":"Суботица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Врбас", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Нови-Сад", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сомбор", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бечей", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Славония","Южный Альфёльд","Срем","Западный Банат"]
+	},
+    "Западный Банат": {
+		"cities":[
+			{"name":"Зренянин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кикинда", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Вршац", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бела-Црква", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Центральная Сербия","Срем","Бачка","Восточный Банат","Северное Поморавье"]
+	},
+    "Центральная Сербия": {
+		"cities":[
+			{"name":"Обреновац", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Смедерево", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Шабац", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Крагуевац", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лозница", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Валево", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Белград","Срем","Бачка","Северное Поморавье","Подринье","Рашка"]
+	},
+    "Рашка": {
+		"cities":[
+			{"name":"Чачак", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Рашка", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Приеполе", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Нови-Пазар", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ужице", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кралево", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Подринье","Центральная Сербия","Черногория","Косово и Метохия","Южное Поморавье"]
+	},
+    "Северное Поморавье": {
+		"cities":[
+			{"name":"Пожаревац", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Неготин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Заечар", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Парачин", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сокобаня", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Княжевац", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Центральная Сербия","Южное Поморавье","Западный Банат","Восточный Банат", "Видин"]
+	},
+    "Южное Поморавье": {
+		"cities":[
+			{"name":"Ниш", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Крушевац", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лесковац", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Вране", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пирот", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Куршумлия", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Димитровград", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Босилеград", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Косово и Метохия","Северное Поморавье","Северная Македония","Рашка","София"]
+	},
+    "Косово и Метохия": {
+		"cities":[
+			{"name":"Косовска-Митровица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Приштина", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Джяковица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Призрен", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Печ", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Подуево", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Гнилане", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южное Поморавье","Северная Македония","Рашка","Черногория"]
+	},
+    "Северная Македония": {
+		"cities":[
+			{"name":"Скопье", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Охрид", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Струмица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Битола", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тетово", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Штип", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Куманово", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Косово и Метохия","Южное Поморавье", "София", "Пиринская Македония"]
+	},
+    "Черногория": {
+		"cities":[
+			{"name":"Подгорица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Будва", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Никшич", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Бар", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Улцинь", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Херцег-Нови", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Плевля", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Беране", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Косово и Метохия","Рашка","Далмация","Подринье","Герцеговина"]
+	}
+}

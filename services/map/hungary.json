@@ -9,7 +9,7 @@
 			{"name":"Сомбатхей", "population":0, "owner":null, "controller":null, "buildings":[]},
 			{"name":"Залаэгерсег", "population":0, "owner":null, "controller":null, "buildings":[]}
 		],
-		"connected_with":["Южная Паннония","Центральная Венгрия","Западная Словакия","Нижняя Австрия","Штирия"]
+		"connected_with":["Южная Паннония","Центральная Венгрия","Западная Словакия","Нижняя Австрия","Штирия", "Словения"]
 	},
   "Южная Паннония": {
 		"cities":[
@@ -21,7 +21,7 @@
 			{"name":"Домбовар", "population":0, "owner":null, "controller":null, "buildings":[]},
 			{"name":"Сигетвар", "population":0, "owner":null, "controller":null, "buildings":[]}
 		],
-		"connected_with":["Северная Паннония","Южный Альфёльд","Штирия"]
+		"connected_with":["Северная Паннония","Южный Альфёльд","Штирия", "Хорватия", "Славония"]
 	},
 	"Буда-Пешт": {
 		"cities":[
@@ -55,7 +55,7 @@
 			{"name":"Дунайварош", "population":0, "owner":null, "controller":null, "buildings":[]},
 			{"name":"Бая", "population":0, "owner":null, "controller":null, "buildings":[]}
 		],
-		"connected_with":["Северная Венгрия","Северный Альфёльд","Южная Паннония","Буда-Пешт", "Кришана"]
+		"connected_with":["Северная Венгрия","Северный Альфёльд","Южная Паннония","Буда-Пешт", "Кришана", "Бачка"]
 	},
 	"Северный Альфёльд": {
 		"cities":[
