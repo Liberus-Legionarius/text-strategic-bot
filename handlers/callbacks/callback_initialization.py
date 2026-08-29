@@ -1,6 +1,10 @@
+from handlers.initialization.capital_init import check_capital
 from services.bot import db, bot
 from handlers.ingame_panels.state_initialization import init_state
 from handlers.ingame_panels.state_panel import open_state_panel
+from services.constants import get_player
+from services.math.territory_math import get_city_by_id
+
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("init"))
 def callback_init(call):
@@ -24,3 +28,6 @@ def callback_init(call):
             message_id = call.message.message_id,
             reply_markup = None
         )
+    elif call.data.startswith("init:capital"):
+        player = get_player(call.from_user.id)
+        check_capital(player, get_city_by_id(player, call.data.split(":")[2]), call.message.chat.id)

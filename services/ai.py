@@ -6,7 +6,7 @@ from services.bot import db
 from services.ideologies import ideologies, ideology_relations
 from services.map.map_management import province_map
 from services.math.economy_math import get_total_income, get_total_spending
-from services.math.territory_math import get_cities, get_free_cities
+from services.math.territory_math import get_cities, get_free_cities, get_city_by_id
 from services.modifiers import modifiers
 from services.constants import ARMY_TYPES, MOBILIZATION_LAWS, get_modifier, BUILDINGS, get_country
 from services.effects import effects
@@ -54,7 +54,7 @@ def write_country_lore(player):
     request = ("{"
                f'"full_countryname":"{country["full_countryname"]}",'
                f'"countryname":"{country["countryname"]}",'
-               f'"capital":"{country["capital"]}",'
+               f'"capital":"{get_city_by_id(player, country["capital"])["name"]}",'
                f'"ideology":"{country["ideology"]}",'
                f'"ideology_types": {json.dumps(ideologies, ensure_ascii=False)},'
                f'"provinces": {json.dumps(province_map, ensure_ascii=False)}'
@@ -66,7 +66,7 @@ def define_details(details, player):
     request = ("{"
                f'"full_countryname":"{country["full_countryname"]}",'
                f'"countryname":"{country["countryname"]}",'
-               f'"capital":"{country["capital"]}",'
+               f'"capital":"{get_city_by_id(player, country["capital"])["name"]}",'
                f'"ideology":"{country["ideology"]}",'
                f'"ideology_types": {json.dumps(ideologies, ensure_ascii=False)},'
                f'"provinces": {json.dumps(province_map, ensure_ascii=False)},'
@@ -87,7 +87,7 @@ def write_step_first(player):
     request = ("{"
                f'"countryname":"{country["countryname"]}",'
                f'"ful_countryname":"{country["full_countryname"]}",'
-               f'"capital":"{country["capital"]}",'
+               f'"capital":"{get_city_by_id(player, country["capital"])["name"]}",'
                f'"ideology":"{country["ideology"]}",'
                f'"ideology_desc":"{country["ideology_desc"]}",'
                f'"country_characteristics":"{country["country_characteristics"]}",'
@@ -104,7 +104,7 @@ def write_step_plot(player):
         request = ("{"
                    f'"countryname":"{country["countryname"]}",'
                    f'"full_countryname":"{country["full_countryname"]}",'
-                   f'"capital":"{country["capital"]}",'
+                   f'"capital":"{get_city_by_id(player, country["capital"])["name"]}",'
                    f'"ideology":"{country["ideology"]}",'
                    f'"ideology_desc":{country["ideology_desc"]},'
                    f'"country_characteristics":"{country["country_characteristics"]}",'
@@ -152,7 +152,7 @@ def create_event(player, country):
     request = ("{"
                f'"countryname":"{country["countryname"]}",'
                f'"full_countryname":"{country["full_countryname"]}",'
-               f'"capital":"{country["capital"]}",'
+               f'"capital":"{get_city_by_id(player, country["capital"])["name"]}",'
                f'"ideology":"{country["ideology"]}",'
                f'"ideology_desc":{country["ideology_desc"]},'
                f'"country_characteristics":"{country["country_characteristics"]}",'

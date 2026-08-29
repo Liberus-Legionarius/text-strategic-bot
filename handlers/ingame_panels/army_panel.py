@@ -158,7 +158,7 @@ def open_province_selection_panel(user, chat_id, message_id, army_id):
 
 def has_unknown_city(player, province):
         for city in province["cities"]:
-                if not get_city_by_name(player, city)["owner"]:
+                if not get_city_by_name(player, province["name"], city)["owner"]:
                         return True
         return  False
 

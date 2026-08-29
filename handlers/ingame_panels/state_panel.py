@@ -1,7 +1,7 @@
 from services.bot import db, bot
 import services.ai as ai
 from services.math.economy_math import get_total_income, get_total_spending
-from services.math.territory_math import get_total_population
+from services.math.territory_math import get_total_population, get_city_by_id
 from telebot.types import InlineKeyboardMarkup
 from telebot.types import InlineKeyboardButton
 from services.constants import get_date_move, get_player, get_modifier
@@ -42,7 +42,7 @@ def open_state_panel(user, chat_id, message_id = None):
     text = (f"{get_date_move(player)}"
             "\n\n"
             f"{player_country['full_countryname']}\n"
-            f"Столица: {player_country['capital']}"
+            f"Столица: {get_city_by_id(player, player_country['capital'])}"
             "\n\n"
             f"{ai_plot}"
             "\n\n"

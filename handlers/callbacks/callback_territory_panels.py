@@ -20,9 +20,9 @@ def callback_territory(call):
             if option == "b":
                 open_buildings_panel(call.from_user, call.message.chat.id, call.message.message_id, city)
             elif option == "raze":
-                population = get_city_by_name(player, city)["population"]
+                population = get_city_by_id(player, city)["population"]
                 db.players.update_one(
-                    {"tg_id":player["tg_id"], "cities.name":city},
+                    {"tg_id":player["tg_id"], "cities._id":city},
                     {"$inc":{
                         "cities.$.population": int(-population/100)
                     }}
@@ -42,7 +42,7 @@ def callback_territory(call):
                         {"tg_id":call.from_user.id, "countries.id":0},
                         {
                             "$push":{
-                                "actions":f"Столица перенесена в город {city}."
+                                "actions":f"Столица перенесена в город {get_city_by_id(player, city)['name']}."
                             },
                             "$inc":{
                                 "countries.$.money":-125,
@@ -55,11 +55,11 @@ def callback_territory(call):
                     )
     elif panel == "b":
         b_id = call.data.split(":")[3]
-        city_name = call.data.split(":")[2]
+        city_id = call.data.split(":")[2]
         player = get_player(call.from_user)
         if BUILDINGS[b_id]["cost"] <= get_country(player, 0)["money"]:
-            city = get_city_by_name(player, city_name)
+            city = get_city_by_id(player, city_id)
             build_in_city(player, city, b_id)
-            open_buildings_panel(call.from_user, call.message.chat.id, call.message.message_id, city_name)
+            open_buildings_panel(call.from_user, call.message.chat.id, call.message.message_id, city_id)
 
 

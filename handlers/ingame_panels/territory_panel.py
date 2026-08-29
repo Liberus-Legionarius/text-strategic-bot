@@ -14,7 +14,7 @@ def open_territory_panel(user, chat_id, message_id):
     player_country = get_country(player, 0)
     text = (f"{get_date_move(player)}"
             "\n\n"
-            f"Столица: {player_country['capital']}"
+            f"Столица: {get_city_by_id(player, player_country['capital'])['name']}"
             "\n\n"
             f"Количество городов: {len(get_cities(player, 0))}\n"
             f"Общее население: {get_total_population(player, 0)}\n"
@@ -34,11 +34,11 @@ def open_cities_panel(user, chat_id, message_id):
     cities_kb = InlineKeyboardMarkup(row_width=3)
     cities = get_cities(player, 0)
     for city in cities:
-        cities_kb.add(InlineKeyboardButton(city["name"], callback_data = f"territory:cities:{city['name']}"))
+        cities_kb.add(InlineKeyboardButton(city["name"], callback_data = f"territory:cities:{city['_id']}"))
     cities_kb.row(InlineKeyboardButton("Вернуться", callback_data = "territory:base:open"))
     text = (f"{get_date_move(player)}"
             "\n\n"
-            f"Столица: {country_player['capital']}"
+            f"Столица: {get_city_by_id(player, country_player['capital'])['name']}"
             "\n\n"
             f"Количество городов: {len(get_cities(player, 0))}\n"
             f"Общее население: {get_total_population(player, 0)}\n"
@@ -52,10 +52,10 @@ def open_cities_panel(user, chat_id, message_id):
         reply_markup = cities_kb
     )
 
-def open_one_city_panel(user, chat_id, message_id, city_name):
+def open_one_city_panel(user, chat_id, message_id, city_id):
     player = get_player(user)
     player_country = get_country(player, 0)
-    city = get_city_by_name(player, city_name)
+    city = get_city_by_id(player, city_id)
     text = (f"{get_date_move(player)}"
             "\n\n"
             f"Население: {int(city['population'])}\n"
@@ -64,10 +64,10 @@ def open_one_city_panel(user, chat_id, message_id, city_name):
             f"Здания: {get_buildings(city)}")
 
     city_kb = InlineKeyboardMarkup()
-    city_kb.row(InlineKeyboardButton("Построить здание", callback_data=f"territory:cities:{city_name}:b"),
-                InlineKeyboardButton("Разграбить", callback_data=f"territory:cities:{city_name}:raze"))
-    city_kb.row(InlineKeyboardButton("Нанять армию", callback_data=f"army:create:{city_name}"))
-    city_kb.row(InlineKeyboardButton("Сменить столицу (125м, 50пп)", callback_data = f"territory:cities:{city_name}:capital"))
+    city_kb.row(InlineKeyboardButton("Построить здание", callback_data=f"territory:cities:{city_id}:b"),
+                InlineKeyboardButton("Разграбить", callback_data=f"territory:cities:{city_id}:raze"))
+    city_kb.row(InlineKeyboardButton("Нанять армию", callback_data=f"army:create:{city_id}"))
+    city_kb.row(InlineKeyboardButton("Сменить столицу (125м, 50пп)", callback_data = f"territory:cities:{city_id}:capital"))
     city_kb.row(InlineKeyboardButton("Вернуться", callback_data="territory:cities:open"))
 
     bot.edit_message_text(
@@ -77,7 +77,7 @@ def open_one_city_panel(user, chat_id, message_id, city_name):
         reply_markup=city_kb
     )
 
-def open_buildings_panel(user, chat_id, message_id, city_name):
+def open_buildings_panel(user, chat_id, message_id, city_id):
     player = get_player(user)
     country_player = get_country(player, 0)
     text = (f"{get_date_move(player)}"
@@ -91,8 +91,8 @@ def open_buildings_panel(user, chat_id, message_id, city_name):
     buildings_kb = InlineKeyboardMarkup(row_width=2)
     for building in BUILDINGS.values():
         buildings_kb.add(InlineKeyboardButton(f"{building['title']} ({building['cost']} монет)",
-                                              callback_data=f"territory:b:{city_name}:{building['_id']}"))
-    buildings_kb.row(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_name}"))
+                                              callback_data=f"territory:b:{city_id}:{building['_id']}"))
+    buildings_kb.row(InlineKeyboardButton("Вернуться", callback_data=f"territory:cities:{city_id}"))
 
     bot.edit_message_text(
         text,

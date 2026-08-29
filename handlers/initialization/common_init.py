@@ -9,14 +9,16 @@ def check_format(pattern, str, chat_id, message_id):
             bot.edit_message_text(
                 "Формат верный, сейчас проверю, насколько название приемлемое. Минуточку...",
                 chat_id=chat_id,
-                message_id=message_id
+                message_id=message_id,
+                reply_markup=None
             )
             return True
         else:
             bot.edit_message_text(
                 "Хм... Что-то здесь не так... Убедитесь, что каждое слово написано с большой буквы и нет цифр.",
                 chat_id =chat_id,
-                message_id = message_id
+                message_id = message_id,
+                reply_markup=None
             )
             return False
     except Exception as e:
@@ -29,14 +31,16 @@ def name_handler(ai_check, chat_id, message_id, placeholder):
         bot.edit_message_text(
             f"Кхм... Как некультурно. Подберите {placeholder} без нецензурной брани.",
             chat_id=chat_id,
-            message_id=message_id
+            message_id=message_id,
+            reply_markup=None
         )
         return False
     elif ai_check.get("refusal_code") == "MAKES_NO_SENSE":
         bot.edit_message_text(
             f"Придумайте другое {placeholder}, которое не будет представлять из себя случайный набор букв.",
             chat_id=chat_id,
-            message_id=message_id
+            message_id=message_id,
+            reply_markup=None
         )
         return False
     elif ai_check.get("refusal_code") == "GEOGRAPHICAL_INCONSISTENCY":
@@ -44,7 +48,8 @@ def name_handler(ai_check, chat_id, message_id, placeholder):
             f"Вы уверены, что с географической точки зрения ваше {placeholder} имеет смысл?\n"
             f"Придумайте другое {placeholder}.",
             chat_id=chat_id,
-            message_id=message_id
+            message_id=message_id,
+            reply_markup=None
         )
         return False
     elif ai_check.get("refusal_code") == "NAME_IS_NOT_SHORT":
@@ -52,7 +57,8 @@ def name_handler(ai_check, chat_id, message_id, placeholder):
             f"Хм... Кажется, ваше {placeholder} нельзя назвать коротким.\n"
             f"Придумайте другое {placeholder}, которое не будет содержать намёков на государственный строй или идеологию.",
             chat_id=chat_id,
-            message_id=message_id
+            message_id=message_id,
+            reply_markup=None
         )
         return False
     elif ai_check.get("refusal_code") == "IDEOLOGY_MISMATCH":
@@ -60,7 +66,8 @@ def name_handler(ai_check, chat_id, message_id, placeholder):
             f"Похоже, вы проигнорировали идеологию, когда написали {placeholder}.\n"
             f"Придумайте другое {placeholder}, которое будет соответствовать идеологии.",
             chat_id=chat_id,
-            message_id=message_id
+            message_id=message_id,
+            reply_markup=None
         )
         return False
     elif ai_check.get("refusal_code") == "SHORT_COUNTRYNAME_MISMATCH":
@@ -68,7 +75,8 @@ def name_handler(ai_check, chat_id, message_id, placeholder):
             f"Увы, вы не можете выбрать {placeholder}, которое не будет подходить короткому названию.\n"
             f"Придумайте другое {placeholder}.",
             chat_id=chat_id,
-            message_id=message_id
+            message_id=message_id,
+            reply_markup=None
         )
         return False
     else:
@@ -76,7 +84,8 @@ def name_handler(ai_check, chat_id, message_id, placeholder):
             f"Я затрудняюсь определить ошибку, которую вы допустили... \n"
             f"Пожалуйста, придумайте другое {placeholder}.",
             chat_id=chat_id,
-            message_id=message_id
+            message_id=message_id,
+            reply_markup=None
         )
         return False
 

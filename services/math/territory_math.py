@@ -1,5 +1,6 @@
 from services.constants import BUILDINGS, get_modifier
 from services.bot import db
+from bson import ObjectId
 
 def get_total_population(player, country_id):
     cities = get_cities(player, country_id)
@@ -44,8 +45,11 @@ def get_percent_pop_growth(country):
 def get_cities(player, country_id):
     return [city for city in player["cities"] if city["owner"] == country_id]
 
-def get_city_by_name(player, name):
-    return next((city for city in player["cities"] if city["name"] == name), None)
+def get_city_by_name(player, province, name):
+    return next((city for city in player["cities"] if city["name"] == name and city["province"] == province), None)
+
+def get_city_by_id(player, _id):
+    return next((city for city in player["cities"] if city["_id"] == ObjectId(_id)), None)
 
 def build_in_city(player, city, building_id, country_id = 0, is_free = False):
     b = next((b for b in city["buildings"] if b["id"] == building_id), None)
@@ -55,7 +59,7 @@ def build_in_city(player, city, building_id, country_id = 0, is_free = False):
     else:
         buildings.append({"id": building_id, "amount": 1})
 
-    db.players.update_one({"tg_id":player["tg_id"], "cities.name":city["name"]},
+    db.players.update_one({"tg_id":player["tg_id"], "cities._id":city["_id"]},
                           {
                               "$set":{
                                   "cities.$.buildings":buildings

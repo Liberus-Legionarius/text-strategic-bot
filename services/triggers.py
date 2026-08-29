@@ -1,7 +1,7 @@
 from services.constants import get_modifier, get_is_pacifism
-from services.math.army_math import get_manpower, get_total_soldiers, get_women_at_war
+from services.math.army_math import get_manpower, get_total_soldiers
 from services.math.economy_math import get_total_income, get_total_spending
-from services.math.territory_math import get_cities, get_total_population, get_city_by_name
+from services.math.territory_math import get_cities, get_total_population, get_city_by_id
 
 triggers ={
     "stability":"Проверяет, что стабильность страны доходит до данного показателя. В значении указывается нужная стабильность.",
@@ -15,15 +15,15 @@ triggers ={
     "country_size":"Проверяет, что количество городов в стране как минимум доходит до этого показателя. В значении указывается нужное количество городов",
     "country_population":"Проверяет, что общее население страны как минимум доходит до этого показателя. В значении указывается нужное население.",
     "is_ideology_group":"Проверяет, что идеология государства относится к определённой идеологической группе. В значении указывается название идеологической группы.",
-    "owns_city": "Проверяет, что данная страна владеет определённым городом. В значении указывается name нужного города.",
-    "controls_city": "Проверяет, что данная страна контролирует определённый город. В значении указывается name нужного города.",
+    "owns_city": "Проверяет, что данная страна владеет определённым городом. В значении указывается _id нужного города.",
+    "controls_city": "Проверяет, что данная страна контролирует определённый город. В значении указывается _id нужного города.",
     "province_control_percentage": "Проверяет, что данная страна владеет как минимум определённым процентом городов в провинции. В значении указывается объект с полями province_name (name нужной провинции) и percentage (нужный процент в виде доли единицы).",
     "modifier_value": "Проверяет, что определённый модификатор в этой стране имеет как минимум данный показатель. В значении указывается объект с полями modifier (название модификатора) и value (значение модификатора).",
     "army_units_size":"Проверяет, что совокупное количество армейских подразделений страны как минимум доходит до этого показателя. В значении указывается нужное количество армейских подразделений.",
     "manpower_in_reserve":"Проверяет, что отношение количества призывников к численности солдат в армии как минимум доходит до этого показателя. В значении указывается нужное отношение количества резервистов к количеству военнослужащих.",
     "army_size":"Проверяет, что в армии служит как минимум столько человек, сколько указано в триггере. В значении указывается нужное количество военнослужащих.",
     "building_amount":"Проверяет, что во всех городах страны построено как минимум столько зданий определённого типа. В значении указывается объект с полями building_type (_id нужного типа зданий) и amount (количество зданий).",
-    "is_building_in_city":"Проверяет, что конкретный город имеет конкретное здание. В значении указывается объект с полями city_name (name нужного города) и building_type (_id нужного типа зданий).",
+    "is_building_in_city":"Проверяет, что конкретный город имеет конкретное здание. В значении указывается объект с полями city_id (_id нужного города) и building_type (_id нужного типа зданий).",
     "is_pacifistic": "Проверяет значение модификатора is_pacifism. В значении указывается референсное значение true или false.",
     "is_women_can_serve": "Проверяет, разрешена или запрещена женская служба в государстве. В значении указывается референсное значение true или false.",
     "current_mobilization_law": "Проверяет, что закон о призыве в государстве является данным. В значении указывается _id закона о призыве."
@@ -55,9 +55,9 @@ def check_trigger(trigger, value, player, country):
     elif trigger == "is_ideology_group":
         return country["ideology_type"] == value
     elif trigger == "owns_city":
-        return get_city_by_name(player, value)["owner"] == country["id"]
+        return get_city_by_id(player, value)["owner"] == country["id"]
     elif trigger == "controls_city":
-        return get_city_by_name(player, value)["controller"] == country["id"]
+        return get_city_by_id(player, value)["controller"] == country["id"]
     elif trigger == "province_control_percentage":
         cities = [city for city in player["cities"] if city["province"] == value["province_name"]]
         return len([city for city in cities if city["owner"] == country["id"]])/len(cities) >= value["percentage"]
@@ -75,7 +75,7 @@ def check_trigger(trigger, value, player, country):
             buildings_a += next((b["amount"] for b in city["buildings"] if b["id"] == value["building_type"]), 0)
         return buildings_a >= value["amount"]
     elif trigger == "is_building_in_city":
-        city = get_city_by_name(player, value["city_name"])
+        city = get_city_by_id(player, value["city_name"])
         return next((b for b in city["buildings"] if b["id"] == value["building_type"]), False)
     elif trigger == "is_pacifistic":
         return get_is_pacifism(country) == value
