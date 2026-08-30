@@ -1,0 +1,238 @@
+{
+    "Константинополь": {
+		"cities":[
+			{"name":"Константинополь", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Византий", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Халкедон", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Галата", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Восточная Фракия"]
+	},
+    "Восточная Фракия": {
+		"cities":[
+			{"name":"Адрианополь", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Родосто", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Галлиполи", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Цорлу", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Аркадиополь", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Саранта-Экклисиес", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Константинополь","Западная Фракия","Северо-Восточная Тракия"]
+	},
+    "Западная Фракия": {
+		"cities":[
+			{"name":"Александрополь", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ксанти", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Комотини", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дидимотихон", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Орестиада", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Суфлион", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Восточная Фракия","Северо-Западная Тракия","Северо-Восточная Тракия","Восточная Македония"]
+	},
+    "Восточная Македония": {
+		"cities":[
+			{"name":"Хрисуполис", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кавала", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Драма", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Като-Неврокопион", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Амфиополис", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Западная Фракия","Северо-Западная Тракия","Центральная Македония"]
+	},
+    "Центральная Македония": {
+		"cities":[
+			{"name":"Аспровалта", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Килкис", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Янница", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Серре", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Западная Македония","Восточная Македония","Северная Македония","Пиринская Македония","Халкида"]
+	},
+    "Халкида": {
+		"cities":[
+			{"name":"Салоники", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ставрос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Неа-Муданья", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Никити", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сарти", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Центральная Македония"]
+    },
+    "Западная Македония": {
+		"cities":[
+			{"name":"Эдесса", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Верия", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Катерини", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Козани", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Птолемаида", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Флорина", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кастория", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Гревена", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Центральная Македония","Фессалия","Северная Македония","Северный Эпир","Эпир"]
+	},
+    "Эпир": {
+		"cities":[
+			{"name":"Янина", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Игуменица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Мецовон", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Коница", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Парга", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Амбаркия", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Превеза", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Западная Македония","Северный Эпир","Южный Эпир","Корфу"]
+	},
+    "Корфу": {
+		"cities":[
+			{"name":"Корфу", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лефкими", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Палеокастрица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Касьопи", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кавос", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северный Эпир","Эпир"]
+	},
+    "Ионические острова": {
+		"cities":[
+			{"name":"Лефкас", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Василики", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Скала", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Закинф", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Планос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ликсури", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сами", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Южный Эпир"]
+	},
+    "Фессалия": {
+		"cities":[
+			{"name":"Трикала", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лариса", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Волос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Эласон", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Каламбака", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кардица", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Паламас", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Фарсала", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Алмирос", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Восточная Македония","Аттика"]
+	},
+    "Крит": {
+		"cities":[
+			{"name":"Ханья", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ираклион", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Палеохора", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Иепетра", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сития", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ретимно", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Кикладские острова","Южный Пелопоннес"]
+	},
+    "Кикладские острова": {
+		"cities":[
+			{"name":"Наксос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Сирос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Эрмуполи", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Парос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Тинос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Милос", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Аттика","Эвбея"]
+	},
+	"Аттика": {
+		"cities":[
+			{"name":"Афины", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Фивы", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Амфиса", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ламия", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кинета", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Мегара", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пирей", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лаврион", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Марафон", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Эвбея","Фессалия","Кикладские острова","Восточный Пелопоннес"]
+	},
+	"Эвбея": {
+		"cities":[
+			{"name":"Халкида", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Каристос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Эретрия", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кими", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лимни", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Аттика","Кикладские острова"]
+	},
+	"Северный Пелопоннес": {
+		"cities":[
+			{"name":"Патры", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Килини", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пиргос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Амальяс", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Эйон", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Калаврита", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Рион", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Восточный Пелопоннес","Центральный Пелопоннес","Южный Пелопоннес","Южный Эпир"]
+	},
+	"Южный Пелопоннес": {
+		"cities":[
+			{"name":"Спарта", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Каламата", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Филиатра", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пилос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Метони", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кипарисия", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Йитион", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Молаи", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Неаполис", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Леонидион", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Восточный Пелопоннес","Центральный Пелопоннес","Северный Пелопоннес","Крит"]
+	},
+	"Центральный Пелопоннес": {
+		"cities":[
+			{"name":"Мегалополис", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Триполи", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Левиди", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Витина", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лангадия", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пелопоннес", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Лалас", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Фолои", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Восточный Пелопоннес","Южный Пелопоннес","Северный Пелопоннес"]
+	},
+	"Восточный Пелопоннес": {
+		"cities":[
+			{"name":"Коринф", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Нафплион", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Эрмиони", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Немея", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Дервени", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Диакоптон", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Аргос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Ксилокастрон", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Кьятон", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Врахатион", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Центральный Пелопоннес","Южный Пелопоннес","Северный Пелопоннес","Аттика"]
+	},
+	"Южный Эпир": {
+		"cities":[
+			{"name":"Месолонгион", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Агринион", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Астакос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Навпакт", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Войница", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Амфилохия", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Термон", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Пруссос", "population":0, "owner":null, "controller":null, "buildings":[]},
+			{"name":"Палерос", "population":0, "owner":null, "controller":null, "buildings":[]}
+		],
+		"connected_with":["Северный Пелопоннес","Эпир"]
+	}
+}
